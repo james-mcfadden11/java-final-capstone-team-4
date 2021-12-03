@@ -5,10 +5,7 @@ import com.techelevator.model.AuthorizationException;
 import com.techelevator.model.Course;
 import com.techelevator.model.CourseAuthorization;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -16,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/courses")
 @PreAuthorize("isAuthenticated()")
+@CrossOrigin
 public class CourseController {
 
     private final CourseDao courseDao;

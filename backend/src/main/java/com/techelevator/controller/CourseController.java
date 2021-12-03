@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/courses")
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 public class CourseController {
 
     private final CourseDao courseDao;

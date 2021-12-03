@@ -6,8 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 
-import Courses from '../views/Courses.vue';
-import { codePointAt } from 'core-js/fn/string'
+import Courses from '../views/Courses.vue'
 
 Vue.use(Router)
 

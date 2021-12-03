@@ -6,6 +6,9 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 
+import Courses from '../views/Courses.vue';
+import { codePointAt } from 'core-js/fn/string'
+
 Vue.use(Router)
 
 /**
@@ -53,8 +56,20 @@ const router = new Router({
         requiresAuth: false
       }
     },
+
+    // all routes above this line were here from starter code, below this line has been created
+    
+    {
+      path: '/courses',
+      name: 'courses',
+      component: Courses,
+      meta: {
+        requiresAuth: false
+      }
+    }
+
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication

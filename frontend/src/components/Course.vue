@@ -1,7 +1,8 @@
 <template>
   <div>
-      Course list will be here -->
-      {{courses.courseName}}
+    <div v-for="course in courses" v-bind:key="course.courseID">
+      {{course.courseName}} {{course.courseID}}
+    </div>
   </div>
 </template>
 
@@ -27,6 +28,7 @@ export default {
         .getCourseData()
         .then(response => {
           this.$store.commit("SET_COURSES", response.data);
+          this.courses = this.$store.state.courses;
         })
         .catch(error => {
           if (error.response) {

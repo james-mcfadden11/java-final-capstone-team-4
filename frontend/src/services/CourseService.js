@@ -8,6 +8,10 @@ export default {
 
   addCourse(newCourse) {
     return axios.post('/courses', newCourse);
+  },
+
+  getCourseDetails(courseID) {
+    return axios.get(`/courses/${courseID}`);
   }
 
 }

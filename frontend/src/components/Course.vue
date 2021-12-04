@@ -1,7 +1,11 @@
 <template>
   <div>
+
     <div v-for="course in courses" v-bind:key="course.courseID">
-      {{course.courseName}} {{course.courseID}}
+        <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
+          {{course.courseName}} 
+        </router-link>
+          {{course.courseID}}
     </div>
 
     <button v-if="!showAddCourse" v-on:click="showAddCourse = !showAddCourse">Add New Course</button>

@@ -4,8 +4,9 @@
       {{course.courseName}} {{course.courseID}}
     </div>
 
-    <h3>Add New Course:</h3>
-      <form v-on:submit.prevent="saveNewCourse">
+    <button v-if="!showAddCourse" v-on:click="showAddCourse = !showAddCourse">Add New Course</button>
+      <form v-on:submit.prevent="saveNewCourse" v-if="showAddCourse">
+        <h3>Add New Course:</h3>
         Course Name:
         <input type="text" v-model="newCourse.title" />
         Course Description:
@@ -19,10 +20,10 @@
           <option value="5">5</option>
         </select>
         Cost:
-        <input type="number" v-model="newCourse.cost" />
+        <input type="number" min="0" v-model="newCourse.cost" />
 
         <button type="submit">Save</button>
-        <button>Cancel</button>
+        <button v-on:click.prevent="resetForm">Cancel</button>
       </form>
   </div>
 </template>
@@ -36,7 +37,8 @@ export default {
   data() {
     return {
         courses: [],
-        newCourse: {}
+        newCourse: {},
+        showAddCourse: false
     }
   },
   
@@ -61,6 +63,32 @@ export default {
             this.errorMsg = "Error retreiving. Request could not be created.";
           }
         });
+    },
+
+    saveNewCourse() {
+      courseService
+        .addCourse(this.newCourse)
+        .then(response => {
+          if(response && response.status == 201) {
+          this.retrieveCourses();
+          this.resetForm();
+        }
+      })
+      .catch(error => {
+        // log the error
+        if (error.response) {
+          this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
+        } else if (error.request) {
+          this.errorMsg = "Error submitting new course. Server could not be reached.";
+        } else {
+          this.errorMsg = "Error submitting new course. Request could not be created.";
+        }
+        });
+    },
+
+    resetForm() {
+      this.newCourse = {};
+      this.showAddCourse = false;
     }
   }
 }

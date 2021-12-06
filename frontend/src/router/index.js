@@ -77,13 +77,13 @@ const router = new Router({
     },
 
     {
-      path: '/course/:courseID/:dayNumber/homework',
+      path: '/course/:courseID/homework/:homeworkID',
       name: 'homework',
       component: HomeworkView
     },
 
     {
-      path: '/course/:courseID/:dayNumber/content',
+      path: '/course/:courseID/content/:contentID',
       name: 'content',
       component: ContentView
     }

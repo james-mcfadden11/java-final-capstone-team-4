@@ -1,13 +1,15 @@
 <template>
-  <content></content>
+    <div>
+        <content-details></content-details>
+    </div>
 </template>
 
 <script>
-import Content from '../components/Content.vue'
+import ContentDetails from '../components/ContentDetails.vue';
 
 export default {
     components: {
-        Content
+        ContentDetails
     }
 }
 </script>

@@ -6,6 +6,7 @@
           {{course.courseName}} 
         </router-link>
           {{course.courseID}}
+          [Options for teacher to edit or delete course?]
     </div>
 
     <button v-if="!showAddCourse" v-on:click="showAddCourse = !showAddCourse">Add New Course</button>
@@ -55,8 +56,7 @@ export default {
       courseService
         .getCourseData()
         .then(response => {
-          this.$store.commit("SET_COURSES", response.data);
-          this.courses = this.$store.state.courses;
+          this.courses = response.data;
         })
         .catch(error => {
           if (error.response) {

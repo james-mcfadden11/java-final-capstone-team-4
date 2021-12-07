@@ -64,5 +64,5 @@ public class JdbcCourseDao implements CourseDao {
 //                rs.getString("course_description"),
 //                rs.getInt("difficulty_level"),
 //                rs.getBigDecimal("course_cost"));
-    }
+
 }

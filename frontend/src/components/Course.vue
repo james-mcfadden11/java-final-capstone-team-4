@@ -3,7 +3,7 @@
 
     <div v-for="course in courses" v-bind:key="course.courseID">
         <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
-          {{course.courseName}} 
+          {{course.title}} 
         </router-link>
           {{course.courseID}}
           [Options for teacher to edit or delete course?]

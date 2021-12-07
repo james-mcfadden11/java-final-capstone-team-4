@@ -9,6 +9,19 @@ public class Course {
 
     private int courseID;
 
+    public Course(String title, String description, int difficultyLevel, double cost) {
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        this.title = title;
+        this.description = description;
+        this.difficultyLevel = difficultyLevel;
+        this.cost = cost;
+    }
+
+    public Course() {
+        super();
+    }
+
+
     public String getTitle() {
         return title;
     }
@@ -49,10 +62,12 @@ public class Course {
         this.courseID = courseID;
     }
 
-        public Course(String courseName, int courseID) {
+    public Course(String courseName, int courseID) {
         this.title = courseName;
         this.courseID = courseID;
     }
+
+
 
     public Course(String title, String description, int difficultyLevel, double cost, int courseID) {
         this.title = title;
@@ -61,4 +76,6 @@ public class Course {
         this.cost = cost;
         this.courseID = courseID;
     }
+
+
 }

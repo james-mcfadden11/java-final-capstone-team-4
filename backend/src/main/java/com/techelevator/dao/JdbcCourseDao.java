@@ -46,6 +46,7 @@ public class JdbcCourseDao implements CourseDao {
 
     @Override
     public Course createCourse(Course newCourse) {
+        System.out.println("#####################################################################################################################################################################################################################################################################################################################################");
         String sql = "INSERT INTO course (course_name, course_description, difficulty_level, course_cost) VALUES (?, ?, ?, ?);";
 
         String course_name = newCourse.getTitle();

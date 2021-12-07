@@ -7,6 +7,9 @@ Drop table course;
 drop table users;
 drop table assignments;
 drop table lesson;
+drop table homework;
+drop table student_grades;
+
 
 
 
@@ -36,7 +39,6 @@ CREATE TABLE student
 (
 student_id SERIAL,
 student_name CHARACTER VARYING(400) NOT NULL,
-gpa NUMERIC,
  
   CONSTRAINT pk_student PRIMARY KEY (student_id), 
   CONSTRAINT fk_user FOREIGN KEY (student_id) REFERENCES users (user_id)
@@ -96,7 +98,7 @@ CONSTRAINT pk_lesson PRIMARY KEY (lesson_id),
 CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course (course_id)
 );
 
- CREATE TABLE student_grades
+ CREATE TABLE student_assignments
  (
  student_id INTEGER,
  homework_id INTEGER,
@@ -109,12 +111,3 @@ CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course (course_id)
   CONSTRAINT fk_assignment FOREIGN KEY (homework_id) REFERENCES assignments (assignment_id)
 );
 
-CREATE TABLE homework
-(
-lesson_id INTEGER,
-assignment_id INTEGER,
-
-CONSTRAINT pk_homework PRIMARY KEY (lesson_id, assignment_id),
-CONSTRAINT fk_lesson FOREIGN KEY (lesson_id) REFERENCES lesson (lesson_id),
-CONSTRAINT fk_assignments FOREIGN KEY (assignment_id) REFERENCES assignments (assignment_id)
-);

@@ -6,7 +6,10 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 
-import Courses from '../views/Courses.vue'
+import CourseList from '../views/CourseList.vue'
+import CourseDetailsView from '../views/CourseDetailsView.vue'
+import HomeworkView from '../views/HomeworkView.vue'
+import ContentView from '../views/ContentView.vue'
 
 Vue.use(Router)
 
@@ -59,12 +62,30 @@ const router = new Router({
     // all routes above this line were here from starter code, below this line has been created
     
     {
-      path: '/courses',
-      name: 'courses',
-      component: Courses,
+      path: '/courseList',
+      name: 'course-list',
+      component: CourseList,
       meta: {
         requiresAuth: false
       }
+    },
+
+    {
+      path: '/course/:courseID',
+      name: 'course-details',
+      component: CourseDetailsView
+    },
+
+    {
+      path: '/course/:courseID/homework/:homeworkID',
+      name: 'homework',
+      component: HomeworkView
+    },
+
+    {
+      path: '/course/:courseID/content/:contentID',
+      name: 'content',
+      component: ContentView
     }
 
   ]

@@ -1,9 +1,6 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Course;
-import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,12 +8,6 @@ import java.util.List;
 
 @Component
 public class JdbcCourseDao implements CourseDao {
-
-    private final JdbcTemplate jdbcTemplate;
-
-    public JdbcCourseDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<Course> getAllCourses() {
@@ -31,10 +22,19 @@ public class JdbcCourseDao implements CourseDao {
         courseList.add(testCourse1);
         courseList.add(testCourse2);
 
-
-
         return courseList;
     }
+
+    @Override
+    public Course getCourseById(int courseID) {
+
+        Course testCourse = new Course("Java 101", courseID);
+
+        return testCourse;
+
+    }
+}
+
 
 //    // Added by Will to Get All Courses from SQL Database
 //    @Override
@@ -48,14 +48,7 @@ public class JdbcCourseDao implements CourseDao {
 //        return courses;
 //    }
 
-    @Override
-    public Course getCourseById(int courseID) {
 
-        Course testCourse = new Course("Java 101", courseID);
-
-        return testCourse;
-
-    }
 
     // Helper method added by Will to map row to course
 //    private Course mapRowToCourse (SqlRowSet rs) {
@@ -65,4 +58,3 @@ public class JdbcCourseDao implements CourseDao {
 //                rs.getInt("difficulty_level"),
 //                rs.getBigDecimal("course_cost"));
 
-}

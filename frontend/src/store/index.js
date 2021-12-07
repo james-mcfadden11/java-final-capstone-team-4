@@ -41,6 +41,7 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
     },
 
+    // currently not being used
     SET_COURSES(state, data) {
       state.courses = data;
     }

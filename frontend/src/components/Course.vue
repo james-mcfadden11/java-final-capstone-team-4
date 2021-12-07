@@ -1,7 +1,35 @@
 <template>
   <div>
-      Course list will be here -->
-      {{courses.courseName}}
+
+    <div v-for="course in courses" v-bind:key="course.courseID">
+        <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
+          {{course.courseName}} 
+        </router-link>
+          {{course.courseID}}
+          [Options for teacher to edit or delete course?]
+    </div>
+
+    <button v-if="!showAddCourse" v-on:click="showAddCourse = !showAddCourse">Add New Course</button>
+      <form v-on:submit.prevent="saveNewCourse" v-if="showAddCourse">
+        <h3>Add New Course:</h3>
+        Course Name:
+        <input type="text" v-model="newCourse.title" />
+        Course Description:
+        <input type="text" v-model="newCourse.description" />
+        Difficulty Level:
+        <select v-model="newCourse.difficultyLevel">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        Cost:
+        <input type="number" min="0" v-model="newCourse.cost" />
+
+        <button type="submit">Save</button>
+        <button v-on:click.prevent="resetForm">Cancel</button>
+      </form>
   </div>
 </template>
 
@@ -13,7 +41,9 @@ export default {
   
   data() {
     return {
-        courses: []
+        courses: [],
+        newCourse: {},
+        showAddCourse: false
     }
   },
   
@@ -26,7 +56,7 @@ export default {
       courseService
         .getCourseData()
         .then(response => {
-          this.$store.commit("SET_COURSES", response.data);
+          this.courses = response.data;
         })
         .catch(error => {
           if (error.response) {
@@ -37,6 +67,32 @@ export default {
             this.errorMsg = "Error retreiving. Request could not be created.";
           }
         });
+    },
+
+    saveNewCourse() {
+      courseService
+        .addCourse(this.newCourse)
+        .then(response => {
+          if(response && response.status == 201) {
+          this.retrieveCourses();
+          this.resetForm();
+        }
+      })
+      .catch(error => {
+        // log the error
+        if (error.response) {
+          this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
+        } else if (error.request) {
+          this.errorMsg = "Error submitting new course. Server could not be reached.";
+        } else {
+          this.errorMsg = "Error submitting new course. Request could not be created.";
+        }
+        });
+    },
+
+    resetForm() {
+      this.newCourse = {};
+      this.showAddCourse = false;
     }
   }
 }

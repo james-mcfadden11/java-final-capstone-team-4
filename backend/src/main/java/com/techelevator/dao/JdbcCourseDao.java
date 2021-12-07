@@ -34,3 +34,27 @@ public class JdbcCourseDao implements CourseDao {
 
     }
 }
+
+
+//    // Added by Will to Get All Courses from SQL Database
+//    @Override
+//    public List<Course> getMyCourses() {
+//        List<Course> courses = new ArrayList<Course>();
+//        SqlRowSet results = jdbcTemplate.queryForRowSet("SELECT course_id, course_name, course_description, difficulty_level, course_cost, FROM courses");
+//        while(results.next()) {
+//            Course course = mapRowToCourse(results);
+//            courses.add(course);
+//        }
+//        return courses;
+//    }
+
+
+
+    // Helper method added by Will to map row to course
+//    private Course mapRowToCourse (SqlRowSet rs) {
+//        return new Course(rs.getInt("course_id"),
+//                rs.getString("course_name"),
+//                rs.getString("course_description"),
+//                rs.getInt("difficulty_level"),
+//                rs.getBigDecimal("course_cost"));
+

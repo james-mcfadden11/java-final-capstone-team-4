@@ -3,7 +3,7 @@ package com.techelevator.model;
 import java.security.Principal;
 
 public class CourseAuthorization {
-    
+
     private final Principal principal;
     private final Course course;
 

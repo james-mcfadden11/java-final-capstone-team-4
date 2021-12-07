@@ -4,9 +4,11 @@ import com.techelevator.dao.CourseDao;
 import com.techelevator.model.AuthorizationException;
 import com.techelevator.model.Course;
 import com.techelevator.model.CourseAuthorization;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -25,6 +27,12 @@ public class CourseController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Course> list() {
         return courseDao.getAllCourses();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public void createCourse(@RequestBody Course course) {
+        courseDao.createCourse(course);
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)

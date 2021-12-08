@@ -1,5 +1,6 @@
 <template>
   <div>
+    Course lesson content will go here. (external API?)
   </div>
 </template>
 

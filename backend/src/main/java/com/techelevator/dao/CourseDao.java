@@ -10,4 +10,6 @@ public interface CourseDao {
 
     Course getCourseById(int courseID);
 
+    Course createCourse(Course newCourse);
+
 }

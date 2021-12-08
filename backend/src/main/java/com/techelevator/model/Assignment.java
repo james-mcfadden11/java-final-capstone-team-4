@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 
 public class Assignment {
@@ -11,6 +13,7 @@ public class Assignment {
     private String assignmentName;
     private String description;
     private int possiblePoints;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dueDate;
 
     // Constructors

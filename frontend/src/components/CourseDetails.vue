@@ -1,18 +1,18 @@
 <template>
   <div>
     Course lessons:
-    <div v-for="lesson in lessons" v-bind:key="lesson.lessonNumber">
+    <div v-for="lesson in lessons" v-bind:key="lesson.lessonID">
       {{lesson.lessonNumber}}
-      <router-link v-bind:to="{ name: 'content', params: { courseID: lesson.courseID, conentID : lesson.lessonNumber } }">
+      <router-link v-bind:to="{ name: 'content', params: { courseID: lesson.courseID, contentID : lesson.lessonID } }">
          {{lesson.lessonName}}
       </router-link>
       {{lesson.description}}
     </div>
 
     Assignments:
-    <div v-for="assignment in assignments" v-bind:key="assignment.assignmentNumber">
+    <div v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
       {{assignment.assignmentNumber}}
-      <router-link v-bind:to="{ name: 'homework', params: { courseID: assignment.courseID, homeworkID : assignment.assignmentNumber } }">
+      <router-link v-bind:to="{ name: 'homework', params: { courseID: assignment.courseID, homeworkID : assignment.assignmentID } }">
         {{assignment.assignmentName}}
       </router-link>
       {{assignment.description}}
@@ -79,8 +79,8 @@ export default {
   },
   
   created() {
-    this.getAssignments(this.courseID),
-    this.getLessons(this.courseID)
+    this.getAssignments(this.courseID);
+    this.getLessons(this.courseID);
   },
 
   methods: {

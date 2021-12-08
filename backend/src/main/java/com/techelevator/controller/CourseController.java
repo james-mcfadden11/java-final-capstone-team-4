@@ -59,8 +59,8 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/{courseID}/assignments", method = RequestMethod.GET)
-    public void getAssignments(@PathVariable Integer courseID) {
-        courseDao.getAssignments(courseID);
+    public List<Assignment> getAssignments(@PathVariable Integer courseID) {
+        return courseDao.getAssignments(courseID);
     }
 
 

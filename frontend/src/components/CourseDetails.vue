@@ -11,9 +11,9 @@
 
     Assignments:
     <div v-for="assignment in assignments" v-bind:key="assignment.assignmentNumber">
-      {{assignment.number}}
+      {{assignment.assignmentNumber}}
       <router-link v-bind:to="{ name: 'homework', params: { courseID: assignment.courseID, homeworkID : assignment.assignmentNumber } }">
-        {{assignment.name}}
+        {{assignment.assignmentName}}
       </router-link>
       {{assignment.description}}
       {{assignment.possiblePoints}}
@@ -29,9 +29,9 @@
       <form v-on:submit.prevent="saveNewAssignment" v-if="showAssignmentForm">
         <h3>Add New Assignment:</h3>
         Assignment Number:
-        <input type="number" v-model="newAssignment.number" />
+        <input type="number" v-model="newAssignment.assignmentNumber" />
         Assignment Name:
-        <input type="text" v-model="newAssignment.name" />
+        <input type="text" v-model="newAssignment.assignmentName" />
         Assignment Description:
         <input type="text" v-model="newAssignment.description" />
         Possible points:

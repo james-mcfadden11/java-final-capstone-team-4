@@ -1,10 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.CourseDao;
-import com.techelevator.model.AuthorizationException;
-import com.techelevator.model.Course;
-import com.techelevator.model.CourseAuthorization;
-import com.techelevator.model.Lesson;
+import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +50,19 @@ public class CourseController {
     public List<Lesson> getLessons(@PathVariable Integer courseID) {
         return courseDao.getLessons(courseID);
     }
+
+    // Assignment Controls
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/{courseID}/assignments", method = RequestMethod.POST)
+    public void createAssignment(@RequestBody Assignment assignment, @PathVariable Integer courseID) {
+        courseDao.createAssignment(assignment, courseID);
+    }
+
+    @RequestMapping(value = "/{courseID}/assignments", method = RequestMethod.GET)
+    public void getAssignments(@PathVariable Integer courseID) {
+        courseDao.getAssignments(courseID);
+    }
+
 
     private void validateAuthorizationToView(Principal principal, Course course) {
         CourseAuthorization auth = new CourseAuthorization(principal, course);

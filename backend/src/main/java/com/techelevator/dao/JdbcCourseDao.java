@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Assignment;
 import com.techelevator.model.Course;
 import com.techelevator.model.Lesson;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -7,6 +8,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +77,23 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
+    public Assignment createAssignment(Assignment newAssignment, Integer courseID) {
+        String sql = "INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) " +
+                "VALUES (?, ?, ?, ?, ?, ?);";
+
+
+        int assignmentNumber = newAssignment.getAssignmentNumber();
+        String assignmentName = newAssignment.getAssignmentName();
+        String description = newAssignment.getDescription();
+        int possiblePoints = newAssignment.getPossiblePoints();
+        LocalDate dueDate = newAssignment.getDueDate();
+
+        jdbcTemplate.update(sql, courseID, assignmentNumber, assignmentName, description, possiblePoints, dueDate);
+
+        return newAssignment;
+    }
+
+    @Override
     public List<Lesson> getLessons(Integer courseID) {
         List<Lesson> lessons = new ArrayList<>();
         String sql = "SELECT lesson_number, lesson_name, description FROM lessons WHERE course_id = ?";
@@ -88,12 +107,41 @@ public class JdbcCourseDao implements CourseDao {
         return lessons;
     }
 
+    @Override
+    public List<Assignment> getAssignments(Integer courseID) {
+        List<Assignment> assignments = new ArrayList<>();
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, possible_points, due_date FROM assignments WHERE course_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+
+        while (results.next()) {
+            Assignment assignment = mapRowToAssignment(results);
+            assignments.add(assignment);
+        }
+
+        return assignments;
+    }
+
     private Lesson mapRowToLesson(SqlRowSet rs) {
         return new Lesson(rs.getInt("lesson_number"),
                 rs.getString("lesson_name"),
                 rs.getString("description"));
     }
 
+
+    private Assignment mapRowToAssignment(SqlRowSet rs) {
+        Assignment assignment = new Assignment();
+        assignment.setCourseID(rs.getInt("course_id"));
+        assignment.setAssignmentID(rs.getInt("assignment_id"));
+        assignment.setAssignmentNumber(rs.getInt("assignment_number"));
+        assignment.setAssignmentName(rs.getString("assignment_name"));
+        assignment.setDescription(rs.getString("description"));
+        assignment.setPossiblePoints(rs.getInt("possible_points"));
+
+        if(rs.getDate("due_date") != null) {
+            assignment.setDueDate(rs.getDate("due_date").toLocalDate());
+        }
+        return assignment;
+    }
 }
 
 

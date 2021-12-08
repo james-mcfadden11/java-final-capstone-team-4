@@ -1,5 +1,6 @@
 <template>
   <div>
+    Assignment details/submission/teacher feedback will go here.
   </div>
 </template>
 

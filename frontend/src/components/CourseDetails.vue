@@ -2,16 +2,22 @@
   <div>
     Course lessons:
     <div v-for="lesson in lessons" v-bind:key="lesson.lessonNumber">
+      {{lesson.lessonNumber}}
       <router-link v-bind:to="{ name: 'content', params: { courseID: lesson.courseID, conentID : lesson.lessonNumber } }">
-        {{lesson.name}} {{lesson.description}}
+         {{lesson.lessonName}}
       </router-link>
+      {{lesson.description}}
     </div>
 
     Assignments:
     <div v-for="assignment in assignments" v-bind:key="assignment.assignmentNumber">
+      {{assignment.number}}
       <router-link v-bind:to="{ name: 'homework', params: { courseID: assignment.courseID, homeworkID : assignment.assignmentNumber } }">
-        {{assignment.name}} {{assignment.description}}
+        {{assignment.name}}
       </router-link>
+      {{assignment.description}}
+      {{assignment.possiblePoints}}
+      {{assignment.dueDate}}
     </div>
 
     <p></p>
@@ -22,10 +28,16 @@
     <button v-if="!showAssignmentForm" v-on:click="showAssignmentForm = !showAssignmentForm">Add New Assignment</button>
       <form v-on:submit.prevent="saveNewAssignment" v-if="showAssignmentForm">
         <h3>Add New Assignment:</h3>
+        Assignment Number:
+        <input type="number" v-model="newAssignment.number" />
         Assignment Name:
         <input type="text" v-model="newAssignment.name" />
         Assignment Description:
         <input type="text" v-model="newAssignment.description" />
+        Possible points:
+        <input type="number" v-model="newAssignment.possiblePoints" />
+        Due date:
+        <input type="date" v-model="newAssignment.dueDate" />
 
         <button type="submit">Save</button>
         <button v-on:click.prevent="resetAssignment">Cancel</button>
@@ -34,8 +46,10 @@
     <button v-if="!showLessonForm" v-on:click="showLessonForm = !showLessonForm">Add New Lesson</button>
       <form v-on:submit.prevent="saveNewLesson" v-if="showLessonForm">
         <h3>Add New Lesson:</h3>
+        Lesson Number:
+        <input type="number" v-model="newLesson.lessonNumber" />
         Lesson Name:
-        <input type="text" v-model="newLesson.name" />
+        <input type="text" v-model="newLesson.lessonName" />
         Lesson Description:
         <input type="text" v-model="newLesson.description" />
 

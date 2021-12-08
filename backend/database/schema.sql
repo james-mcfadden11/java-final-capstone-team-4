@@ -74,8 +74,8 @@ CREATE TABLE student_courses (
 CREATE TABLE assignments (
         course_id INTEGER NOT NULL,
         assignment_id SERIAL,
-        lesson_number INTEGER NOT NULL,
-        lesson_name CHARACTER VARYING(400),
+        assignment_number INTEGER NOT NULL,
+        assignment_name CHARACTER VARYING(400),
         description TEXT,
         possible_points INTEGER,
         due_date DATE,
@@ -139,12 +139,12 @@ INSERT INTO lessons (course_id, lesson_number, lesson_name, description) VALUES 
 INSERT INTO lessons (course_id, lesson_number, lesson_name, description) VALUES (4, 2, 'Shakespeare', 'read the Tempest');
 
 -- Insert assignments
-INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (1, 1, 'Gogol', 'write about Gogol', 10, '1/10/2022');
-INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (1, 2, 'Tzepez', 'write about his dad', 10, '1/24/2022');
-INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (2, 1, 'learn the basics of OOP', 'practice classes', 100, '1/10/2022');
-INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (3, 1, 'basics of C#', 'practice dictionaries', 100, '1/12/20200');
-INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (4, 1, 'Chaucer', 'write about the pot', 25, '1/15/2022');
-INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (4, 2, 'Shakespeare', 'write about Caliban and Prospero', 25, '1/25/2020');
+INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) VALUES (1, 1, 'Gogol', 'write about Gogol', 10, '1/10/2022');
+INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) VALUES (1, 2, 'Tzepez', 'write about his dad', 10, '1/24/2022');
+INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) VALUES (2, 1, 'learn the basics of OOP', 'practice classes', 100, '1/10/2022');
+INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) VALUES (3, 1, 'basics of C#', 'practice dictionaries', 100, '1/12/20200');
+INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) VALUES (4, 1, 'Chaucer', 'write about the pot', 25, '1/15/2022');
+INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) VALUES (4, 2, 'Shakespeare', 'write about Caliban and Prospero', 25, '1/25/2020');
 
 --Insert teachers
 INSERT INTO teachers (user_id, first_name, last_name) VALUES (1, 'Walt', 'Impellicceiri');

@@ -22,7 +22,7 @@ public class JdbcCourseDao implements CourseDao {
     @Override
     public List<Course> getAllCourses() {
         List<Course> courses = new ArrayList<Course>();
-        SqlRowSet results = jdbcTemplate.queryForRowSet("SELECT course_id, course_name, course_description, difficulty_level, course_cost FROM course");
+        SqlRowSet results = jdbcTemplate.queryForRowSet("SELECT course_id, course_name, course_description, difficulty_level, course_cost FROM courses");
         while(results.next()) {
             Course course = mapRowToCourse(results);
             courses.add(course);
@@ -48,7 +48,7 @@ public class JdbcCourseDao implements CourseDao {
 
     @Override
     public Course createCourse(Course newCourse) {
-        String sql = "INSERT INTO course (course_name, course_description, difficulty_level, course_cost) VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO courses (course_name, course_description, difficulty_level, course_cost) VALUES (?, ?, ?, ?);";
 
         String course_name = newCourse.getTitle();
         String course_description = newCourse.getDescription();
@@ -62,7 +62,7 @@ public class JdbcCourseDao implements CourseDao {
 
     @Override
     public Lesson createLesson(Lesson newLesson, Integer courseID) {
-        String sql = "INSERT INTO lesson (lesson_number, lesson_name, description, course_id) " +
+        String sql = "INSERT INTO lessons (lesson_number, lesson_name, description, course_id) " +
                 "VALUES (?, ?, ?, ?);";
 
         int lessonNumber = newLesson.getLessonNumber();
@@ -77,7 +77,7 @@ public class JdbcCourseDao implements CourseDao {
     @Override
     public List<Lesson> getLessons(Integer courseID) {
         List<Lesson> lessons = new ArrayList<>();
-        String sql = "SELECT lesson_number, lesson_name, description FROM lesson WHERE course_id = ?";
+        String sql = "SELECT lesson_number, lesson_name, description FROM lessons WHERE course_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
 
         while (results.next()) {

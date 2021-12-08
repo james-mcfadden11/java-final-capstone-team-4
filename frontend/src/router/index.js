@@ -83,8 +83,8 @@ const router = new Router({
     },
 
     {
-      path: '/course/:courseID/content/:contentID',
-      name: 'content',
+      path: '/course/:courseID/assignments',
+      name: 'assignments',
       component: ContentView
     }
 

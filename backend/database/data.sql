@@ -1,113 +1,32 @@
-drop table teacher_courses;
-drop table student_assignment;
-DROP table student_courses;
-drop table student;
-drop table teacher;
-Drop table course;
-drop table users;
-drop table assignments;
-drop table lesson;
-drop table homework;
-drop table student_grades;
+INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+
+INSERT INTO course (course_name, course_description, difficulty_level, course_cost) VALUES ('vampire: blood and empire', 'learn about Erzabet Bathory and Vlad Tzepez', 3, 658);
+INSERT INTO course (course_name, course_description, difficulty_level, course_cost) VALUES ('intro to C++', 'learn the basics of programming', 3, 550);
+INSERT INTO course (course_name, course_description, difficulty_level, course_cost) VALUES ('into to C#', 'how to be an inferior programmer', 1, 199);
+INSERT INTO course (course_name, course_description, difficulty_level, course_cost) VALUES ('intro to English', 'generally the wrong decision', 2, 348);
+
+INSERT INTO lesson (course_id, lesson_number, lesson_name, description) VALUES (1, 1, 'Gogol', 'read some Gogol');
+INSERT INTO lesson (course_id, lesson_number, lesson_name, description) VALUES (1, 2, 'Tzepez', 'learn about Dracula');
+INSERT INTO lesson (course_id, lesson_number, lesson_name, description) VALUES (2, 1, 'learn the basics of OOP', 'but regret it');
+INSERT INTO lesson (course_id, lesson_number, lesson_name, description) VALUES (3, 1, 'basics of C#', 'maps are dictionaries');
+INSERT INTO lesson (course_id, lesson_number, lesson_name, description) VALUES (4, 1, 'Chaucer', 'read the Decameron');
+INSERT INTO lesson (course_id, lesson_number, lesson_name, description) VALUES (4, 2, 'Shakespeare', 'read the Tempest');
+
+INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (1, 1, 'Gogol', 'write about Gogol', 10, '1/10/2022');
+INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (1, 2, 'Tzepez', 'write about his dad', 10, '1/24/2022');
+INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (2, 1, 'learn the basics of OOP', 'practice classes', 100, '1/10/2022');
+INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (3, 1, 'basics of C#', 'practice dictionaries', 100, '1/12/20200');
+INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (4, 1, 'Chaucer', 'write about the pot', 25, '1/15/2022');
+INSERT INTO assignments (course_id, lesson_number, lesson_name, description, possible_points, due_date) VALUES (4, 2, 'Shakespeare', 'write about Caliban and Prospero', 25, '1/25/2020');
 
 
 
 
+INSERT INTO student (student_id, student_name) VALUES (1, 'Nathan Wetzel');
+INSERT INTO student (student_id, student_name) VALUES (2, 'William Szabo');
+INSERT INTO student (student_id, student_name) VALUES (4, 'Frank Giarratani');
+INSERT INTO student (student_id, student_name) VALUES (3, 'James McFadden');
 
-CREATE TABLE course 
-(
-course_id SERIAL PRIMARY KEY,
- course_name CHARACTER VARYING(400) NOT NULL,
- course_description TEXT, 
-  difficulty_level INTEGER NOT NULL CHECK(difficulty_level BETWEEN 1 AND 5),
-  course_cost NUMERIC
- 
- 
-);
-
-CREATE TABLE teacher
-(
-teacher_id SERIAL,
-course_id INTEGER NOT NULL,
-
-CONSTRAINT pk_teacher PRIMARY KEY (teacher_id),
-CONSTRAINT fk_teacher_courses FOREIGN KEY (course_id) REFERENCES course (course_id),
-CONSTRAINT fk_user FOREIGN KEY (teacher_id) REFERENCES users (user_id)
-);
-
-CREATE TABLE student
-(
-student_id SERIAL,
-student_name CHARACTER VARYING(400) NOT NULL,
- 
-  CONSTRAINT pk_student PRIMARY KEY (student_id), 
-  CONSTRAINT fk_user FOREIGN KEY (student_id) REFERENCES users (user_id)
-
-  );
-
-CREATE TABLE teacher_courses
-(
-teacher_id INTEGER,
-course_id INTEGER,
-
-CONSTRAINT pk_teacher_courses PRIMARY KEY (teacher_id, course_id),
-CONSTRAINT fk_teacher FOREIGN KEY (teacher_id) REFERENCES teacher (teacher_id),
-CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course (course_id)
-);
-
-
-
-  
-  CREATE TABLE student_courses
-(
-student_id INTEGER,
-course_id INTEGER,
-
-CONSTRAINT pk_student_courses PRIMARY KEY (student_id, course_id),
-CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course (course_id),
-CONSTRAINT fk_student FOREIGN KEY (student_id) REFERENCES student (student_id)
-
-);
-
-
-CREATE TABLE assignments
-(
-course_id INTEGER NOT NULL,
-assignment_id SERIAL,
-lesson_number INTEGER NOT NULL,
-lesson_name CHARACTER VARYING(400),
-description TEXT,
-possible_points INTEGER,
-due_date DATE,
-
-
-CONSTRAINT pk_assignments PRIMARY KEY (assignment_id), 
-  CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course (course_id) 
- 
-);
-
-CREATE TABLE lesson
-(
-course_id INTEGER NOT NULL,
-lesson_id SERIAL,
-lesson_number INTEGER UNIQUE,
-lesson_name CHARACTER VARYING(400),
-description TEXT,
-
-CONSTRAINT pk_lesson PRIMARY KEY (lesson_id),
-CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course (course_id)
-);
-
- CREATE TABLE student_assignments
- (
- student_id INTEGER,
- homework_id INTEGER,
- grade NUMERIC,
- submission TEXT,
- submission_time TIMESTAMP,
- 
-  CONSTRAINT pk_student_assignment PRIMARY KEY (student_id, homework_id),
-  CONSTRAINT fk_student FOREIGN KEY (student_id) REFERENCES student (student_id), 
-  CONSTRAINT fk_assignment FOREIGN KEY (homework_id) REFERENCES assignments (assignment_id)
-);
-
+INSERT INTO teacher (teacher_id, teacher_name) VALUES (5, 'Tom Anderson');
+INSERT INTO teacher (teacher_id, teacher_name) VALUES (6, 'Tom Medvitz');

@@ -1,10 +1,12 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Course;
+import com.techelevator.model.Lesson;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,6 @@ public class JdbcCourseDao implements CourseDao {
 
     @Override
     public Course createCourse(Course newCourse) {
-        System.out.println("#####################################################################################################################################################################################################################################################################################################################################");
         String sql = "INSERT INTO course (course_name, course_description, difficulty_level, course_cost) VALUES (?, ?, ?, ?);";
 
         String course_name = newCourse.getTitle();
@@ -58,6 +59,41 @@ public class JdbcCourseDao implements CourseDao {
 
         return newCourse;
     }
+
+    @Override
+    public Lesson createLesson(Lesson newLesson, Integer courseID) {
+        String sql = "INSERT INTO lesson (lesson_number, lesson_name, description, course_id) " +
+                "VALUES (?, ?, ?, ?);";
+
+        int lessonNumber = newLesson.getLessonNumber();
+        String lessonName = newLesson.getLessonName();
+        String description = newLesson.getDescription();
+
+        jdbcTemplate.update(sql, lessonNumber, lessonName, description, courseID);
+
+        return newLesson;
+    }
+
+    @Override
+    public List<Lesson> getLessons(Integer courseID) {
+        List<Lesson> lessons = new ArrayList<>();
+        String sql = "SELECT lesson_number, lesson_name, description FROM lesson WHERE course_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+
+        while (results.next()) {
+            Lesson lesson = mapRowToLesson(results);
+            lessons.add(lesson);
+        }
+
+        return lessons;
+    }
+
+    private Lesson mapRowToLesson(SqlRowSet rs) {
+        return new Lesson(rs.getInt("lesson_number"),
+                rs.getString("lesson_name"),
+                rs.getString("description"));
+    }
+
 }
 
 

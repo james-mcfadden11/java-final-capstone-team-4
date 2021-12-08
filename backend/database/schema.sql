@@ -115,6 +115,10 @@ INSERT INTO assignments (course_id, assignment_number, assignment_name, descript
 INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) VALUES (3, 1, 'basics of C#', 'practice dictionaries', 100, '1/12/20200');
 INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) VALUES (4, 1, 'Chaucer', 'write about the pot', 25, '1/15/2022');
 INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) VALUES (4, 2, 'Shakespeare', 'write about Caliban and Prospero', 25, '1/25/2020');
+<<<<<<< HEAD
+
+=======
+>>>>>>> 2a505e6d5ea98cb304e3b141ceb3e7d634cfe398
 --Insert teachers
 INSERT INTO teachers (user_id, first_name, last_name) VALUES (1, 'Walt', 'Impellicceiri');
 INSERT INTO teachers (user_id, first_name, last_name) VALUES (2, 'Tom', 'Anderson');

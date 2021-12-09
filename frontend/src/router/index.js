@@ -8,8 +8,8 @@ import store from '../store/index'
 
 import CourseList from '../views/CourseList.vue'
 import CourseDetailsView from '../views/CourseDetailsView.vue'
-import HomeworkView from '../views/HomeworkView.vue'
-import ContentView from '../views/ContentView.vue'
+import AssignmentView from '../views/AssignmentView.vue'
+import LessonView from '../views/LessonView.vue'
 
 Vue.use(Router)
 
@@ -77,15 +77,15 @@ const router = new Router({
     },
 
     {
-      path: '/course/:courseID/homework/:homeworkID',
-      name: 'homework',
-      component: HomeworkView
+      path: '/course/:courseID/assignments/:assignmentID',
+      name: 'assignment',
+      component: AssignmentView
     },
 
     {
-      path: '/course/:courseID/assignments',
-      name: 'assignments',
-      component: ContentView
+      path: '/course/:courseID/lessons/:lessonID',
+      name: 'lesson',
+      component: LessonView
     }
 
   ]

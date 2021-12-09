@@ -9,7 +9,6 @@
           {{course.description}}
           {{course.difficultyLevel}}
           {{course.cost}}
-          [Options for teacher to edit or delete course, or student to register?]
     </div>
 
     <button v-if="!showAddCourse" v-on:click="showAddCourse = !showAddCourse">Add New Course</button>

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'homework'
+    name: 'assignment-details'
 }
 </script>
 

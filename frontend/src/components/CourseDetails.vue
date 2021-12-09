@@ -3,64 +3,94 @@
     Course name:
     <h1>{{courseInfo.title}}</h1>
 
+    <br>
+
     Teacher name:
     <h3>{{teacherName}}</h3>
+
+    <br>
 
     Description:
     <h4>{{courseInfo.description}}</h4>
 
-    Course lessons:
+    <br>
+
+    <h2>Course lessons:</h2>
     <div v-for="lesson in lessons" v-bind:key="lesson.lessonID">
-      {{lesson.lessonNumber}}
+      Lesson: {{lesson.lessonNumber}}
+      <br>
       <router-link v-bind:to="{ name: 'lesson', params: { courseID: lesson.courseID, lessonID : lesson.lessonID } }">
-         {{lesson.lessonName}}
+         Topic: {{lesson.lessonName}}
+         <br>
       </router-link>
-      {{lesson.description}}
+      Description: {{lesson.description}}
+      <br>
+      <br>
     </div>
 
-    Assignments:
+    <h2>Assignments</h2>
     <div v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
-      {{assignment.assignmentNumber}}
+      Number: {{assignment.assignmentNumber}}
+      <br>
       <router-link v-bind:to="{ name: 'assignment', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID } }">
-        {{assignment.assignmentName}}
+        Name: {{assignment.assignmentName}}
+        <br>
       </router-link>
-      {{assignment.description}}
-      {{assignment.possiblePoints}}
-      {{assignment.dueDate}}
+      Description: {{assignment.description}}
+      <br>
+      Possible points: {{assignment.possiblePoints}}
+      <br>
+      Due date: {{assignment.dueDate}}
+      <br>
+      <br>
     </div>
 
-    <p></p>
-    <p></p>
+    <br>
 
-    Forms for teacher to add course lessons and homework:
+    <h3 v-show="isTeacher">Forms for teacher to add course lessons and homework:</h3>
 
-    <button v-if="!showAssignmentForm" v-on:click="showAssignmentForm = !showAssignmentForm">Add New Assignment</button>
+    <br>
+    
+    <button v-if="!showAssignmentForm" v-on:click="showAssignmentForm = !showAssignmentForm" v-show="isTeacher">Add New Assignment</button>
       <form v-on:submit.prevent="saveNewAssignment" v-if="showAssignmentForm">
         <h3>Add New Assignment:</h3>
+        <br>
         Assignment Number:
         <input type="number" v-model="newAssignment.assignmentNumber" />
+        <br>
         Assignment Name:
         <input type="text" v-model="newAssignment.assignmentName" />
+        <br>
         Assignment Description:
         <input type="text" v-model="newAssignment.description" />
+        <br>
         Possible points:
         <input type="number" v-model="newAssignment.possiblePoints" />
+        <br>
         Due date:
         <input type="date" v-model="newAssignment.dueDate" />
+        <br>
 
         <button type="submit">Save</button>
         <button v-on:click.prevent="resetAssignment">Cancel</button>
+        <br>
       </form>
 
-    <button v-if="!showLessonForm" v-on:click="showLessonForm = !showLessonForm">Add New Lesson</button>
+      <br>
+
+    <button v-if="!showLessonForm" v-on:click="showLessonForm = !showLessonForm" v-show="isTeacher">Add New Lesson</button>
       <form v-on:submit.prevent="saveNewLesson" v-if="showLessonForm">
         <h3>Add New Lesson:</h3>
+        <br>
         Lesson Number:
         <input type="number" v-model="newLesson.lessonNumber" />
+        <br>
         Lesson Name:
         <input type="text" v-model="newLesson.lessonName" />
+        <br>
         Lesson Description:
         <input type="text" v-model="newLesson.description" />
+        <br>
 
         <button type="submit">Save</button>
         <button v-on:click.prevent="resetLesson">Cancel</button>
@@ -74,6 +104,8 @@ import courseService from '../services/CourseService';
 
 export default {
   name: 'course-details',
+
+  props: ['isTeacher'],
 
   data() {
     return {

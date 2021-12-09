@@ -1,23 +1,33 @@
 <template>
   <div>
-    Course title:  Course ID:  Course Description:  Difficulty Level:  Cost:  
+    <br>
     <div v-for="course in courses" v-bind:key="course.courseID">
+        Course title:
         <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
           {{course.title}} 
+          <br>
         </router-link>
-          {{course.courseID}}
-          {{course.description}}
-          {{course.difficultyLevel}}
-          {{course.cost}}
+          Course ID: {{course.courseID}}
+          <br>
+          Course Description: {{course.description}}
+          <br>
+          Difficulty Level: {{course.difficultyLevel}}
+          <br>
+          Cost: ${{course.cost}}
+
+          <br>
 
           <!-- would be nice to gray this out if student is already registered for that particular course -->
-          <button v-on:click="registerStudentForCourse">
+          <button v-on:click="registerStudentForCourse(course.courseID)" v-show="!isTeacher">
             Register
           </button>
 
+          <br>
+          <br>
+
     </div>
 
-    <button v-if="!showAddCourse" v-on:click="showAddCourse = !showAddCourse">Add New Course</button>
+    <button v-if="!showAddCourse" v-on:click="showAddCourse = !showAddCourse" v-show="isTeacher">Add New Course</button>
       <form v-on:submit.prevent="saveNewCourse" v-if="showAddCourse">
         <h3>Add New Course:</h3>
         Course Name:
@@ -46,6 +56,8 @@ import courseService from '../services/CourseService';
 
 export default {
   name: 'course',
+
+  props: ['isTeacher'],
   
   data() {
     return {
@@ -101,6 +113,27 @@ export default {
     resetForm() {
       this.newCourse = {};
       this.showAddCourse = false;
+    },
+
+    registerStudentForCourse(courseID) {
+      courseService
+          .registerStudentForCourse(courseID)
+          .then(response => {
+            if(response && response.status == 201) {
+            // this.retrieveCourses();
+            // this.resetForm();
+          }
+        })
+        .catch(error => {
+          // log the error
+          if (error.response) {
+            this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
+          } else if (error.request) {
+            this.errorMsg = "Error submitting new course. Server could not be reached.";
+          } else {
+            this.errorMsg = "Error submitting new course. Request could not be created.";
+          }
+        });
     }
   }
 }

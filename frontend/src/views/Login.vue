@@ -60,6 +60,12 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
+
+            // set user role to teacher or student
+            // this.$store.commit("SET_USER_ROLE", response.data.user.isTeacher);
+            // dummy data for testing purpose
+            this.$store.commit("SET_USER_ROLE", true);
+            
             this.$router.push("/");
           }
         })

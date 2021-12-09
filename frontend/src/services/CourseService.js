@@ -43,6 +43,11 @@ export default {
 
   addLesson(newLesson, courseID) {
     return axios.post(`courses/${courseID}/lessons`, newLesson);
+  },
+
+  registerStudentForCourse(courseID) {
+    // will need to use Principal on back-end to access studentID
+    return axios.post(`courses/${courseID}/register`);
   }
 
 }

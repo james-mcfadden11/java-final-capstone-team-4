@@ -20,7 +20,7 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    courses: []
+    isTeacher: false
   },
   
   mutations: {
@@ -41,9 +41,8 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
     },
 
-    // currently not being used
-    SET_COURSES(state, data) {
-      state.courses = data;
+    SET_USER_ROLE(state, isTeacher) {
+      state.isTeacher = isTeacher;
     }
   }
 })

@@ -1,9 +1,18 @@
 <template>
   <div>
+    Course name:
+    <h1>{{courseInfo.title}}</h1>
+
+    Teacher name:
+    <h3>{{teacherName}}</h3>
+
+    Description:
+    <h4>{{courseInfo.description}}</h4>
+
     Course lessons:
     <div v-for="lesson in lessons" v-bind:key="lesson.lessonID">
       {{lesson.lessonNumber}}
-      <router-link v-bind:to="{ name: 'content', params: { courseID: lesson.courseID, contentID : lesson.lessonID } }">
+      <router-link v-bind:to="{ name: 'lesson', params: { courseID: lesson.courseID, lessonID : lesson.lessonID } }">
          {{lesson.lessonName}}
       </router-link>
       {{lesson.description}}
@@ -12,7 +21,7 @@
     Assignments:
     <div v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
       {{assignment.assignmentNumber}}
-      <router-link v-bind:to="{ name: 'homework', params: { courseID: assignment.courseID, homeworkID : assignment.assignmentID } }">
+      <router-link v-bind:to="{ name: 'assignment', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID } }">
         {{assignment.assignmentName}}
       </router-link>
       {{assignment.description}}
@@ -70,6 +79,8 @@ export default {
     return {
         lessons: [],
         assignments: [],
+        teacherName: '',
+        courseInfo: {},
         courseID: this.$route.params.courseID,
         newAssignment: {},
         newLesson: {},
@@ -81,6 +92,8 @@ export default {
   created() {
     this.getAssignments(this.courseID);
     this.getLessons(this.courseID);
+    this.getTeacherName(this.courseID);
+    this.getCourseInfo(this.courseID);
   },
 
   methods: {
@@ -123,7 +136,7 @@ export default {
         .addAssignment(this.newAssignment, this.courseID)
         .then(response => {
           if(response && response.status == 201) {
-          this.getAssignments();
+          this.getAssignments(this.courseID);
           this.resetAssignment();
         }
       })
@@ -144,7 +157,7 @@ export default {
         .addLesson(this.newLesson, this.courseID)
         .then(response => {
           if(response && response.status == 201) {
-          this.getLessons();
+          this.getLessons(this.courseID);
           this.resetLesson();
         }
       })
@@ -168,6 +181,40 @@ export default {
     resetLesson() {
       this.newLesson = {};
       this.showLessonForm = false;
+    },
+
+    getCourseInfo(courseID) {
+      courseService
+        .getCourseInfo(courseID)
+        .then(response => {
+          this.courseInfo = response.data;
+        })
+        .catch(error => {
+          if (error.response) {
+            this.errorMsg = `Error retrieving. Response received was ' ${error.response.statusText}'.`;                "'.";
+          } else if (error.request) {
+            this.errorMsg = "Error retrieving. Server could not be reached.";
+          } else {
+            this.errorMsg = "Error retreiving. Request could not be created.";
+          }
+        });
+    },
+
+    getTeacherName(courseID) {
+      courseService
+        .getTeacherName(courseID)
+        .then(response => {
+          this.teacherName = response.data;
+        })
+        .catch(error => {
+          if (error.response) {
+            this.errorMsg = `Error retrieving. Response received was ' ${error.response.statusText}'.`;                "'.";
+          } else if (error.request) {
+            this.errorMsg = "Error retrieving. Server could not be reached.";
+          } else {
+            this.errorMsg = "Error retreiving. Request could not be created.";
+          }
+        });
     }
 
   }

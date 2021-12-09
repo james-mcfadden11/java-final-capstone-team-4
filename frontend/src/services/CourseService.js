@@ -3,6 +3,7 @@ import axios from 'axios';
 export default {
 
   getCourseData() {
+    // this gets a list of all courses
     return axios.get('/courses');
   }, 
 
@@ -16,6 +17,16 @@ export default {
 
   getLessons(courseID) {
     return axios.get(`/courses/${courseID}/lessons`);
+  },
+
+  getCourseInfo(courseID) {
+    // returns a course object
+    return axios.get(`/courses/${courseID}/info`);
+  },
+
+  getTeacherName(courseID) {
+    // returns a string
+    return axios.get(`/courses/${courseID}/teacher`);
   },
 
   getAssignmentDetails(courseID, assignmentID) {

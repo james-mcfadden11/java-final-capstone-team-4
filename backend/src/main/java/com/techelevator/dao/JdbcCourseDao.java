@@ -108,6 +108,21 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
+    public String getTeacher(Integer courseID) {
+
+        String sql = "SELECT first_name, last_name FROM teachers JOIN teacher_courses USING (teacher_id) WHERE course_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+        String firstName = "";
+        String lastName = "";
+        while (results.next()) {
+            firstName = results.getString("first_name");
+            lastName = results.getString("last_name");
+        }
+        return firstName + " " + lastName;
+
+    }
+
+    @Override
     public List<Assignment> getAssignments(Integer courseID) {
         List<Assignment> assignments = new ArrayList<>();
         String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, possible_points, due_date FROM assignments WHERE course_id = ?";
@@ -119,6 +134,18 @@ public class JdbcCourseDao implements CourseDao {
         }
 
         return assignments;
+    }
+
+    @Override
+    public Course getCourseInfo(Integer courseID) {
+        Course course = new Course();
+        String sql = "SELECT course_id, course_name, course_description, difficulty_level, course_cost FROM courses WHERE course_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+
+        while(results.next()) {
+            course = mapRowToCourse(results);
+        }
+        return course;
     }
 
     private Lesson mapRowToLesson(SqlRowSet rs) {

@@ -46,10 +46,31 @@ public class CourseController {
         courseDao.createLesson(lesson, courseID);
     }
 
+    //    RESPONDS TO FRONT END:
+    //    getTeacherName(courseID) {
+    //        // returns a string
+    //        return axios.get(`/courses/${courseID}/teacher`);
+    //    },
+    @RequestMapping(value = "/{courseID}/teacher", method = RequestMethod.GET)
+    public String getTeacher(@PathVariable Integer courseID) {
+        return courseDao.getTeacher(courseID);
+    }
+
+    //    RESPONDS TO FRONT END:
+    //    getCourseInfo(courseID) {
+    //        // returns a course object
+    //        return axios.get(`/courses/${courseID}/info`);
+    //    },
+    @RequestMapping(value = "/{courseID}/info", method = RequestMethod.GET)
+    public Course getCourseInfo(@PathVariable Integer courseID) {
+    return courseDao.getCourseInfo(courseID);
+}
+
     @RequestMapping(value = "/{courseID}/lessons", method = RequestMethod.GET)
     public List<Lesson> getLessons(@PathVariable Integer courseID) {
         return courseDao.getLessons(courseID);
     }
+
 
     // Assignment Controls
     @ResponseStatus(HttpStatus.CREATED)

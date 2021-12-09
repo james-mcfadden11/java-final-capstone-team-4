@@ -5,6 +5,30 @@
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
+      <label for="firstName" class="sr-only">First name</label>
+      <input
+        type="text"
+        id="firstName"
+        class="form-control"
+        placeholder="First name"
+        v-model="user.firstName"
+        required
+        autofocus
+      />
+      <label for="lastName" class="sr-only">Last name</label>
+      <input
+        type="text"
+        id="lastName"
+        class="form-control"
+        placeholder="LastName"
+        v-model="user.lastName"
+        required
+        autofocus
+      />
+
+      <p></p>
+      <p></p>
+
       <label for="username" class="sr-only">Username</label>
       <input
         type="text"
@@ -15,6 +39,10 @@
         required
         autofocus
       />
+
+      <p></p>
+      <p></p>
+
       <label for="password" class="sr-only">Password</label>
       <input
         type="password"
@@ -32,6 +60,16 @@
         v-model="user.confirmPassword"
         required
       />
+
+      <p></p>
+      <p></p>
+
+      <input type="checkbox" id="isTeacher" v-model="user.isTeacher">
+      <label for="isTeacher">I am registering as a teacher</label>
+
+      <p></p>
+      <p></p>
+
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -51,7 +89,10 @@ export default {
         username: '',
         password: '',
         confirmPassword: '',
-        role: 'user',
+        firstName: '',
+        lastName: '', 
+        isTeacher: false,
+        role: 'user'
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',

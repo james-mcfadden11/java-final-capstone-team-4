@@ -9,6 +9,12 @@
           {{course.description}}
           {{course.difficultyLevel}}
           {{course.cost}}
+
+          <!-- would be nice to gray this out if student is already registered for that particular course -->
+          <button v-on:click="registerStudentForCourse">
+            Register
+          </button>
+
     </div>
 
     <button v-if="!showAddCourse" v-on:click="showAddCourse = !showAddCourse">Add New Course</button>

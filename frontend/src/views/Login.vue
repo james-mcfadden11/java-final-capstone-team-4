@@ -95,13 +95,14 @@ export default {
 	margin: 6% auto;
 	background: rgb(49, 49, 49);
 	padding: 15px;
-	border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+	border-radius: 8px;
   box-shadow: 0px 0px 100px rgba(219, 219, 219, 0.178);
   text-align: left;
   opacity: 0.7;
   color: rgb(221, 221, 197);
-  font-family: sans-serif;
-   }
+  }
 
    .need-account-btn {
      color: rgb(221, 221, 197);

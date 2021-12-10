@@ -35,7 +35,7 @@
         required
       />
     <br>
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
+      <router-link class="need-account-btn" :to="{ name: 'register' }">Need an account?</router-link>
       
       <button type="submit">Sign in</button>
     </form>
@@ -101,6 +101,12 @@ export default {
   box-shadow: 0px 0px 100px rgba(219, 219, 219, 0.178);
   text-align: left;
   opacity: 0.7;
+  color: rgb(221, 221, 197);
+  font-family: sans-serif;
+   }
+
+   .need-account-btn {
+     color: rgb(221, 221, 197);
    }
 </style>
 

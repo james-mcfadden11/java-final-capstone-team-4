@@ -65,7 +65,7 @@
       </div>
       <br>
       <br>
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
+      <router-link class="need-account-btn" :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
@@ -143,9 +143,15 @@ export default {
   text-align: left;
   text-decoration-color: rgb(212, 207, 186);
   opacity: 0.7;
+  color: rgb(221, 221, 197);
+  font-family: sans-serif;
 }
 
 .am-a-teacher {
   display: inline-block;
 }
+
+.need-account-btn {
+     color: rgb(221, 221, 197);
+   }
 </style>

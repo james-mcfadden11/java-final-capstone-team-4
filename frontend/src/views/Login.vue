@@ -86,11 +86,8 @@ export default {
 };
 </script>
 
-<style scoped> 
-body
-{
-  background-color: black;
-}
+<style scoped>
+ 
 
 .form-signin
 {
@@ -104,9 +101,8 @@ body
 	border-radius: 5px;
   box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
   text-align: left;
-  
-  
-}
+  opacity: 0.7;
+   }
 </style>
 
 

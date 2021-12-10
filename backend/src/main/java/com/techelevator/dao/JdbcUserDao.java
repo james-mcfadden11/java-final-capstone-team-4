@@ -64,13 +64,14 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean create(String username, String firstName, String lastName, String password, String role) {
+    public boolean create(String username, String firstName, String lastName, boolean isTeacher, String password, String role) {
         boolean userCreated = false;
 
         // create user
-        String insertUser = "insert into users (username, first_name, last_name, password_hash,role) values(?,?,?,?,?)";
+        String insertUser = "insert into users (username, first_name, last_name, is_teacher, password_hash,role) values(?,?,?,?,?,?)";
         String ssFirstName = firstName;
         String ssLastName = lastName;
+        boolean ssIsTeacher = isTeacher;
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = "ROLE_" + role.toUpperCase();
 
@@ -81,8 +82,9 @@ public class JdbcUserDao implements UserDao {
                     ps.setString(1, username);
                     ps.setString(2, firstName);
                     ps.setString(3, lastName);
-                    ps.setString(4, password_hash);
-                    ps.setString(5, ssRole);
+                    ps.setBoolean(4, isTeacher);
+                    ps.setString(5, password_hash);
+                    ps.setString(6, ssRole);
                     return ps;
                 }
                 , keyHolder) == 1;
@@ -97,6 +99,7 @@ public class JdbcUserDao implements UserDao {
         user.setUsername(rs.getString("username"));
         user.setFirstName(rs.getString("first_name"));
         user.setLastName(rs.getString("last_name"));
+        user.setTeacher(rs.getBoolean("is_teacher"));
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(rs.getString("role"));
         user.setActivated(true);

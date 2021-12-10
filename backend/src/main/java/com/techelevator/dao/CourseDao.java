@@ -28,4 +28,6 @@ public interface CourseDao {
 
     List<Assignment> getAssignments(Integer courseID);
 
+    void registerStudent(String username, int courseID);
+
 }

@@ -8,3 +8,14 @@
     <router-view v-bind:isTeacher="this.$store.state.isTeacher"/>
   </div>
 </template>
+
+<style> 
+body
+{
+  background: cadetblue;
+  background-image: url('./assets/darkthemebg.jpg');
+  background-position: center;
+  background-size: 100%;
+  text-decoration-color: cornsilk;
+}
+</style>

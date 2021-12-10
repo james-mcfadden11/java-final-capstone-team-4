@@ -65,7 +65,7 @@
       </div>
       <br>
       <br>
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
+      <router-link class="need-account-btn" :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
@@ -136,14 +136,22 @@ export default {
 	height: 500px;
 	position: relative;
 	margin: 6% auto;
-	background: rgba(65, 65, 65, 0.533);
+	background: rgb(49, 49, 49);;
 	padding: 15px;
 	border-radius: 5px;
-  box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
+  box-shadow: 5px 5px 10px 2px rgba(219, 219, 219, 0.178);
   text-align: left;
+  text-decoration-color: rgb(212, 207, 186);
+  opacity: 0.7;
+  color: rgb(221, 221, 197);
+  font-family: sans-serif;
 }
 
 .am-a-teacher {
   display: inline-block;
 }
+
+.need-account-btn {
+     color: rgb(221, 221, 197);
+   }
 </style>

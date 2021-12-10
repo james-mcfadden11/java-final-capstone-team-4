@@ -1,7 +1,7 @@
 <template>
   <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+      <h1 class="h3 mb-3 font-weight-normal White--text">Please Sign In</h1>
       <div
         class="alert alert-danger"
         role="alert"
@@ -35,7 +35,7 @@
         required
       />
     <br>
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
+      <router-link class="need-account-btn" :to="{ name: 'register' }">Need an account?</router-link>
       
       <button type="submit">Sign in</button>
     </form>
@@ -78,7 +78,7 @@ export default {
           const response = error.response;
 
           if (response.status === 401) {
-            this.invalidCredentials = true;
+            this.invalidCredentials = false;
           }
         });
     }
@@ -86,11 +86,7 @@ export default {
 };
 </script>
 
-<style scoped> 
-body
-{
-  background-color: black;
-}
+<style scoped>
 
 .form-signin
 {
@@ -99,14 +95,19 @@ body
 	height: 500px;
 	position: relative;
 	margin: 6% auto;
-	background: rgba(65, 65, 65, 0.533);
+	background: rgb(49, 49, 49);
 	padding: 15px;
 	border-radius: 5px;
-  box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
+  box-shadow: 0px 0px 100px rgba(219, 219, 219, 0.178);
   text-align: left;
-  
-  
-}
+  opacity: 0.7;
+  color: rgb(221, 221, 197);
+  font-family: sans-serif;
+   }
+
+   .need-account-btn {
+     color: rgb(221, 221, 197);
+   }
 </style>
 
 

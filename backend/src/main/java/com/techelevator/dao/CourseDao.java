@@ -30,4 +30,8 @@ public interface CourseDao {
 
     void registerStudent(String username, int courseID);
 
+    List<Course> getMyEnrolledCourses(String username);
+
+    List<Course> getMyCoursesToTeach(String username);
+
 }

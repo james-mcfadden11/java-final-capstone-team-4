@@ -29,8 +29,8 @@ public class CourseController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public void createCourse(@RequestBody Course course) {
-        courseDao.createCourse(course);
+    public void createCourse(@RequestBody Course course, Principal principal) {
+        courseDao.createCourse(course, principal.getName());
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)

@@ -9,6 +9,10 @@ public class RegisterUserDTO {
     @NotEmpty
     private String password;
     @NotEmpty
+    private String firstName;
+    @NotEmpty
+    private String lastName;
+    @NotEmpty
     private String confirmPassword;
     @NotEmpty(message = "Please select a role for this user.")
     private String role;
@@ -19,6 +23,22 @@ public class RegisterUserDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {

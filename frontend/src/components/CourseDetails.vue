@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     Course name:
     <h1>{{courseInfo.title}}</h1>
 
@@ -16,8 +16,8 @@
     <br>
 
     <h2>Course lessons:</h2>
-    <div v-for="lesson in lessons" v-bind:key="lesson.lessonID">
-      Lesson: {{lesson.lessonNumber}}
+    <div class="list" v-for="lesson in lessons" v-bind:key="lesson.lessonID">
+      <span class="bold-me"> Lesson: {{lesson.lessonNumber}} </span>
       <br>
       <router-link v-bind:to="{ name: 'lesson', params: { courseID: lesson.courseID, lessonID : lesson.lessonID } }">
          Topic: {{lesson.lessonName}}
@@ -29,8 +29,8 @@
     </div>
 
     <h2>Assignments</h2>
-    <div v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
-      Number: {{assignment.assignmentNumber}}
+    <div class="list" v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
+      <span class="bold-me"> Number: {{assignment.assignmentNumber}} </span>
       <br>
       <router-link v-bind:to="{ name: 'assignment', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID } }">
         Name: {{assignment.assignmentName}}
@@ -255,5 +255,21 @@ export default {
 </script>
 
 <style>
+.body {
+  font-family: sans-serif;
+}
 
+.list {
+border-style: solid;
+background-image: linear-gradient(rgb(255, 255, 255), rgb(228, 228, 228));
+box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
+border-width: 1px;
+border-radius: 5px;
+margin: 15px;
+padding: 5px 0px 0px 3px;
+}
+
+.bold-me {
+  font-weight: bold;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <assignment-details></assignment-details>
+    <assignment-details v-bind:isTeacher="this.$store.state.isTeacher"></assignment-details>
 </template>
 
 <script>

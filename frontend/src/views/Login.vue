@@ -74,3 +74,34 @@ export default {
   }
 };
 </script>
+
+<style scoped> 
+body
+{
+  background-color: black;
+}
+
+.form-signin
+{
+  
+	width: 380px;
+	height: 500px;
+	position: relative;
+	margin: 6% auto;
+	background: rgba(65, 65, 65, 0.533);
+	padding: 5px;
+	border-radius: 5px;
+  box-shadow: 0px 0px 100px rgba(0,0,0,0.4);
+  text-align-last: left;
+  
+}
+</style>
+
+
+
+
+
+
+
+ 
+

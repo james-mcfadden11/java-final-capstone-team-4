@@ -131,4 +131,19 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+
+.form-register
+{
+	width: 380px;
+	height: 500px;
+	position: relative;
+	margin: 6% auto;
+	background: rgba(65, 65, 65, 0.533);
+	padding: 5px;
+	border-radius: 5px;
+	overflow: hidden;
+  box-shadow: 0px 0px 100px rgba(0,0,0,0.4);
+  text-align: center;
+}
+</style>

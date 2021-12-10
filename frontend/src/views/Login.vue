@@ -78,7 +78,7 @@ export default {
           const response = error.response;
 
           if (response.status === 401) {
-            this.invalidCredentials = true;
+            this.invalidCredentials = false;
           }
         });
     }

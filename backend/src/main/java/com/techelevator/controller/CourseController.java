@@ -92,4 +92,10 @@ public class CourseController {
         }
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/{courseID}/register", method = RequestMethod.POST)
+    public void registerStudent(Principal principal, @PathVariable Integer courseID) {
+        courseDao.registerStudent(principal.getName(), courseID);
+    }
+
 }

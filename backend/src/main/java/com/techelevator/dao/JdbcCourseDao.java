@@ -85,6 +85,29 @@ public class JdbcCourseDao implements CourseDao {
 
     }
 
+    public void registerStudent(String username, int courseID) {
+        int studentID = getStudentID(username);
+
+        String sql = "INSERT INTO student_courses (student_id, course_id) VALUES (?, ?);";
+
+        jdbcTemplate.update(sql, studentID, courseID);
+
+
+    }
+
+    public int getStudentID(String username) {
+        String sql = "SELECT student_id FROM students JOIN users USING( user_id) WHERE username = ?;";
+        int studentID = 0;
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+        if (results.next()) {
+            studentID = results.getInt("student_id");
+
+        }
+
+        return studentID;
+
+    }
+
     public void createTeacherCourse(int teacherID, int courseID) {
 
         String sql2 = "INSERT INTO teacher_courses (teacher_id, course_id)" +
@@ -92,7 +115,7 @@ public class JdbcCourseDao implements CourseDao {
 
         jdbcTemplate.update(sql2, teacherID, courseID);
 
-   
+
     }
 
     @Override

@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,8 @@ public class JdbcCourseDao implements CourseDao {
 
 
     @Override
-    public Course createCourse(Course newCourse) {
+    public Course createCourse(Course newCourse, String username) {
+
         String sql = "INSERT INTO courses (course_name, course_description, difficulty_level, course_cost) VALUES (?, ?, ?, ?);";
 
         String course_name = newCourse.getTitle();
@@ -58,8 +58,41 @@ public class JdbcCourseDao implements CourseDao {
         double course_cost = newCourse.getCost();
 
         jdbcTemplate.update(sql, course_name, course_description, difficulty_level, course_cost);
+        String sql3 = "SELECT MAX(course_id) FROM courses;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql3);
+        int courseID = 0;
+        if (results.next()) {
+         courseID = results.getInt("max");
 
+        }
+        int teacherID = getTeacherID(username);
+
+        createTeacherCourse(teacherID, courseID);
+        newCourse.setCourseID(courseID);
         return newCourse;
+    }
+
+    public int getTeacherID(String username) {
+        String sql = "SELECT teacher_id FROM teachers JOIN users USING( user_id) WHERE username = ?;";
+        int teacherID = 0;
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+        if (results.next()) {
+            teacherID = results.getInt("teacher_id");
+
+        }
+
+        return teacherID;
+
+    }
+
+    public void createTeacherCourse(int teacherID, int courseID) {
+
+        String sql2 = "INSERT INTO teacher_courses (teacher_id, course_id)" +
+                " VALUES(?, ?);";
+
+        jdbcTemplate.update(sql2, teacherID, courseID);
+
+
     }
 
     @Override

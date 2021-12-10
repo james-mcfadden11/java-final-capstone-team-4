@@ -136,15 +136,16 @@ export default {
 	height: 500px;
 	position: relative;
 	margin: 6% auto;
-	background: rgb(49, 49, 49);;
+	background: rgb(49, 49, 49);
+  border-style: solid;
+  border-width: 1px;
+	border-radius: 8px;
 	padding: 15px;
-	border-radius: 5px;
   box-shadow: 5px 5px 10px 2px rgba(219, 219, 219, 0.178);
   text-align: left;
   text-decoration-color: rgb(212, 207, 186);
   opacity: 0.7;
   color: rgb(221, 221, 197);
-  font-family: sans-serif;
 }
 
 .am-a-teacher {

@@ -16,7 +16,7 @@
     <br>
 
     <h2>Course lessons:</h2>
-    <div class="list" v-for="lesson in lessons" v-bind:key="lesson.lessonID">
+    <div class="card-details" v-for="lesson in lessons" v-bind:key="lesson.lessonID">
       <span class="bold-me"> Lesson: {{lesson.lessonNumber}} </span>
       <br>
       <router-link v-bind:to="{ name: 'lesson', params: { courseID: lesson.courseID, lessonID : lesson.lessonID } }">
@@ -29,7 +29,7 @@
     </div>
 
     <h2>Assignments</h2>
-    <div class="list" v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
+    <div class="card-details" v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
       <span class="bold-me"> Number: {{assignment.assignmentNumber}} </span>
       <br>
       <router-link v-bind:to="{ name: 'assignment', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID } }">
@@ -76,6 +76,7 @@
         <br>
       </form>
 
+      <br>
       <br>
 
     <button v-if="!showLessonForm" v-on:click="showLessonForm = !showLessonForm" v-show="isTeacher">Add New Lesson</button>
@@ -255,18 +256,21 @@ export default {
 </script>
 
 <style>
-.body {
-  font-family: sans-serif;
+.card-details {
+background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.315), rgb(68, 68, 68));
+border-style: solid;
+border-width: 1px;
+border-radius: 8px;
+box-shadow: 0px 0px 100px rgba(8, 8, 8, 0.144);
+margin-top: 15px;
+padding-bottom: 0%;
+padding-left: 10px;
+padding-bottom: auto;
+font-family: sans-serif;
 }
 
-.list {
-border-style: solid;
-background-image: linear-gradient(rgb(255, 255, 255), rgb(228, 228, 228));
-box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
-border-width: 1px;
-border-radius: 5px;
-margin: 15px;
-padding: 5px 0px 0px 3px;
+.card-details:hover {
+font-size: 101%;
 }
 
 .bold-me {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <br>
-    <div class="course-details" v-for="course in courses" v-bind:key="course.courseID">
+    <div class="card-details" v-for="course in courses" v-bind:key="course.courseID">
         <div class="course-title">
           Course title:
           <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
@@ -143,19 +143,28 @@ export default {
 </script>
 
 <style>
-.course-details {
+.card-details {
+background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.315), rgb(68, 68, 68));
 border-style: solid;
-background-image: linear-gradient(rgb(255, 255, 255), rgb(228, 228, 228));
-box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
 border-width: 1px;
-border-radius: 5px;
-margin: 15px;
-padding: 5px 0px 0px 3px;
+border-radius: 8px;
+box-shadow: 0px 0px 100px rgba(8, 8, 8, 0.144);
+margin-top: 15px;
+padding-top: 1.5%;
+padding-bottom: 0%;
+padding-left: 10px;
+padding-bottom: auto;
 font-family: sans-serif;
 }
 
+.card-details:hover {
+font-size: 101%;
+}
+
+
 .course-title {
 font-weight: bold;
+
 }
 
 .add-course-btn {

@@ -15,6 +15,7 @@
         required
         autofocus
       />
+      <br>
       <label for="lastName" class="sr-only">Last name</label>
       <input
         type="text"
@@ -25,9 +26,8 @@
         required
         autofocus
       />
+      <br>
 
-      <p></p>
-      <p></p>
 
       <label for="username" class="sr-only">Username</label>
       <input
@@ -39,10 +39,7 @@
         required
         autofocus
       />
-
-      <p></p>
-      <p></p>
-
+      <br>
       <label for="password" class="sr-only">Password</label>
       <input
         type="password"
@@ -52,6 +49,7 @@
         v-model="user.password"
         required
       />
+      <br>
       <input
         type="password"
         id="confirmPassword"
@@ -60,16 +58,13 @@
         v-model="user.confirmPassword"
         required
       />
-
-      <p></p>
-      <p></p>
-
+      <br>
+      <div class="am-a-teacher">
       <input type="checkbox" id="isTeacher" v-model="user.isTeacher">
       <label for="isTeacher">I am registering as a teacher</label>
-
-      <p></p>
-      <p></p>
-
+      </div>
+      <br>
+      <br>
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -135,15 +130,20 @@ export default {
 
 .form-register
 {
+
+  display: grid;
 	width: 380px;
 	height: 500px;
 	position: relative;
 	margin: 6% auto;
 	background: rgba(65, 65, 65, 0.533);
-	padding: 5px;
+	padding: 15px;
 	border-radius: 5px;
-	overflow: hidden;
-  box-shadow: 0px 0px 100px rgba(0,0,0,0.4);
-  text-align: center;
+  box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
+  text-align: left;
+}
+
+.am-a-teacher {
+  display: inline-block;
 }
 </style>

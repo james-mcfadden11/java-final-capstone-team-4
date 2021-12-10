@@ -92,7 +92,7 @@ public class JdbcCourseDao implements CourseDao {
 
         jdbcTemplate.update(sql2, teacherID, courseID);
 
-
+   
     }
 
     @Override

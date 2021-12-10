@@ -1,66 +1,96 @@
 <template>
-  <div>
+  <div class="body">
     Course name:
     <h1>{{courseInfo.title}}</h1>
+
+    <br>
 
     Teacher name:
     <h3>{{teacherName}}</h3>
 
+    <br>
+
     Description:
     <h4>{{courseInfo.description}}</h4>
 
-    Course lessons:
-    <div v-for="lesson in lessons" v-bind:key="lesson.lessonID">
-      {{lesson.lessonNumber}}
+    <br>
+
+    <h2>Course lessons:</h2>
+    <div class="list" v-for="lesson in lessons" v-bind:key="lesson.lessonID">
+      <span class="bold-me"> Lesson: {{lesson.lessonNumber}} </span>
+      <br>
       <router-link v-bind:to="{ name: 'lesson', params: { courseID: lesson.courseID, lessonID : lesson.lessonID } }">
-         {{lesson.lessonName}}
+         Topic: {{lesson.lessonName}}
+         <br>
       </router-link>
-      {{lesson.description}}
+      Description: {{lesson.description}}
+      <br>
+      <br>
     </div>
 
-    Assignments:
-    <div v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
-      {{assignment.assignmentNumber}}
+    <h2>Assignments</h2>
+    <div class="list" v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
+      <span class="bold-me"> Number: {{assignment.assignmentNumber}} </span>
+      <br>
       <router-link v-bind:to="{ name: 'assignment', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID } }">
-        {{assignment.assignmentName}}
+        Name: {{assignment.assignmentName}}
+        <br>
       </router-link>
-      {{assignment.description}}
-      {{assignment.possiblePoints}}
-      {{assignment.dueDate}}
+      Description: {{assignment.description}}
+      <br>
+      Possible points: {{assignment.possiblePoints}}
+      <br>
+      Due date: {{assignment.dueDate}}
+      <br>
+      <br>
     </div>
 
-    <p></p>
-    <p></p>
+    <br>
 
-    Forms for teacher to add course lessons and homework:
+    <h3 v-show="isTeacher">Forms for teacher to add course lessons and homework:</h3>
 
-    <button v-if="!showAssignmentForm" v-on:click="showAssignmentForm = !showAssignmentForm">Add New Assignment</button>
+    <br>
+    
+    <button v-if="!showAssignmentForm" v-on:click="showAssignmentForm = !showAssignmentForm" v-show="isTeacher">Add New Assignment</button>
       <form v-on:submit.prevent="saveNewAssignment" v-if="showAssignmentForm">
         <h3>Add New Assignment:</h3>
+        <br>
         Assignment Number:
         <input type="number" v-model="newAssignment.assignmentNumber" />
+        <br>
         Assignment Name:
         <input type="text" v-model="newAssignment.assignmentName" />
+        <br>
         Assignment Description:
         <input type="text" v-model="newAssignment.description" />
+        <br>
         Possible points:
         <input type="number" v-model="newAssignment.possiblePoints" />
+        <br>
         Due date:
         <input type="date" v-model="newAssignment.dueDate" />
+        <br>
 
         <button type="submit">Save</button>
         <button v-on:click.prevent="resetAssignment">Cancel</button>
+        <br>
       </form>
 
-    <button v-if="!showLessonForm" v-on:click="showLessonForm = !showLessonForm">Add New Lesson</button>
+      <br>
+
+    <button v-if="!showLessonForm" v-on:click="showLessonForm = !showLessonForm" v-show="isTeacher">Add New Lesson</button>
       <form v-on:submit.prevent="saveNewLesson" v-if="showLessonForm">
         <h3>Add New Lesson:</h3>
+        <br>
         Lesson Number:
         <input type="number" v-model="newLesson.lessonNumber" />
+        <br>
         Lesson Name:
         <input type="text" v-model="newLesson.lessonName" />
+        <br>
         Lesson Description:
         <input type="text" v-model="newLesson.description" />
+        <br>
 
         <button type="submit">Save</button>
         <button v-on:click.prevent="resetLesson">Cancel</button>
@@ -74,6 +104,8 @@ import courseService from '../services/CourseService';
 
 export default {
   name: 'course-details',
+
+  props: ['isTeacher'],
 
   data() {
     return {
@@ -223,5 +255,21 @@ export default {
 </script>
 
 <style>
+.body {
+  font-family: sans-serif;
+}
 
+.list {
+border-style: solid;
+background-image: linear-gradient(rgb(255, 255, 255), rgb(228, 228, 228));
+box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
+border-width: 1px;
+border-radius: 5px;
+margin: 15px;
+padding: 5px 0px 0px 3px;
+}
+
+.bold-me {
+  font-weight: bold;
+}
 </style>

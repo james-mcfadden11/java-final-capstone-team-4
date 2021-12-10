@@ -1,5 +1,5 @@
 <template>
-  <course />
+  <course v-bind:isTeacher="this.$store.state.isTeacher"/>
 </template>
 
 <script>
@@ -13,5 +13,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>

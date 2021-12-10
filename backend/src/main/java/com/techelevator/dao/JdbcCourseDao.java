@@ -31,7 +31,6 @@ public class JdbcCourseDao implements CourseDao {
         return courses;
     }
 
-
     private Course mapRowToCourse (SqlRowSet rs) {
         return new Course(rs.getString("course_name"),
                 rs.getString("course_description"),
@@ -46,6 +45,29 @@ public class JdbcCourseDao implements CourseDao {
         return testCourse;
     }
 
+    @Override
+    public List<Course> getMyEnrolledCourses(String username) {
+        List<Course> myCourseList = new ArrayList<>();
+        int studentID = getStudentID(username);
+        SqlRowSet results = jdbcTemplate.queryForRowSet("SELECT course_id, course_name, course_description, difficulty_level, course_cost FROM courses JOIN student_courses USING (course_id) WHERE student_id = ?", studentID);
+        while(results.next()) {
+            Course course = mapRowToCourse(results);
+            myCourseList.add(course);
+        }
+        return myCourseList;
+    }
+
+    @Override
+    public List<Course> getMyCoursesToTeach(String username) {
+        List<Course> myCourseList = new ArrayList<>();
+        int teacherID = getTeacherID(username);
+        SqlRowSet results = jdbcTemplate.queryForRowSet("SELECT course_id, course_name, course_description, difficulty_level, course_cost FROM courses JOIN teacher_courses USING (course_id) WHERE teacher_id = ?", teacherID);
+        while(results.next()) {
+            Course course = mapRowToCourse(results);
+            myCourseList.add(course);
+        }
+        return myCourseList;
+    }
 
     @Override
     public Course createCourse(Course newCourse, String username) {
@@ -56,6 +78,8 @@ public class JdbcCourseDao implements CourseDao {
         String course_description = newCourse.getDescription();
         int difficulty_level = newCourse.getDifficultyLevel();
         double course_cost = newCourse.getCost();
+
+        //QueryForRowSet ... RETURNING course_id... capture row set that comes back, advance cursor, grab that number
 
         jdbcTemplate.update(sql, course_name, course_description, difficulty_level, course_cost);
         String sql3 = "SELECT MAX(course_id) FROM courses;";
@@ -101,21 +125,15 @@ public class JdbcCourseDao implements CourseDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
         if (results.next()) {
             studentID = results.getInt("student_id");
-
         }
-
         return studentID;
 
     }
 
     public void createTeacherCourse(int teacherID, int courseID) {
-
         String sql2 = "INSERT INTO teacher_courses (teacher_id, course_id)" +
                 " VALUES(?, ?);";
-
         jdbcTemplate.update(sql2, teacherID, courseID);
-
-
     }
 
     @Override
@@ -136,7 +154,6 @@ public class JdbcCourseDao implements CourseDao {
     public Assignment createAssignment(Assignment newAssignment, Integer courseID) {
         String sql = "INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) " +
                 "VALUES (?, ?, ?, ?, ?, ?);";
-
 
         int assignmentNumber = newAssignment.getAssignmentNumber();
         String assignmentName = newAssignment.getAssignmentName();
@@ -209,7 +226,6 @@ public class JdbcCourseDao implements CourseDao {
                 rs.getString("lesson_name"),
                 rs.getString("description"));
     }
-
 
     private Assignment mapRowToAssignment(SqlRowSet rs) {
         Assignment assignment = new Assignment();

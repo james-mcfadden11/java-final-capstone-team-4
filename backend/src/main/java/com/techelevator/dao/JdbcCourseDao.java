@@ -169,7 +169,7 @@ public class JdbcCourseDao implements CourseDao {
     @Override
     public List<Lesson> getLessons(Integer courseID) {
         List<Lesson> lessons = new ArrayList<>();
-        String sql = "SELECT lesson_number, lesson_name, description FROM lessons WHERE course_id = ?";
+        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE course_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
 
         while (results.next()) {
@@ -222,7 +222,9 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     private Lesson mapRowToLesson(SqlRowSet rs) {
-        return new Lesson(rs.getInt("lesson_number"),
+        return new Lesson(
+                rs.getInt("lesson_id"),
+                rs.getInt("lesson_number"),
                 rs.getString("lesson_name"),
                 rs.getString("description"));
     }

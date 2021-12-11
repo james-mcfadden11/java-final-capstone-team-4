@@ -180,6 +180,31 @@ public class JdbcCourseDao implements CourseDao {
         return lessons;
     }
 
+
+    @Override
+    public Lesson getLessonForLessonID(Integer lessonID) {
+        Lesson lesson = new Lesson();
+        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE lesson_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lessonID);
+
+        while (results.next()) {
+            lesson = mapRowToLesson(results);
+        }
+        return lesson;
+    }
+
+    @Override
+    public Assignment getAssignmentForAssignmentID(Integer assignmentID) {
+        Assignment assignment = new Assignment();
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, possible_points, due_date FROM assignments WHERE assignment_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, assignmentID);
+
+        while (results.next()) {
+            assignment = mapRowToAssignment(results);
+        }
+        return assignment;
+    }
+
     @Override
     public String getTeacher(Integer courseID) {
 

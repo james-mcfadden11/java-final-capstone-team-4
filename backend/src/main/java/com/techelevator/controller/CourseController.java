@@ -60,11 +60,17 @@ public class CourseController {
     }
 
     //Endpoint #7: Get Assignment Details for a Specific Assignment ID
-    //Needs to return an Assignment Object
+    @RequestMapping(value = "/{courseID}/assignments/{assignmentID}", method = RequestMethod.GET)
+    public Assignment getAssignmentForID(@PathVariable Integer assignmentID) {
+        return courseDao.getAssignmentForAssignmentID(assignmentID);
+    }
 
     //Endpoint #8: Get Lesson Details for a Specific Lesson ID
-    //Needs to return an Lesson Object
-
+    @RequestMapping(value = "/{courseID}/lessons/{lessonID}", method = RequestMethod.GET)
+    public Lesson getLessonForID(@PathVariable Integer lessonID) {
+        return courseDao.getLessonForLessonID(lessonID);
+    }
+    
     //Endpoint #9: Create Assignment for a Specific Course
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/{courseID}/assignments", method = RequestMethod.POST)

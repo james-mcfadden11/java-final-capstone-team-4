@@ -219,6 +219,15 @@ public class JdbcCourseDao implements CourseDao {
         assignment.setAssignmentName(rs.getString("assignment_name"));
         assignment.setDescription(rs.getString("description"));
         assignment.setPossiblePoints(rs.getInt("possible_points"));
+        assignment.setStudentGrade(rs.getDouble("student_grade"));
+        assignment.setSubmission(rs.getString("submission"));
+        assignment.setTeacherFeedback(rs.getString("teacher_feedback"));
+        assignment.setGraded(rs.getBoolean("is_graded"));
+        assignment.setSubmitted(rs.getBoolean("is_submitted"));
+        assignment.setSubmittedDateTime(rs.getDate("submission_date_time").toLocalDate());
+        if(rs.getDate("due_date") != null) {
+            assignment.setDueDate(rs.getDate("due_date").toLocalDate());
+        }
 
         if(rs.getDate("due_date") != null) {
             assignment.setDueDate(rs.getDate("due_date").toLocalDate());

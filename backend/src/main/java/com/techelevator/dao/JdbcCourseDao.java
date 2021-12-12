@@ -268,6 +268,24 @@ public class JdbcCourseDao implements CourseDao {
         }
         return assignment;
     }
+
+    //#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$#%#$%#
+    //FRANK'S NEW CODE FROM December 12th Starts Here. Please no merge conflicts please no merge conflicts.
+    @Override
+    public List<Assignment> getMyGradedAssignments(Integer courseID) {
+        List<Assignment> assignments = new ArrayList<>();
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, possible_points, due_date, abunchofstuffromstudent_assignments FROM student_assignments JOIN assignments ON (assignment_id = homework_id) WHERE course_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+
+        while (results.next()) {
+            Assignment assignment = mapRowToAssignment(results);
+            assignments.add(assignment);
+        }
+
+        return assignments;
+    }
+
+
 }
 
 

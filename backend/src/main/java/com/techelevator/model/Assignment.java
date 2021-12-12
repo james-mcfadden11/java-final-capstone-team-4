@@ -23,23 +23,26 @@ public class Assignment {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dueDate;
 
-    // Constructors
+//     Constructors
     public Assignment() {
         super();
     }
 
-    public Assignment(int courseID, int assignmentNumber, String assignmentName, String description, int possiblePoints, LocalDate dueDate, String submission, double studentGrade, LocalDate submittedDateTime, boolean isSubmitted, boolean isGraded, String teacherFeedback) {
+    public Assignment(int courseID, int assignmentNumber, String assignmentName, String description, int possiblePoints,
+                      LocalDate dueDate, String submission, double studentGrade, LocalDate submissionDateTime, boolean isSubmitted, boolean isGraded,
+                      String teacherFeedback) {
         this.courseID = courseID;
         this.assignmentNumber = assignmentNumber;
         this.assignmentName = assignmentName;
         this.description = description;
         this.possiblePoints = possiblePoints;
         this.dueDate = dueDate;
+
         this.isSubmitted = isSubmitted;
         this.isGraded = isGraded;
         this.submission = submission;
         this.teacherFeedback = teacherFeedback;
-        this.submissionDateTime = submittedDateTime;
+        this.submissionDateTime = submissionDateTime;
         this.studentGrade = studentGrade;
 
     }

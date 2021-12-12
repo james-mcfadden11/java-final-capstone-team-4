@@ -14,7 +14,6 @@ CREATE TABLE users (
 	is_teacher BOOLEAN NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
-	is_teacher boolean,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 CREATE TABLE courses (

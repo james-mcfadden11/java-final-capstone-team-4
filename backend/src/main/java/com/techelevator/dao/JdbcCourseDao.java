@@ -173,14 +173,14 @@ public class JdbcCourseDao implements CourseDao {
 
         String sql4 = "SELECT student_id FROM student_courses WHERE course_id = ?;";
 
-        SqlRowSet students = jdbcTemplate.queryForRowSet(sql4);
+        SqlRowSet students = jdbcTemplate.queryForRowSet(sql4, courseID);
         int studentID = 0;
         while (students.next()) {
-            studentID = results.getInt("student_id");
+            studentID = students.getInt("student_id");
             String sql2 = "INSERT INTO student_assignments (student_id, homework_id, possible_points, is_submitted, is_graded) VALUES(?, ?, ?, false, false);";
 
 
-            jdbcTemplate.update(sql2, studentID, assignmentID, possiblePoints, courseID);
+            jdbcTemplate.update(sql2, studentID, assignmentID, possiblePoints);
         }
 
 //        String sql2 = "INSERT INTO student_assignments (student_id, homework_id, possible_points, is_submitted, is_graded) VALUES(?, ?, ?, false, false);";
@@ -219,13 +219,13 @@ public class JdbcCourseDao implements CourseDao {
         return lesson;
     }
 
-    @Override
+        @Override
     public Assignment getAssignmentForAssignmentID(Integer assignmentID) {
         Assignment assignment = new Assignment();
-        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, possible_points, due_date FROM assignments WHERE assignment_id = ?";
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, assignments.possible_points, due_date, submission, student_grade, submission_date_time, is_submitted, is_graded, teacher_feedback FROM assignments Join student_assignments on assignment_id = homework_id WHERE assignment_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, assignmentID);
 
-        while (results.next()) {
+        if (results.next()) {
             assignment = mapRowToAssignment(results);
         }
         return assignment;
@@ -288,7 +288,7 @@ public class JdbcCourseDao implements CourseDao {
         assignment.setAssignmentName(rs.getString("assignment_name"));
         assignment.setDescription(rs.getString("description"));
         assignment.setPossiblePoints(rs.getInt("possible_points"));
-        //assignment.setStudentGrade(rs.getDouble("student_grade"));
+        assignment.setStudentGrade(rs.getDouble("student_grade"));
         assignment.setSubmission(rs.getString("submission"));
         assignment.setTeacherFeedback(rs.getString("teacher_feedback"));
         assignment.setGraded(rs.getBoolean("is_graded"));

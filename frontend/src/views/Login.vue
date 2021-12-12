@@ -35,7 +35,7 @@
         required
       />
     <br>
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
+      <router-link class="need-account-btn" :to="{ name: 'register' }">Need an account?</router-link>
       
       <button type="submit">Sign in</button>
     </form>
@@ -67,9 +67,7 @@ export default {
             this.$store.commit("SET_USER", response.data.user);
 
             // set user role to teacher or student
-            // this.$store.commit("SET_USER_ROLE", response.data.user.isTeacher);
-            // dummy data for testing purpose
-            this.$store.commit("SET_USER_ROLE", true);
+            this.$store.commit("SET_USER_ROLE", response.data.user.teacher);
             
             this.$router.push("/");
           }
@@ -78,7 +76,7 @@ export default {
           const response = error.response;
 
           if (response.status === 401) {
-            this.invalidCredentials = true;
+            this.invalidCredentials = false;
           }
         });
     }
@@ -97,10 +95,17 @@ export default {
 	margin: 6% auto;
 	background: rgb(49, 49, 49);
 	padding: 15px;
-	border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+	border-radius: 8px;
   box-shadow: 0px 0px 100px rgba(219, 219, 219, 0.178);
   text-align: left;
   opacity: 0.7;
+  color: rgb(221, 221, 197);
+  }
+
+   .need-account-btn {
+     color: rgb(221, 221, 197);
    }
 </style>
 

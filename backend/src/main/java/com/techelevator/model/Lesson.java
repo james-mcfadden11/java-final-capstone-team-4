@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Lesson {
     private int courseID;
+    private int lessonID;
     private int lessonNumber;
     private String lessonName;
     private String description;
@@ -14,8 +15,23 @@ public class Lesson {
         this.description = description;
     }
 
+    public Lesson(int lessonID, int lessonNumber, String lessonName, String description) {
+        this.lessonID = lessonID;
+        this.lessonNumber = lessonNumber;
+        this.lessonName = lessonName;
+        this.description = description;
+    }
+
     public Lesson() {
         super();
+    }
+
+    public int getLessonID() {
+        return lessonID;
+    }
+
+    public void setLessonID(int lessonID) {
+        this.lessonID = lessonID;
     }
 
     public int getCourseID() {

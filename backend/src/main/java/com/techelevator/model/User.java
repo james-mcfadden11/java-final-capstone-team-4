@@ -12,6 +12,7 @@ public class User {
    private String username;
    private String firstName;
    private String lastName;
+   private boolean isTeacher;
    private String fullName;
    @JsonIgnore
    private String password;
@@ -21,11 +22,12 @@ public class User {
 
    public User() { }
 
-   public User(Long id, String username, String firstName, String lastName, String password, String authorities) {
+   public User(Long id, String username, String firstName, String lastName, boolean isTeacher, String password, String authorities) {
       this.id = id;
       this.username = username;
       this.firstName = firstName;
       this.lastName = lastName;
+      this.isTeacher = isTeacher;
       this.fullName = firstName + " " + lastName;
       this.password = password;
       this.activated = true;
@@ -61,6 +63,14 @@ public class User {
 
    public void setLastName(String lastName) {
       this.lastName = lastName;
+   }
+
+   public boolean isTeacher() {
+      return this.isTeacher;
+   }
+
+   public void setTeacher(boolean teacher) {
+      this.isTeacher = teacher;
    }
 
    public String getFullName() {

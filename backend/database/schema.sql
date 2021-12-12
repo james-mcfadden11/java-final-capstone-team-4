@@ -11,6 +11,7 @@ CREATE TABLE users (
 	first_name varchar(50) NOT NULL,
 	last_name varchar(50) NOT NULL,
 	username varchar(50) NOT NULL,
+	is_teacher BOOLEAN NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
 	is_teacher boolean,
@@ -91,22 +92,22 @@ COMMIT TRANSACTION;
 -- ALL TABLES INSERTED INTO DATABASE GO ABOVE THIS LINE
 -- ALL DATA INSERTED INTO TABLES GOES BELOW THIS LINE
 -- Insert Teachers & Admins
-INSERT INTO users (username, first_name, last_name, password_hash, role) VALUES ('walt', 'Walt', 'Impellicceiri', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-INSERT INTO users (username, first_name, last_name, password_hash, role) VALUES ('toma', 'Tom', 'Anderson', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-INSERT INTO users (username, first_name, last_name, password_hash, role) VALUES ('tomm', 'Tom', 'Medvitz', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('walt', 'Walt', 'Impellicceiri', true, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_ADMIN');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('toma', 'Tom', 'Anderson', true, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_ADMIN');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('tomm', 'Tom', 'Medvitz', true, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_ADMIN');
 -- Insert Students
-INSERT INTO users (username, first_name, last_name, password_hash, role) VALUES ('wszabo', 'Will', 'Szabo', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('jmcfadden', 'James', 'McFadden', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('fgiarratani', 'Frank', 'Giarratani', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('nwetzel', 'Nathan', 'Wetzel', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('vmantena', 'Vineeth', 'Mantena', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('gross', 'Greg', 'Ross', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('dmay', 'Daniel', 'May', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('adeise', 'Alex', 'Deise', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('jsteele', 'Joshua', 'Steele', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('rjoseph', 'Reshmi', 'Joseph', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('ndelozier', 'Nick', 'DeLozier', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,first_name, last_name, password_hash, role) VALUES ('abafile', 'Alexandra', 'Bafile', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('wszabo', 'Will', 'Szabo', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('jmcfadden', 'James', 'McFadden', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('fgiarratani', 'Frank', 'Giarratani', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('nwetzel', 'Nathan', 'Wetzel', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('vmantena', 'Vineeth', 'Mantena', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('gross', 'Greg', 'Ross', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('dmay', 'Daniel', 'May', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('adeise', 'Alex', 'Deise', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('jsteele', 'Joshua', 'Steele', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('rjoseph', 'Reshmi', 'Joseph', false,  '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('ndelozier', 'Nick', 'DeLozier', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
+INSERT INTO users (username, first_name, last_name, is_teacher, password_hash, role) VALUES ('abafile', 'Alexandra', 'Bafile', false, '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_USER');
 
 
 -- Insert Courses

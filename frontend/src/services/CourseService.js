@@ -36,13 +36,11 @@ export default {
   },
 
   //Endpoint #7: Get Assignment Details for a Specific Assignment ID
-  //NOT YET IMPLEMENTED 
   getAssignmentDetails(courseID, assignmentID) {
     return axios.get(`/courses/${courseID}/assignments/${assignmentID}`);
   },
 
   //Endpoint #8: Get Lesson Details for a Specific Lesson ID
-  //NOT YET IMPLEMENTED 
   getLessonDetails(courseID, lessonID) {
     return axios.get(`/courses/${courseID}/lessons/${lessonID}`);
   },

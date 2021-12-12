@@ -20,6 +20,8 @@ public interface CourseDao {
 
     List<Lesson> getLessons(Integer courseID);
 
+    Lesson getLessonForLessonID(Integer lessonID);
+
     String getTeacher(Integer courseID);
 
     Course getCourseInfo(Integer courseID);
@@ -27,6 +29,8 @@ public interface CourseDao {
     Assignment createAssignment(Assignment newAssignment, Integer courseID);
 
     List<Assignment> getAssignments(Integer courseID);
+
+    Assignment getAssignmentForAssignmentID(Integer assignmentID);
 
     void registerStudent(String username, int courseID);
 

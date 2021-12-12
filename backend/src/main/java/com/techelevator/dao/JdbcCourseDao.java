@@ -169,7 +169,7 @@ public class JdbcCourseDao implements CourseDao {
     @Override
     public List<Lesson> getLessons(Integer courseID) {
         List<Lesson> lessons = new ArrayList<>();
-        String sql = "SELECT lesson_number, lesson_name, description FROM lessons WHERE course_id = ?";
+        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE course_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
 
         while (results.next()) {
@@ -178,6 +178,31 @@ public class JdbcCourseDao implements CourseDao {
         }
 
         return lessons;
+    }
+
+
+    @Override
+    public Lesson getLessonForLessonID(Integer lessonID) {
+        Lesson lesson = new Lesson();
+        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE lesson_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lessonID);
+
+        while (results.next()) {
+            lesson = mapRowToLesson(results);
+        }
+        return lesson;
+    }
+
+    @Override
+    public Assignment getAssignmentForAssignmentID(Integer assignmentID) {
+        Assignment assignment = new Assignment();
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, possible_points, due_date FROM assignments WHERE assignment_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, assignmentID);
+
+        while (results.next()) {
+            assignment = mapRowToAssignment(results);
+        }
+        return assignment;
     }
 
     @Override
@@ -222,7 +247,9 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     private Lesson mapRowToLesson(SqlRowSet rs) {
-        return new Lesson(rs.getInt("lesson_number"),
+        return new Lesson(
+                rs.getInt("lesson_id"),
+                rs.getInt("lesson_number"),
                 rs.getString("lesson_name"),
                 rs.getString("description"));
     }

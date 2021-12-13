@@ -70,7 +70,7 @@ public class CourseController {
     public Lesson getLessonForID(@PathVariable Integer lessonID) {
         return courseDao.getLessonForLessonID(lessonID);
     }
-    
+
     //Endpoint #9: Create Assignment for a Specific Course
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/{courseID}/assignments", method = RequestMethod.POST)
@@ -103,6 +103,26 @@ public class CourseController {
     public List<Course> getMyCoursesToTeach(Principal principal) {
         return courseDao.getMyCoursesToTeach(principal.getName());
     }
+
+    //Endpoint #14: Return List of Upcoming Assignments for Logged In Student
+    //@RequestMapping(value = "/myUpcomingAssignments", method = RequestMethod.GET)
+    //    return axios.get(`courses/myUpcomingAssignments`)
+
+
+    //Endpoint #15: Return List of Upcoming Lessons for Logged In Student
+    //@RequestMapping(value = "/myUpcomingLessons", method = RequestMethod.GET)
+    //    return axios.get(`courses/myUpcomingLessons`)
+
+
+    //Endpoint #16: Return List of Graded Assignments for Logged In Student
+    //@RequestMapping(value = "/myGradedAssignments", method = RequestMethod.GET)
+    //    return axios.get(`courses/myGradedAssignments`)
+    @RequestMapping(value = "/myGradedAssignments", method = RequestMethod.GET)
+    public List<Assignment> getMyGradedAssignments(Principal principal) {
+        return courseDao.getMyGradedAssignments(principal.getName());
+    }
+
+
 
 
     // Leaving this here because it might be a good model for authorization? Get a Specific Course by ID (Dummy)

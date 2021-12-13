@@ -6,7 +6,7 @@
 
     <h3>My courses:</h3>
     <div v-for="course in coursesEnrolledIn" v-bind:key="course.courseNumber"></div>
-      <div class="course-title">
+      <div>
           <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
             {{course.title}} 
             <br>
@@ -14,26 +14,6 @@
       </div>
 
     <br>
-
-    <!-- <h3 v-for="assignment in upcomingAssignments" v-bind:key="assignment.assignmentID">My Upcoming Assignments:</h3>
-      <div class="course-title">
-          <router-link v-bind:to="{ name: 'assignment', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID } }">
-            {{assignment.assignmentName}} 
-            <br>
-          </router-link>
-      </div>
-
-    <br>
-
-    <h3 v-for="lesson in upcomingLessons" v-bind:key="lesson.lessonID">Upcoming Lessons:</h3>
-      <div class="course-title">
-          <router-link v-bind:to="{ name: 'lesson', params: { courseID: lesson.courseID, lessonID : lesson.lessonID } }">
-            {{lesson.lessonName}} 
-            <br>
-          </router-link>
-      </div>
-
-    <br> -->
 
     <h3>Placeholder for progress bar</h3>
 
@@ -51,17 +31,13 @@ export default {
     data() {
       return {
         coursesEnrolledIn: [],
-        upcomingAssignments: [],
-        upcomingLessons: [],
         gradedAssignments: []
       }
     },
 
     created() {
       this.getMyEnrolledCourses();
-      // this.getMyUpcomingAssignments();
-      // this.getMyUpcomingLessons();
-      // this.getMyGradedAssignments();
+      this.getMyGradedAssignments();
     },
 
     methods: {
@@ -70,40 +46,6 @@ export default {
           .getMyEnrolledCourses()
           .then(response => {
             this.coursesEnrolledIn = response.data;
-          })
-          .catch(error => {
-            if (error.response) {
-              this.errorMsg = `Error retrieving. Response received was ' ${error.response.statusText}'.`;                "'.";
-            } else if (error.request) {
-              this.errorMsg = "Error retrieving. Server could not be reached.";
-            } else {
-              this.errorMsg = "Error retreiving. Request could not be created.";
-            }
-          });
-      },
-
-      getMyUpcomingAssignments() {
-        courseService
-          .getMyUpcomingAssignments()
-          .then(response => {
-            this.upcomingAssignments = response.data;
-          })
-          .catch(error => {
-            if (error.response) {
-              this.errorMsg = `Error retrieving. Response received was ' ${error.response.statusText}'.`;                "'.";
-            } else if (error.request) {
-              this.errorMsg = "Error retrieving. Server could not be reached.";
-            } else {
-              this.errorMsg = "Error retreiving. Request could not be created.";
-            }
-          });
-      },
-
-      getMyUpcomingLessons() {
-        courseService
-          .getMyUpcomingLessons()
-          .then(response => {
-            this.upcomingLessons = response.data;
           })
           .catch(error => {
             if (error.response) {

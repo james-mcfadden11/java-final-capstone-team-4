@@ -38,4 +38,6 @@ public interface CourseDao {
 
     List<Course> getMyCoursesToTeach(String username);
 
+    List<Assignment> getMyGradedAssignments(String username);
+
 }

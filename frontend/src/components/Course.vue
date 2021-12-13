@@ -2,30 +2,24 @@
   <div>
     <br>
     <div class="card-details" v-for="course in courses" v-bind:key="course.courseID">
-        <div class="course-title">
-          Course title:
-          <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
-            {{course.title}}
-            <br>
-          </router-link>
-        </div>
-          Course ID: {{course.courseID}}
-          <br>
-          Course Description: {{course.description}}
-          <br>
-          Difficulty Level: {{course.difficultyLevel}}
-          <br>
-          Cost: ${{course.cost}}
+      <h3 class="course-title">{{course.title}}</h3>
+      Course ID: {{course.courseID}}
+      <br>
+      Course Description: {{course.description}}
+      <br>
+      Difficulty Level: {{course.difficultyLevel}}
+      <br>
+      Cost: ${{course.cost}}
+      <br>
+      <br>
+      
+      <!-- would be nice to gray this out if student is already registered for that particular course -->
+      <button v-on:click="registerStudentForCourse(course.courseID)" v-show="!isTeacher">
+        Register
+      </button>
 
-          <br>
-
-          <!-- would be nice to gray this out if student is already registered for that particular course -->
-          <button v-on:click="registerStudentForCourse(course.courseID)" v-show="!isTeacher">
-            Register
-          </button>
-
-          <br>
-          <br>
+      <br>
+      <br>
 
     </div>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    Assignment details/submission/teacher feedback will go here.
     <br>
     <h2>{{assignment.name}}</h2>
     <br>
@@ -9,18 +8,16 @@
     <h4>Due date: {{assignment.dueDate}}</h4>
     <br>
 
-    <!-- need assignment.studentScore here -->
-    <h4>Grade:  out of {{assignment.possiblePoints}}</h4>
+    <h4>Grade: {{assignment.studentScore}} </h4>
+    <h4>Possible points: {{assignment.possiblePoints}}</h4>
     <br>
     <h5>Description: {{assignment.description}}</h5>
     <br>
 
-    <!-- need to have v-show="assignment.isSubmitted" in h4 tag -->
-    <h4>Submission: {{assignment.submission}}</h4>
+    <h4 v-show="assignment.isSubmitted">Submission: {{assignment.submission}}</h4>
 
-    <!-- needs to have v-if="!assignment.isSubmitted" in form element -->
     <!-- need assignment.submission property -->
-    <form v-on:submit.prevent="submitAssignment" v-show="!isTeacher">
+    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="submitAssignment" v-show="!isTeacher">
       <h3>Submission:</h3>
       <input type="text" v-model="assignment.submission" />
       <br>

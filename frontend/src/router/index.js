@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import VueYoutube from 'vue-youtube'
+import VueGoogleApi from 'vue-google-api'
 import Router from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
@@ -10,6 +12,21 @@ import CourseList from '../views/CourseList.vue'
 import CourseDetailsView from '../views/CourseDetailsView.vue'
 import AssignmentView from '../views/AssignmentView.vue'
 import LessonView from '../views/LessonView.vue'
+
+// FOR YOUTUBE API **************
+Vue.use(VueYoutube)
+Vue.config.productionTip = false
+// FOR YOUTUBE API **************
+
+// FOR GOOGLE API ***************
+const config = {
+  apiKey: 'AIzaSyBVwOFcU9w6wqDp6AjQffvXq8WaIAKk4M0',
+  clientId: 'your_client_id.apps.googleusercontent.com',
+  scope: 'space_separated_scopes',
+  discoveryDocs: []
+}
+Vue.use(VueGoogleApi, config)
+// FOR GOOGLE API ***************
 
 Vue.use(Router)
 

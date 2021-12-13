@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.Assignment;
 import com.techelevator.model.Course;
 import com.techelevator.model.Lesson;
+import org.apache.tomcat.jni.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -263,7 +264,11 @@ public class JdbcCourseDao implements CourseDao {
     @Override
     public List<Assignment> getAssignments(Integer courseID) {
         List<Assignment> assignments = new ArrayList<>();
-        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, possible_points, due_date FROM assignments WHERE course_id = ?";
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
+                "assignments.possible_points, due_date, student_grade, submission, teacher_feedback, is_graded, " +
+                "is_submitted, submission_date_time FROM assignments " +
+                "LEFT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
+                "WHERE course_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
 
         while (results.next()) {
@@ -296,12 +301,19 @@ public class JdbcCourseDao implements CourseDao {
 
     private Assignment mapRowToAssignment(SqlRowSet rs) {
         Assignment assignment = new Assignment();
+
+        // from Assignments table
         assignment.setCourseID(rs.getInt("course_id"));
         assignment.setAssignmentID(rs.getInt("assignment_id"));
         assignment.setAssignmentNumber(rs.getInt("assignment_number"));
         assignment.setAssignmentName(rs.getString("assignment_name"));
         assignment.setDescription(rs.getString("description"));
         assignment.setPossiblePoints(rs.getInt("possible_points"));
+        if(rs.getDate("due_date") != null) {
+            assignment.setDueDate(rs.getDate("due_date").toLocalDate());
+        }
+
+        // from student_assignments table
         assignment.setStudentGrade(rs.getDouble("student_grade"));
         assignment.setSubmission(rs.getString("submission"));
         assignment.setTeacherFeedback(rs.getString("teacher_feedback"));
@@ -310,12 +322,11 @@ public class JdbcCourseDao implements CourseDao {
         if(rs.getDate("submission_date_time") != null) {
             assignment.setSubmittedDateTime(rs.getDate("submission_date_time").toLocalDate());
         } else {
-            assignment.setSubmittedDateTime(rs.getDate("0000-00-00").toLocalDate());
+            assignment.setSubmittedDateTime(null);
         }
 
-        if(rs.getDate("due_date") != null) {
-            assignment.setDueDate(rs.getDate("due_date").toLocalDate());
-        }
         return assignment;
+
+
     }
 }

@@ -1,28 +1,33 @@
 <template>
     <div>
-        <lesson-details></lesson-details>
+        <lesson-details v-bind:isTeacher="this.$store.state.isTeacher"></lesson-details>
         <br>
-        <vue-youtube></vue-youtube>
-        <br>
-        <vue-google-api></vue-google-api>
         
     </div>
 </template>
 
 <script>
 import LessonDetails from '../components/LessonDetails.vue';
-import VueGoogleApi from '../components/VueGoogleApi.vue';
-import VueYoutube from '../components/VueYoutube.vue';
 
 export default {
     components: {
-        LessonDetails,
-        VueYoutube,
-        VueGoogleApi
+        LessonDetails
     }
 }
 </script>
 
 <style>
+input {
+background-color: rgb(68, 68, 68);
+color: white;
+border-radius: 3px;
+border-width: 1px;
+border-color: rgb(221, 221, 197);
+height: 23px;
+}
+
+::placeholder {
+color: rgb(161, 161, 157);
+}
 
 </style>

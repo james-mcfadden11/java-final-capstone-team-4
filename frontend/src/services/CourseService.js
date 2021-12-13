@@ -66,9 +66,11 @@ export default {
   getMyEnrolledCourses() {
     return axios.get(`courses/myEnrolledCourses`)
   },
+
   //Endpoint #13: Return List of a Logged In Teacher's Courses
   //@RequestMapping(value = "/myCoursesToTeach", method = RequestMethod.GET)
   getMyCoursesToTeach() {
     return axios.get(`courses/myCoursesToTeach`)
   }
+  
 }

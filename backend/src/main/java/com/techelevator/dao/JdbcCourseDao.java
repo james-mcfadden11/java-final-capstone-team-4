@@ -349,13 +349,5 @@ public class JdbcCourseDao implements CourseDao {
         return assignments;
     }
 
-
 }
 
-
-
-
-
-
-    }
-}

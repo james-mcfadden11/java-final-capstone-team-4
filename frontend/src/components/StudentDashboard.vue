@@ -5,13 +5,15 @@
     <br>
 
     <h3>My courses:</h3>
-    <div v-for="course in coursesEnrolledIn" v-bind:key="course.courseNumber"></div>
+    <div v-for="course in coursesEnrolledIn" v-bind:key="course.courseNumber">
       <div>
           <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
             {{course.title}} 
-            <br>
           </router-link>
+          <br>
+          <br>
       </div>
+    </div>
 
     <br>
 

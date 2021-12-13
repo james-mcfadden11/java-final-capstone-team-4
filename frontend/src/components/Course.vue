@@ -5,7 +5,7 @@
         <div class="course-title">
           Course title:
           <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
-            {{course.title}} 
+            {{course.title}}
             <br>
           </router-link>
         </div>

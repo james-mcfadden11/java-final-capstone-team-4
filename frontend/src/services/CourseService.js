@@ -70,5 +70,13 @@ export default {
   //@RequestMapping(value = "/myCoursesToTeach", method = RequestMethod.GET)
   getMyCoursesToTeach() {
     return axios.get(`courses/myCoursesToTeach`)
+  },
+
+  // [removed endpoints 14 & 15]
+  
+  //Endpoint #16: Return List of Graded Assignments for Logged In Student
+  //@RequestMapping(value = "/myGradedAssignments", method = RequestMethod.GET)
+  getMyGradedAssignments() {
+    return axios.get(`courses/myGradedAssignments`)
   }
 }

@@ -32,12 +32,22 @@ public interface CourseDao {
 
     Assignment getAssignmentForAssignmentID(Integer assignmentID);
 
-    void registerStudent(String username, int courseID);
+    void registerStudentInCourse(String username, int courseID);
 
     List<Course> getMyEnrolledCourses(String username);
 
     List<Course> getMyCoursesToTeach(String username);
 
     List<Assignment> getMyGradedAssignments(String username);
+
+    Lesson getFullLessonForLessonID(String username, Integer lessonID);
+
+    int getTeacherID(String username);
+
+    int getStudentID(String username);
+
+    boolean checkIfStudentIsRegistered(int courseID, int studentID);
+
+    boolean checkIfTeacherIsCourseTeacher(int courseID, int teacherID);
 
 }

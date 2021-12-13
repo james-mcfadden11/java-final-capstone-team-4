@@ -70,5 +70,5 @@ export default {
   //@RequestMapping(value = "/myCoursesToTeach", method = RequestMethod.GET)
   getMyCoursesToTeach() {
     return axios.get(`courses/myCoursesToTeach`)
-  }
+  },
 }

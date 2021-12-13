@@ -76,10 +76,13 @@ CREATE TABLE lessons (
 CREATE TABLE student_assignments (
         student_id INTEGER,
         homework_id INTEGER,
-        grade NUMERIC,
-        possible_points INTEGER,
+        student_grade NUMERIC,
+        possible_points INT,
         submission TEXT,
-        submission_time TIMESTAMP,
+        teacher_feedback TEXT,
+        submission_date_time TIMESTAMP,
+        is_submitted boolean,
+        is_graded boolean,
         CONSTRAINT pk_student_assignments PRIMARY KEY (student_id, homework_id),
         CONSTRAINT fk_students FOREIGN KEY (student_id) REFERENCES students (student_id),
         CONSTRAINT fk_assignments FOREIGN KEY (homework_id) REFERENCES assignments (assignment_id)
@@ -210,9 +213,9 @@ INSERT INTO student_courses (student_id, course_id) VALUES (12, 3);
 
 
 --Insert student assignments
-INSERT INTO student_assignments (student_id, homework_id, grade, possible_points, submission, submission_time) VALUES (1, 1, 5, 10, 'Everyone likes "the nose"', CURRENT_TIMESTAMP);
-INSERT INTO student_assignments (student_id, homework_id, grade, possible_points, submission, submission_time) VALUES (1, 2, 9, 10, 'His dad was Dracul', CURRENT_TIMESTAMP);
-INSERT INTO student_assignments (student_id, homework_id, grade, possible_points, submission, submission_time) VALUES (2, 1, 7, 10, 'better than "Gravitys Rainbow"', CURRENT_TIMESTAMP);
-INSERT INTO student_assignments (student_id, homework_id, grade, possible_points, submission, submission_time) VALUES (2, 2, 10, 10, 'His dad fought the Turks', CURRENT_TIMESTAMP);
-INSERT INTO student_assignments (student_id, homework_id, grade, possible_points, submission, submission_time) VALUES (3, 4, 80, 100, 'are reference types', CURRENT_TIMESTAMP);
-INSERT INTO student_assignments (student_id, homework_id, grade, possible_points, submission, submission_time) VALUES (4, 5, 25, 25, 'it was useful for hiding', CURRENT_TIMESTAMP);
+INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded) VALUES (1, 1, 5, 10, 'Everyone likes "the nose"', 'do better', CURRENT_TIMESTAMP, true, true);
+INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded) VALUES (1, 2, 9, 10, 'His dad was Dracul', 'do better', CURRENT_TIMESTAMP, true, true);
+INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded) VALUES (2, 1, 7, 10, 'better than "Gravitys Rainbow"', 'do better', CURRENT_TIMESTAMP, true, true);
+INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded)VALUES (2, 2, 10, 10, 'His dad fought the Turks', 'do better', CURRENT_TIMESTAMP, true, true);
+INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded)VALUES (3, 4, 80, 100, 'are reference types', 'do better', CURRENT_TIMESTAMP, true, true);
+INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded)VALUES (4, 5, 25, 25, 'it was useful for hiding', 'do better', CURRENT_TIMESTAMP, true, true);

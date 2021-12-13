@@ -109,12 +109,26 @@ public class JdbcCourseDao implements CourseDao {
 
     }
 
+
+
     public void registerStudent(String username, int courseID) {
         int studentID = getStudentID(username);
 
         String sql = "INSERT INTO student_courses (student_id, course_id) VALUES (?, ?);";
-
         jdbcTemplate.update(sql, studentID, courseID);
+
+        String sql4 = "SELECT assignment_id, possible_points FROM assignments WHERE course_id = ?;";
+
+        SqlRowSet assignments = jdbcTemplate.queryForRowSet(sql4, courseID);
+        while (assignments.next()) {
+            int assignmentID = assignments.getInt("assignment_id");
+            int possiblePoints = assignments.getInt("possible_points");
+            String sql2 = "INSERT INTO student_assignments (student_id, homework_id, possible_points, is_submitted, is_graded) VALUES(?, ?, ?, false, false);";
+
+
+            jdbcTemplate.update(sql2, studentID, assignmentID, possiblePoints);
+        }
+
 
 
     }

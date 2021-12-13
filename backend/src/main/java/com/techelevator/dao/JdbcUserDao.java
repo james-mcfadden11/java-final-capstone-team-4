@@ -28,6 +28,11 @@ public class JdbcUserDao implements UserDao {
         return jdbcTemplate.queryForObject("select user_id from users where username = ?", int.class, username);
     }
 
+    @Override
+    public boolean findIfUsernameIsTeacher(String username) {
+        return jdbcTemplate.queryForObject("select is_teacher from users where username = ?", boolean.class, username);
+    }
+
 	@Override
 	public User getUserById(Long userId) {
 		String sql = "SELECT * FROM users WHERE user_id = ?";

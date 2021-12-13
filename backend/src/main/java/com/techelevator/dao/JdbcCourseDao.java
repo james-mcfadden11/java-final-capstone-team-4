@@ -308,10 +308,15 @@ public class JdbcCourseDao implements CourseDao {
     //#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$#%#$%#
     //FRANK'S NEW CODE FROM December 12th Starts Here. Please no merge conflicts please no merge conflicts.
     @Override
-    public List<Assignment> getMyGradedAssignments(Integer courseID) {
+    public List<Assignment> getMyGradedAssignments(String username) {
+        int studentID = getStudentID(username);
         List<Assignment> assignments = new ArrayList<>();
-        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, possible_points, due_date, abunchofstuffromstudent_assignments FROM student_assignments JOIN assignments ON (assignment_id = homework_id) WHERE course_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
+                "assignments.possible_points, due_date, student_id, homework_id, student_grade, submission, " +
+                "teacher_feedback, submission_date_time, is_submitted, is_graded FROM student_assignments " +
+                "JOIN assignments ON (assignment_id = homework_id) WHERE student_id = ? " +
+                "AND is_graded = true";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, studentID);
 
         while (results.next()) {
             Assignment assignment = mapRowToAssignment(results);

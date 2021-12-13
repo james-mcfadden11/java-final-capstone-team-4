@@ -104,8 +104,6 @@ public class CourseController {
         return courseDao.getMyCoursesToTeach(principal.getName());
     }
 
-
-
     //Endpoint #14: Return List of Upcoming Assignments for Logged In Student
     //@RequestMapping(value = "/myUpcomingAssignments", method = RequestMethod.GET)
     //    return axios.get(`courses/myUpcomingAssignments`)
@@ -119,9 +117,9 @@ public class CourseController {
     //Endpoint #16: Return List of Graded Assignments for Logged In Student
     //@RequestMapping(value = "/myGradedAssignments", method = RequestMethod.GET)
     //    return axios.get(`courses/myGradedAssignments`)
-    @RequestMapping(value = "/{courseID}/myGradedAssignments", method = RequestMethod.GET)
-    public List<Assignment> getMyGradedAssignments(@PathVariable Integer courseID) {
-        return courseDao.getMyGradedAssignments(courseID);
+    @RequestMapping(value = "/myGradedAssignments", method = RequestMethod.GET)
+    public List<Assignment> getMyGradedAssignments(Principal principal) {
+        return courseDao.getMyGradedAssignments(principal.getName());
     }
 
 

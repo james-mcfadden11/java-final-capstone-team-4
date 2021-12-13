@@ -89,6 +89,12 @@ public class JdbcUserDao implements UserDao {
                 }
                 , keyHolder) == 1;
         int newUserId = (int) keyHolder.getKeys().get(id_column);
+        String sql2 = "INSERT INTO teachers (user_id, first_name, last_name) VALUES (?, ?, ?);";
+        if (!isTeacher) {
+            String sql = "INSERT INTO students (user_id, first_name, last_name) VALUES (?, ?, ?);";
+            jdbcTemplate.update(sql, newUserId, ssFirstName, ssLastName);
+        } else
+            jdbcTemplate.update(sql2, newUserId, ssFirstName, ssLastName);
 
         return userCreated;
     }

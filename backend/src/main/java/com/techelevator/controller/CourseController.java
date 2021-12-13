@@ -71,6 +71,12 @@ public class CourseController {
         return courseDao.getLessonForLessonID(lessonID);
     }
 
+    //Endpoint #8: Set Youtube video for a Specific Lesson ID
+    @RequestMapping(value = "/{courseID}/lessons/{lessonID}/full", method = RequestMethod.PUT)
+    public Lesson setVideoLessonForID(@PathVariable Integer lessonID, String youtubeUrl) {
+        return courseDao.getLessonForLessonID(lessonID);
+    }
+
     //Endpoint #9: Create Assignment for a Specific Course
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/{courseID}/assignments", method = RequestMethod.POST)

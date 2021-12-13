@@ -260,6 +260,14 @@ public class JdbcCourseDao implements CourseDao {
 
     }
 
+    public String parseVidID(String youtubeUrl) {
+        String equals = "=";
+
+        String vidID = youtubeUrl.substring(youtubeUrl.indexOf(equals)-1);
+
+        return vidID;
+    }
+
     @Override
     public List<Assignment> getAssignments(Integer courseID) {
         List<Assignment> assignments = new ArrayList<>();

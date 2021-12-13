@@ -32,7 +32,7 @@ public interface CourseDao {
 
     Assignment getAssignmentForAssignmentID(Integer assignmentID);
 
-    void registerStudent(String username, int courseID);
+    void registerStudentInCourse(String username, int courseID);
 
     List<Course> getMyEnrolledCourses(String username);
 

@@ -13,8 +13,11 @@
     "axios": "^0.21.4",
     "core-js": "^3.9.1",
     "vue": "^2.6.12",
+    "vue-google-api": "^0.2.0",
     "vue-router": "^3.5.1",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0",
+    "vue-youtube": "^1.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.11",
@@ -28,6 +31,7 @@
     "eslint": "^7.21.0",
     "eslint-plugin-vue": "^7.7.0",
     "sass-loader": "^12.4.0",
+    "vue-google-picker": "^1.0.0",
     "vue-loader-v16": "npm:vue-loader@16.1.2",
     "vue-template-compiler": "^2.6.12"
   }

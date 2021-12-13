@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+// adding imports to try and fix page refresh issue
+import createPersistedState from 'vuex-persistedstate';
+
 
 Vue.use(Vuex)
 
@@ -22,6 +25,9 @@ export default new Vuex.Store({
     user: currentUser || {},
     isTeacher: true
   },
+
+  // added this to fix the state data persistence on refresh issue
+  plugins: [createPersistedState()],
   
   mutations: {
     SET_AUTH_TOKEN(state, token) {

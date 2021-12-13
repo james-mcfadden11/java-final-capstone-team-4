@@ -1,12 +1,13 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.CourseDao;
+import com.techelevator.dao.UserDao;
 import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -17,9 +18,11 @@ import java.util.List;
 public class CourseController {
 
     private final CourseDao courseDao;
+    private final UserDao userDao;
 
-    public CourseController(CourseDao courseDao) {
+    public CourseController(CourseDao courseDao, UserDao userDao) {
         this.courseDao = courseDao;
+        this.userDao = userDao;
     }
 
     // Endpoint #1: Get All Courses
@@ -94,8 +97,8 @@ public class CourseController {
     //Endpoint #11: Register Student for Specific Course
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/{courseID}/register", method = RequestMethod.POST)
-    public void registerStudent(Principal principal, @PathVariable Integer courseID) {
-        courseDao.registerStudent(principal.getName(), courseID);
+    public void registerStudentInCourse(Principal principal, @PathVariable Integer courseID) {
+        courseDao.registerStudentInCourse(principal.getName(), courseID);
     }
 
     //Endpoint #12: Return List of Enrolled Courses for Logged In Student
@@ -128,8 +131,27 @@ public class CourseController {
         return courseDao.getMyGradedAssignments(principal.getName());
     }
 
+    //Endpoint #17: Return Full Lesson (With Content) for Lesson ID for Logged In Enrolled Student
+    @RequestMapping(value = "/{courseID}/lessons/{lessonID}/full", method = RequestMethod.GET)
+    public Lesson getLessonForID(Principal principal, @PathVariable Integer courseID, @PathVariable Integer lessonID) {
+        System.out.println("I am in endpoint 17");
+        CourseAuthorization courseAuth = new CourseAuthorization(principal, courseID, userDao, courseDao);
+        if (courseAuth.isAllowedToView()) {
+            System.out.println("Returning for " + principal.getName() + " Lesson: " + lessonID);
+            return courseDao.getFullLessonForLessonID(principal.getName(), lessonID);
+        } else {
+            System.out.println("Access Denied, handle it somehow");
+        }
+        //look up course ID by lessonID
+        //validateAuthorizationToViewCourseLessons(principal, courseID);
+        Lesson dummy = new Lesson();
+        System.out.println("returning dummy");
+        return dummy;
+
+    }
 
 
+    /*
 
     // Leaving this here because it might be a good model for authorization? Get a Specific Course by ID (Dummy)
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
@@ -141,11 +163,21 @@ public class CourseController {
 
     //Not currently using, but probably should be?
     private void validateAuthorizationToView(Principal principal, Course course) {
-        CourseAuthorization auth = new CourseAuthorization(principal, course);
+        CourseAuthorization auth = new CourseAuthorization(principal, course, userDao, courseDao);
         if(!auth.isAllowedToView()) {
             throw new AuthorizationException();
         }
     }
+
+
+    //Not currently using, but probably should be?
+    private void validateAuthorizationToViewCourseLessons(Principal principal, Course course) {
+        CourseAuthorization auth = new CourseAuthorization(principal, course, userDao, courseDao);
+        if(!auth.isAllowedToView()) {
+            throw new AuthorizationException();
+        }
+    }
+    */
 
 
 }

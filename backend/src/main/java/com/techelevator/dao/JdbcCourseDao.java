@@ -2,11 +2,14 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Assignment;
 import com.techelevator.model.Course;
+import com.techelevator.model.CourseAuthorization;
 import com.techelevator.model.Lesson;
+import org.apache.tomcat.jni.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,9 @@ public class JdbcCourseDao implements CourseDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
+    /*------ Course Methods ------*/
+
     @Override
     public List<Course> getAllCourses() {
         List<Course> courses = new ArrayList<Course>();
@@ -31,18 +37,22 @@ public class JdbcCourseDao implements CourseDao {
         return courses;
     }
 
-    private Course mapRowToCourse (SqlRowSet rs) {
-        return new Course(rs.getString("course_name"),
-                rs.getString("course_description"),
-                rs.getInt("difficulty_level"),
-                rs.getDouble("course_cost"),
-                rs.getInt("course_id"));
-    }
-
     @Override
     public Course getCourseById(int courseID) {
         Course testCourse = new Course("Java 101", courseID);
         return testCourse;
+    }
+
+    @Override
+    public Course getCourseInfo(Integer courseID) {
+        Course course = new Course();
+        String sql = "SELECT course_id, course_name, course_description, difficulty_level, course_cost FROM courses WHERE course_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+
+        while(results.next()) {
+            course = mapRowToCourse(results);
+        }
+        return course;
     }
 
     @Override
@@ -86,7 +96,7 @@ public class JdbcCourseDao implements CourseDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql3);
         int courseID = 0;
         if (results.next()) {
-         courseID = results.getInt("max");
+            courseID = results.getInt("max");
 
         }
         int teacherID = getTeacherID(username);
@@ -96,22 +106,7 @@ public class JdbcCourseDao implements CourseDao {
         return newCourse;
     }
 
-    public int getTeacherID(String username) {
-        String sql = "SELECT teacher_id FROM teachers JOIN users USING( user_id) WHERE username = ?;";
-        int teacherID = 0;
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
-        if (results.next()) {
-            teacherID = results.getInt("teacher_id");
-
-        }
-
-        return teacherID;
-
-    }
-
-
-
-    public void registerStudent(String username, int courseID) {
+    public void registerStudentInCourse(String username, int courseID) {
         int studentID = getStudentID(username);
 
         String sql = "INSERT INTO student_courses (student_id, course_id) VALUES (?, ?);";
@@ -133,22 +128,15 @@ public class JdbcCourseDao implements CourseDao {
 
     }
 
-    public int getStudentID(String username) {
-        String sql = "SELECT student_id FROM students JOIN users USING( user_id) WHERE username = ?;";
-        int studentID = 0;
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
-        if (results.next()) {
-            studentID = results.getInt("student_id");
-        }
-        return studentID;
-
-    }
-
     public void createTeacherCourse(int teacherID, int courseID) {
         String sql2 = "INSERT INTO teacher_courses (teacher_id, course_id)" +
                 " VALUES(?, ?);";
         jdbcTemplate.update(sql2, teacherID, courseID);
     }
+
+
+
+    /*------ Lesson Methods ------*/
 
     @Override
     public Lesson createLesson(Lesson newLesson, Integer courseID) {
@@ -165,9 +153,56 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
+    public List<Lesson> getLessons(Integer courseID) {
+        List<Lesson> lessons = new ArrayList<>();
+        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE course_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+
+        while (results.next()) {
+            Lesson lesson = mapRowToLesson(results);
+            lessons.add(lesson);
+        }
+
+        return lessons;
+    }
+
+    @Override
+    public Lesson getLessonForLessonID(Integer lessonID) {
+        Lesson lesson = new Lesson();
+        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE lesson_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lessonID);
+
+        while (results.next()) {
+            lesson = mapRowToLessonLite(results);
+        }
+        return lesson;
+    }
+
+    @Override
+    public Lesson getFullLessonForLessonID(String username, Integer lessonID) {
+        System.out.println("I'm in getFullLessonForLessonID");
+        System.out.println("Username: " + username);
+        System.out.println("LessonID: " + lessonID);
+        Lesson lesson = new Lesson();
+        String sql = "SELECT lesson_number, lesson_id, lesson_name, description, " +
+                "youtube_url, youtube_text, lesson_url1, lesson_url2 " +
+                "FROM lessons WHERE lesson_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lessonID);
+
+        if (results.next()) {
+            lesson = mapRowToLesson(results);
+        }
+        return lesson;
+    }
+
+
+
+    /*------ Assignment Methods ------*/
+
+    @Override
     public Assignment createAssignment(Assignment newAssignment, Integer courseID) {
-        String sql = "INSERT INTO assignments (course_id, assignment_number, assignment_name, description, possible_points, due_date) " +
-                "VALUES (?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO assignments (course_id, assignment_number, assignment_name, description, " +
+                "possible_points, due_date) VALUES (?, ?, ?, ?, ?, ?);";
 
         int assignmentNumber = newAssignment.getAssignmentNumber();
         String assignmentName = newAssignment.getAssignmentName();
@@ -207,33 +242,6 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
-    public List<Lesson> getLessons(Integer courseID) {
-        List<Lesson> lessons = new ArrayList<>();
-        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE course_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
-
-        while (results.next()) {
-            Lesson lesson = mapRowToLesson(results);
-            lessons.add(lesson);
-        }
-
-        return lessons;
-    }
-
-
-    @Override
-    public Lesson getLessonForLessonID(Integer lessonID) {
-        Lesson lesson = new Lesson();
-        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE lesson_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lessonID);
-
-        while (results.next()) {
-            lesson = mapRowToLesson(results);
-        }
-        return lesson;
-    }
-
-        @Override
     public Assignment getAssignmentForAssignmentID(Integer assignmentID) {
         Assignment assignment = new Assignment();
         String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, assignments.possible_points, due_date, submission, student_grade, submission_date_time, is_submitted, is_graded, teacher_feedback FROM assignments Join student_assignments on assignment_id = homework_id WHERE assignment_id = ?;";
@@ -243,6 +251,73 @@ public class JdbcCourseDao implements CourseDao {
             assignment = mapRowToAssignment(results);
         }
         return assignment;
+    }
+
+    @Override
+    public List<Assignment> getAssignments(Integer courseID) {
+
+        List<Assignment> assignments = new ArrayList<>();
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
+                "assignments.possible_points, due_date, student_grade, submission, teacher_feedback, is_graded, " +
+                "is_submitted, submission_date_time FROM assignments " +
+                "LEFT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
+                "WHERE course_id = ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+
+        while (results.next()) {
+            Assignment assignment = mapRowToAssignment(results);
+            assignments.add(assignment);
+        }
+
+        return assignments;
+    }
+
+    @Override
+    public List<Assignment> getMyGradedAssignments(String username) {
+        int studentID = getStudentID(username);
+        List<Assignment> assignments = new ArrayList<>();
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
+                "assignments.possible_points, due_date, student_id, homework_id, student_grade, submission, " +
+                "teacher_feedback, submission_date_time, is_submitted, is_graded FROM student_assignments " +
+                "JOIN assignments ON (assignment_id = homework_id) WHERE student_id = ? " +
+                "AND is_graded = true";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, studentID);
+
+        while (results.next()) {
+            Assignment assignment = mapRowToAssignment(results);
+            assignments.add(assignment);
+        }
+
+        return assignments;
+    }
+
+
+
+    /*------ Helper Methods ------*/
+    @Override
+    public int getStudentID(String username) {
+        String sql = "SELECT student_id FROM students JOIN users USING( user_id) WHERE username = ?;";
+        int studentID = 0;
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+        if (results.next()) {
+            studentID = results.getInt("student_id");
+        }
+        return studentID;
+    }
+
+    @Override
+    public int getTeacherID(String username) {
+        String sql = "SELECT teacher_id FROM teachers JOIN users USING( user_id) WHERE username = ?;";
+        int teacherID = 0;
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+        if (results.next()) {
+            teacherID = results.getInt("teacher_id");
+
+        }
+
+        return teacherID;
+
     }
 
     @Override
@@ -269,32 +344,51 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
-    public List<Assignment> getAssignments(Integer courseID) {
-        List<Assignment> assignments = new ArrayList<>();
-        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, possible_points, due_date FROM assignments WHERE course_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
-
-        while (results.next()) {
-            Assignment assignment = mapRowToAssignment(results);
-            assignments.add(assignment);
-        }
-
-        return assignments;
+    public boolean checkIfStudentIsRegistered(int courseID, int studentID) {
+        int count = jdbcTemplate.queryForObject("SELECT COUNT(student_id) FROM student_courses " +
+                "WHERE student_id=? AND course_id=?;", int.class, studentID, courseID);
+        System.out.println("COUNT: " + count);
+        if (count == 1)
+            return true;
+        else
+            return false;
     }
 
     @Override
-    public Course getCourseInfo(Integer courseID) {
-        Course course = new Course();
-        String sql = "SELECT course_id, course_name, course_description, difficulty_level, course_cost FROM courses WHERE course_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
-
-        while(results.next()) {
-            course = mapRowToCourse(results);
-        }
-        return course;
+    public boolean checkIfTeacherIsCourseTeacher(int courseID, int teacherID) {
+        int count = jdbcTemplate.queryForObject("SELECT COUNT(teacher_id) FROM teacher_courses " +
+                "WHERE teacher_id=? AND course_id=?;", int.class, teacherID, courseID);
+        System.out.println("COUNT: " + count);
+        if (count == 1)
+            return true;
+        else
+            return false;
     }
 
+
+
+
+    /*------ Database Row Set Methods ------*/
+
+
+    //        String sql = "SELECT lesson_number, lesson_id, lesson_name, description, " +
+    //                "youtube_url, youtube_text, lesson_url1, lesson_url2 " +
+    //                "FROM lessons WHERE lesson_id = ?";
+
+
     private Lesson mapRowToLesson(SqlRowSet rs) {
+        return new Lesson(
+                rs.getInt("lesson_number"),
+                rs.getInt("lesson_id"),
+                rs.getString("lesson_name"),
+                rs.getString("description"),
+                rs.getString("youtube_url"),
+                rs.getString("youtube_text"),
+                rs.getString("lesson_url1"),
+                rs.getString("lesson_url2"));
+    }
+
+    private Lesson mapRowToLessonLite(SqlRowSet rs) {
         return new Lesson(
                 rs.getInt("lesson_id"),
                 rs.getInt("lesson_number"),
@@ -304,12 +398,19 @@ public class JdbcCourseDao implements CourseDao {
 
     private Assignment mapRowToAssignment(SqlRowSet rs) {
         Assignment assignment = new Assignment();
+
+        // from Assignments table
         assignment.setCourseID(rs.getInt("course_id"));
         assignment.setAssignmentID(rs.getInt("assignment_id"));
         assignment.setAssignmentNumber(rs.getInt("assignment_number"));
         assignment.setAssignmentName(rs.getString("assignment_name"));
         assignment.setDescription(rs.getString("description"));
         assignment.setPossiblePoints(rs.getInt("possible_points"));
+        if(rs.getDate("due_date") != null) {
+            assignment.setDueDate(rs.getDate("due_date").toLocalDate());
+        }
+
+        // from student_assignments table
         assignment.setStudentGrade(rs.getDouble("student_grade"));
         assignment.setSubmission(rs.getString("submission"));
         assignment.setTeacherFeedback(rs.getString("teacher_feedback"));
@@ -318,41 +419,19 @@ public class JdbcCourseDao implements CourseDao {
         if(rs.getDate("submission_date_time") != null) {
             assignment.setSubmittedDateTime(rs.getDate("submission_date_time").toLocalDate());
         } else {
-            assignment.setSubmittedDateTime(rs.getDate("0000-00-00").toLocalDate());
+            assignment.setSubmittedDateTime(null);
         }
 
-        if(rs.getDate("due_date") != null) {
-            assignment.setDueDate(rs.getDate("due_date").toLocalDate());
-        }
         return assignment;
     }
 
-    //#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$%#$#%#$%#
-    //FRANK'S NEW CODE FROM December 12th Starts Here. Please no merge conflicts please no merge conflicts.
-    @Override
-    public List<Assignment> getMyGradedAssignments(String username) {
-        int studentID = getStudentID(username);
-        List<Assignment> assignments = new ArrayList<>();
-        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
-                "assignments.possible_points, due_date, student_id, homework_id, student_grade, submission, " +
-                "teacher_feedback, submission_date_time, is_submitted, is_graded FROM student_assignments " +
-                "JOIN assignments ON (assignment_id = homework_id) WHERE student_id = ? " +
-                "AND is_graded = true";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, studentID);
-
-        while (results.next()) {
-            Assignment assignment = mapRowToAssignment(results);
-            assignments.add(assignment);
-        }
-
-        return assignments;
+    private Course mapRowToCourse (SqlRowSet rs) {
+        return new Course(rs.getString("course_name"),
+                rs.getString("course_description"),
+                rs.getInt("difficulty_level"),
+                rs.getDouble("course_cost"),
+                rs.getInt("course_id"));
     }
 
-
 }
-
-
-
-
-
 

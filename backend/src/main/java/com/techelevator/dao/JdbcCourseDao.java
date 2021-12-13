@@ -4,6 +4,7 @@ import com.techelevator.model.Assignment;
 import com.techelevator.model.Course;
 import com.techelevator.model.CourseAuthorization;
 import com.techelevator.model.Lesson;
+import org.apache.tomcat.jni.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -95,7 +96,7 @@ public class JdbcCourseDao implements CourseDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql3);
         int courseID = 0;
         if (results.next()) {
-         courseID = results.getInt("max");
+            courseID = results.getInt("max");
 
         }
         int teacherID = getTeacherID(username);
@@ -424,11 +425,5 @@ public class JdbcCourseDao implements CourseDao {
                 rs.getInt("course_id"));
     }
 
-
 }
-
-
-
-
-
 

@@ -27,11 +27,11 @@ export default {
     TeacherDashboard
   },
 
-  data() {
-    return {
-        userIsTeacher: false
-    }
-  }
+  // data() {
+  //   return {
+  //       userIsTeacher: false
+  //   }
+  // }
 
 };
 </script>

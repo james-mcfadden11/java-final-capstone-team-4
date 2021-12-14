@@ -1,11 +1,11 @@
 <template>
   <div>
     <br>
-    <h2>{{assignment.name}}</h2>
+    <h3>{{assignment.assignmentName}}</h3>
     <br>
     <h4>Assignment number: {{assignment.assignmentNumber}}</h4>
     <br>
-    <h4>Due date: {{assignment.dueDate}}</h4>
+    <h4>Due: {{assignment.dueDate}}</h4>
     <br>
 
     <h4>Grade: {{assignment.studentScore}} </h4>
@@ -16,9 +16,11 @@
 
     <h4 v-show="assignment.isSubmitted">Submission: {{assignment.submission}}</h4>
 
-    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="updateAssignmentDetails(this.assignment, this.assignmentID, this.courseID)" v-show="!isTeacher">
-      <h3>Submission:</h3>
+    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="submitAssignment(this.assignment, this.assignmentID, this.courseID)" v-show="!isTeacher">
+      <h3>Student submission:</h3>
+      <h5>Copy and paste the link to your Google doc</h5>
       <input type="text" v-model="assignment.submission" />
+      <br>
       <br>
       <button type="submit">Submit</button>
       <button v-on:click.prevent="resetSubmission">Cancel</button>
@@ -27,7 +29,7 @@
 
     <br>
 
-    <form v-on:submit.prevent="updateAssignmentDetails(this.assignment, this.assignmentID, this.courseID)" v-show="isTeacher" v-if="assignment.isSubmitted">
+    <form v-on:submit.prevent="gradeAssignment(this.assignment, this.assignmentID, this.courseID)" v-show="isTeacher" v-if="assignment.isSubmitted">
       <h3>Feedback and grade:</h3>
       <input type="number" v-model="assignment.studentGrade">
       <input type="text" v-model="assignment.teacherFeedback" />
@@ -84,9 +86,9 @@ export default {
         });
     },
 
-    updateAssignmentDetails(updatedAssignment, assignmentID, courseID) {
+    submitAssignment(updatedAssignment, assignmentID, courseID) {
       courseService
-        .updateAssignmentDetails(updatedAssignment, assignmentID, courseID)
+        .submitAssignment(updatedAssignment, assignmentID, courseID)
         .then(response => {
           if (response && response.status == 201) {
             this.getAssignmentDetails(this.courseID, this.assignmentID);
@@ -102,6 +104,30 @@ export default {
           this.errorMsg = "Error submitting new course. Request could not be created.";
         }
         });
+    },
+
+    gradeAssignment(updatedAssignment, assignmentID, courseID) {
+      courseService
+        .gradeAssignment(updatedAssignment, assignmentID, courseID)
+        .then(response => {
+          if (response && response.status == 201) {
+            this.getAssignmentDetails(this.courseID, this.assignmentID);
+          }
+        })
+        .catch(error => {
+        // log the error
+        if (error.response) {
+          this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
+        } else if (error.request) {
+          this.errorMsg = "Error submitting new course. Server could not be reached.";
+        } else {
+          this.errorMsg = "Error submitting new course. Request could not be created.";
+        }
+        });
+    },
+
+    resetSubmission() {
+      this.assignment.submission = '';
     }
   }
 

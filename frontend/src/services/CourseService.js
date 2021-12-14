@@ -82,8 +82,10 @@ export default {
 
   //Endpoint #17: Return Full Lesson (With Content) for Lesson ID for Logged In Enrolled Student
 
-  //Endpoint #18: Update Assignment After Submission
-  updateAssignmentDetails(updatedAssignment, assignmentID, courseID) {
+
+  
+  //Endpoint #19: Update Assignment After Submission
+  submitAssignment(updatedAssignment, assignmentID, courseID) {
     return axios.put(`courses/${courseID}/assignments`, updatedAssignment, assignmentID)
   }
   

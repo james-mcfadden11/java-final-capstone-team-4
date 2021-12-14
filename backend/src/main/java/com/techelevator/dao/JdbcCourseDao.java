@@ -193,7 +193,8 @@ public class JdbcCourseDao implements CourseDao {
         if (results.next()) {
             lesson = mapRowToLesson(results);
         }
-        return lesson;
+        lesson.setYoutubeURL(parseVidID(lesson.getYoutubeURL()));
+        return lesson ;
     }
 
     @Override
@@ -205,6 +206,9 @@ public class JdbcCourseDao implements CourseDao {
         String youtubeText = lesson.getYoutubeText();
         String lessonURL1 = lesson.getLessonURL1();
         String lessonURL2 = lesson.getLessonURL2();
+
+
+
 
         String sql = "Update lessons SET youtube_url = ?, youtube_text = ?, lesson_url1 = ?, lesson_url2 = ? WHERE lesson_id = ?;";
         jdbcTemplate.update(sql, youtubeURL, youtubeText, lessonURL1, lessonURL2, lessonID);

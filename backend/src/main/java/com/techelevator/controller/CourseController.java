@@ -74,14 +74,6 @@ public class CourseController {
         return courseDao.getLessonForLessonID(lessonID);
     }
 
-    //Endpoint #8: Set Youtube video for a Specific Lesson ID
-    @RequestMapping(value = "/{courseID}/lessons/{lessonID}/full", method = RequestMethod.PUT)
-    public String setVideoAndGoogleLessonForID(@PathVariable Integer lessonID, @RequestBody Lesson lesson) {
-        return courseDao.setVideoAndGoogleLessonForID(lessonID, lesson);
-    }
-
-
-
     //Endpoint #9: Create Assignment for a Specific Course
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/{courseID}/assignments", method = RequestMethod.POST)
@@ -151,6 +143,33 @@ public class CourseController {
         return dummy;
 
     }
+
+
+    //Endpoint #18: Set Youtube video for a Specific Lesson ID
+    @RequestMapping(value = "/{courseID}/lessons/{lessonID}/full", method = RequestMethod.PUT)
+    public String setVideoAndGoogleLessonForID(@PathVariable Integer lessonID, @RequestBody Lesson lesson) {
+        return courseDao.setVideoAndGoogleLessonForID(lessonID, lesson);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Endpoint #22: Submit Assignment for a specific Assignment ID
+    @RequestMapping(value = "/{courseID}/assignments/{assignmentID}", method = RequestMethod.PUT)
+    public void setSubmittedAssignmentDetails(Principal principal, @PathVariable Integer assignmentID, @RequestBody Assignment assignment) {
+        System.out.println("Inside Endpoint 22");
+        courseDao.setSubmittedAssignmentInfo(principal.getName(), assignmentID, assignment);
+    }
+
 
 
 

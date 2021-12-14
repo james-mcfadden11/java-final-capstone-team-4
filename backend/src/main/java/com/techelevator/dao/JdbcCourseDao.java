@@ -333,12 +333,27 @@ public class JdbcCourseDao implements CourseDao {
 
         int studentID = getStudentID(username);
 
-
         String sql = "UPDATE student_assignments SET submission = ?, " +
                 "submission_date_time = ?, is_submitted = ?, is_graded = ? WHERE homework_id = ? AND student_id = ?";
         jdbcTemplate.update(sql, submission, isSubmitted, isGraded, assignmentID, studentID);
 
     }
+
+
+    @Override
+    public void gradeAndReviewAssignment(String username, Integer assignmentID, Assignment assignment) {
+        System.out.println("Inside gradeAndReviewAssignment");
+        double studentGrade = assignment.getStudentGrade();
+        String teacherFeedback = assignment.getTeacherFeedback();
+        boolean isGraded = true;
+        int studentID = assignment.getStudentID();
+        System.out.println(studentGrade + " " + teacherFeedback + " " + isGraded  + " " + assignmentID  + " " + studentID);
+        String sql = "UPDATE student_assignments SET student_grade = ?, " +
+                "teacher_feedback = ?, is_graded = ? WHERE homework_id = ? AND student_id = ?";
+        jdbcTemplate.update(sql, studentGrade, teacherFeedback, isGraded, assignmentID, studentID);
+
+    }
+
 
 
 

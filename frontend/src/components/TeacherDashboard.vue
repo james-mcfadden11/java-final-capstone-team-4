@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Teacher Dashboard</h2>
-
+    
     <br>
 
     <h3>My Courses:</h3>
@@ -86,5 +86,10 @@ font-weight: bold;
 
 .add-course-btn {
 margin: 15px;
+}
+
+.teacher-notifications {
+  display: block;
+  text-align: right;
 }
 </style>

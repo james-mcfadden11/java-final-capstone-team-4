@@ -84,9 +84,9 @@ export default {
         });
     },
 
-    updateAssignmentDetails(newAssignment, assignmentID, courseID) {
+    updateAssignmentDetails(updatedAssignment, assignmentID, courseID) {
       courseService
-        .updateAssignmentDetails(newAssignment, assignmentID, courseID)
+        .updateAssignmentDetails(updatedAssignment, assignmentID, courseID)
         .then(response => {
           if (response && response.status == 201) {
             this.getAssignmentDetails(this.courseID, this.assignmentID);

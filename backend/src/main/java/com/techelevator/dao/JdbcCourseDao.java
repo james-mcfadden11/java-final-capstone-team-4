@@ -159,7 +159,8 @@ public class JdbcCourseDao implements CourseDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
 
         while (results.next()) {
-            Lesson lesson = mapRowToLesson(results);
+            // changed from mapRowToLesson to mapRowToLessonLite by James at 7:20pm on Mon 12-13
+            Lesson lesson = mapRowToLessonLite(results);
             lessons.add(lesson);
         }
 
@@ -244,7 +245,13 @@ public class JdbcCourseDao implements CourseDao {
     @Override
     public Assignment getAssignmentForAssignmentID(Integer assignmentID) {
         Assignment assignment = new Assignment();
-        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, assignments.possible_points, due_date, submission, student_grade, submission_date_time, is_submitted, is_graded, teacher_feedback FROM assignments Join student_assignments on assignment_id = homework_id WHERE assignment_id = ?;";
+
+        // sql changed by James at 8:46pm on Mon 12-13
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
+                "assignments.possible_points, due_date, student_grade, submission, teacher_feedback, is_graded, " +
+                "is_submitted, submission_date_time FROM assignments " +
+                "LEFT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
+                "WHERE assignment_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, assignmentID);
 
         if (results.next()) {

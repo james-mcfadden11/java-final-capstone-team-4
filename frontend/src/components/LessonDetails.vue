@@ -15,7 +15,7 @@
     <!-- Teacher Google Doc Link Submission -->
     <div class="google-doc-link-teacher" v-show="isTeacher">
       <p>Please paste the Google Doc URL link for this lesson's content below:</p>
-      <input class="vid-url-input" placeholder="Google Document URL"/>
+      <input class="vid-url-input" placeholder="Lesson Video URL"/>
       <button class="save-btn">Save</button>
     </div>
     {{lesson.video-description}}

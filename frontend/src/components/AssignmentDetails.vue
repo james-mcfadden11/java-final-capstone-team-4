@@ -16,7 +16,7 @@
 
     <h4 v-show="assignment.isSubmitted">Submission: {{assignment.submission}}</h4>
 
-    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="submitAssignment(this.assignment, this.assignmentID, this.courseID)" v-show="!isTeacher">
+    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="submitAssignment" v-show="!isTeacher">
       <h3>Student submission:</h3>
       <h5>Copy and paste the link to your Google doc</h5>
       <input type="text" v-model="assignment.submission" />
@@ -58,7 +58,22 @@ export default {
 
   data() {
     return {
-      assignment: {},
+      assignment: {
+        assignmentID:0, 
+        assignmentName:"",
+        assignmentNumber:0,
+        courseID:0,
+        description:"",
+        dueDate:"",
+        graded:false,
+        possiblePoints:0,
+        studentGrade:0,
+        submission:"",
+        submissionDateTime: "",
+        submitted:false,
+        submittedDateTime:"",
+        teacherFeedback:""
+      },
       assignmentID: this.$route.params.assignmentID,
       courseID: this.$route.params.courseID
     }
@@ -86,9 +101,10 @@ export default {
         });
     },
 
-    submitAssignment(updatedAssignment, assignmentID, courseID) {
+    submitAssignment() {
+      console.log("submitAssignment() called");
       courseService
-        .submitAssignment(updatedAssignment, assignmentID, courseID)
+        .submitAssignment(this.assignment.submission, this.assignmentID, this.courseID)
         .then(response => {
           if (response && response.status == 201) {
             this.getAssignmentDetails(this.courseID, this.assignmentID);

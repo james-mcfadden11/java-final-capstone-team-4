@@ -200,7 +200,6 @@ public class JdbcCourseDao implements CourseDao {
     public String setVideoAndGoogleLessonForID(Integer lessonID, Lesson lesson) {
 //        int lessonID = getLessonIDForYoutube(lessonNumber, courseID);
 
-
         String youtubeURL = lesson.getYoutubeURL();
         String youtubeText = lesson.getYoutubeText();
         String lessonURL1 = lesson.getLessonURL1();
@@ -212,7 +211,11 @@ public class JdbcCourseDao implements CourseDao {
         String vidKey = parseVidID(youtubeURL);
 
         return vidKey;
-}
+    }
+
+
+
+
 
 
 
@@ -318,6 +321,25 @@ public class JdbcCourseDao implements CourseDao {
         return assignments;
     }
 
+    @Override
+    public void setSubmittedAssignmentInfo(String username, Integer assignmentID, Assignment assignment) {
+        System.out.println("Inside setSubmittedAssignmentInfo");
+        //double studentGrade = assignment.getStudentGrade();
+        String submission = assignment.getSubmission();
+        //String teacherFeedback = assignment.getTeacherFeedback();
+        LocalDate submissionDateTime =  LocalDate.now();
+        boolean isSubmitted = true;
+        boolean isGraded = false;
+
+        int studentID = getStudentID(username);
+
+
+        String sql = "UPDATE student_assignments SET submission = ?, " +
+                "submission_date_time = ?, is_submitted = ?, is_graded = ? WHERE homework_id = ? AND student_id = ?";
+        jdbcTemplate.update(sql, submission, isSubmitted, isGraded, assignmentID, studentID);
+
+    }
+
 
 
     /*------ Helper Methods ------*/
@@ -362,11 +384,7 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     public String parseVidID(String youtubeURL) {
-
         int index = youtubeURL.indexOf("v=");
-
-
-
         return youtubeURL.substring(index+2);
     }
 

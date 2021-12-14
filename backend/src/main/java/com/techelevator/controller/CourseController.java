@@ -183,6 +183,21 @@ public class CourseController {
         courseDao.setSubmittedAssignmentInfo(principal.getName(), assignmentID, assignment);
     }
 
+    //Endpoint #23: Submit Assignment for a specific Assignment ID
+    @RequestMapping(value = "/{courseID}/assignments/{assignmentID}/grades", method = RequestMethod.PUT)
+    public void setAssignmentGrades(Principal principal, @PathVariable Integer courseID,
+                                    @PathVariable Integer assignmentID, @RequestBody Assignment assignment) {
+        System.out.println("Inside Endpoint 23");
+
+        CourseAuthorization courseAuth = new CourseAuthorization(principal, courseID, userDao, courseDao);
+        if (courseAuth.isAllowedToGrade()) {
+            System.out.println("Returning for " + principal.getName() + " Assignment: " + assignmentID);
+            courseDao.gradeAndReviewAssignment(principal.getName(), assignmentID, assignment);
+        } else {
+            System.out.println("Access Denied, handle it somehow");
+        }
+
+    }
 
 
 

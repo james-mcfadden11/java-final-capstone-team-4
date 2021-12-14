@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class Assignment {
 
     // Fields
+    private int studentID;
     private int courseID;
     private int assignmentID;
     private int assignmentNumber;
@@ -49,6 +50,14 @@ public class Assignment {
 
     // Methods
 
+
+    public int getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(int studentID) {
+        this.studentID = studentID;
+    }
 
     public boolean isSubmitted() {
         return isSubmitted;

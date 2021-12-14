@@ -57,6 +57,8 @@ public interface CourseDao {
 
     void setSubmittedAssignmentInfo(String username, Integer assignmentID, Assignment assignment);
 
+    void gradeAndReviewAssignment(String username, Integer assignmentID, Assignment assignment);
+
 
 //    public Integer getLessonIDForYoutube(int lessonNumber, int courseID);
 

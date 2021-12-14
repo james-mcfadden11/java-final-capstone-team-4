@@ -70,10 +70,10 @@ CREATE TABLE lessons (
         lesson_number INTEGER,
         lesson_name CHARACTER VARYING(400),
         description TEXT,
-        youtube_url TEXT,
+        youtube_url VARCHAR(254),
         youtube_text TEXT,
-        lesson_url1 TEXT,
-        lesson_url2 TEXT,
+        lesson_url1 VARCHAR(254),
+        lesson_url2 VARCHAR(254),
         CONSTRAINT pk_lessons PRIMARY KEY (lesson_id),
         CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (course_id)
 );
@@ -219,7 +219,7 @@ INSERT INTO student_courses (student_id, course_id) VALUES (12, 3);
 --Insert student assignments
 INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded) VALUES (1, 1, 5, 10, 'https://docs.google.com/document/d/1R9AIQIyYrXc8YVMl2fyNVaeiKWhCNaI_kk-NRONPlcc/edit?usp=sharing', 'Stop focusing on altcoins', CURRENT_TIMESTAMP, true, true);
 INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded) VALUES (1, 2, 9, 10, 'https://docs.google.com/document/d/1R9AIQIyYrXc8YVMl2fyNVaeiKWhCNaI_kk-NRONPlcc/edit?usp=sharing', 'nicely done', CURRENT_TIMESTAMP, true, true);
-INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, is_submitted, is_graded) VALUES (2, 1, null, 10, null, null, false, false);
+INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, is_submitted, is_graded) VALUES (2, 1, null, 10, 'https://docs.google.com/document/d/1R9AIQIyYrXc8YVMl2fyNVaeiKWhCNaI_kk-NRONPlcc/edit?usp=sharing', CURRENT_TIMESTAMP, true, false);
 INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, is_submitted, is_graded)VALUES (2, 2, null, 10, null, null, false, false);
 INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded)VALUES (3, 4, 80, 100, 'https://docs.google.com/document/d/1R9AIQIyYrXc8YVMl2fyNVaeiKWhCNaI_kk-NRONPlcc/edit?usp=sharing', 'well formulated.', CURRENT_TIMESTAMP, true, true);
-INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded)VALUES (4, 5, 25, 100, 'https://docs.google.com/document/d/1R9AIQIyYrXc8YVMl2fyNVaeiKWhCNaI_kk-NRONPlcc/edit?usp=sharing', 'This could have used additional perspectives', CURRENT_TIMESTAMP, true, true);
+INSERT INTO student_assignments (student_id, homework_id, student_grade, possible_points, submission, teacher_feedback, submission_date_time, is_submitted, is_graded)VALUES (4, 5, null, 100, 'https://docs.google.com/document/d/1R9AIQIyYrXc8YVMl2fyNVaeiKWhCNaI_kk-NRONPlcc/edit?usp=sharing', null, CURRENT_TIMESTAMP, true, false);

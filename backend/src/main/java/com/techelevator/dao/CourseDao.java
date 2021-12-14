@@ -44,10 +44,19 @@ public interface CourseDao {
 
     int getTeacherID(String username);
 
+
     int getStudentID(String username);
+
 
     boolean checkIfStudentIsRegistered(int courseID, int studentID);
 
+
     boolean checkIfTeacherIsCourseTeacher(int courseID, int teacherID);
+
+    String setVideoAndGoogleLessonForID(Integer lessonID, Lesson lesson);
+
+
+
+//    public Integer getLessonIDForYoutube(int lessonNumber, int courseID);
 
 }

@@ -197,15 +197,17 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
-    public String setVideoLessonForID(Integer lessonID, Lesson lesson) {
+    public String setVideoAndGoogleLessonForID(Integer lessonID, Lesson lesson) {
 //        int lessonID = getLessonIDForYoutube(lessonNumber, courseID);
 
 
         String youtubeURL = lesson.getYoutubeURL();
         String youtubeText = lesson.getYoutubeText();
+        String lessonURL1 = lesson.getLessonURL1();
+        String lessonURL2 = lesson.getLessonURL2();
 
-        String sql = "Update lessons SET youtube_url = ?, youtube_text = ? WHERE lesson_id = ?;";
-        jdbcTemplate.update(sql, youtubeURL, youtubeText, lessonID);
+        String sql = "Update lessons SET youtube_url = ?, youtube_text = ?, lesson_url1 = ?, lesson_url2 = ? WHERE lesson_id = ?;";
+        jdbcTemplate.update(sql, youtubeURL, youtubeText, lessonURL1, lessonURL2, lessonID);
 
         String vidKey = parseVidID(youtubeURL);
 

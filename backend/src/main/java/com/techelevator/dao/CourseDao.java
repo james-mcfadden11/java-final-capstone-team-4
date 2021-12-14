@@ -53,7 +53,9 @@ public interface CourseDao {
 
     boolean checkIfTeacherIsCourseTeacher(int courseID, int teacherID);
 
-    String setVideoLessonForID(Integer lessonID, Lesson lesson);
+    String setVideoAndGoogleLessonForID(Integer lessonID, Lesson lesson);
+
+
 
 //    public Integer getLessonIDForYoutube(int lessonNumber, int courseID);
 

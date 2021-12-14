@@ -44,11 +44,34 @@ export default {
   
   data() {
     return {
-        lessons: []
+        lesson: {},
+        courseID: this.$route.params.courseID,
+        lessonID: this.$route.params.lessonID
     }
   },
 
+  created() {
+    this.retrieveLessons();
+  },
+
   methods: {
+    retrieveCourses() {
+      courseService
+        .getLessonData()
+        .then(response => {
+          this.courses = response.data;
+        })
+        .catch(error => {
+          if (error.response) {
+            this.errorMsg = `Error retrieving. Response received was ' ${error.response.statusText}'.`;                "'.";
+          } else if (error.request) {
+            this.errorMsg = "Error retrieving. Server could not be reached.";
+          } else {
+            this.errorMsg = "Error retreiving. Request could not be created.";
+          }
+        });
+    },
+    
     updateLessonVideo(courseID, lessonID) {
       courseService
           .updateLessonVideo(courseID, lessonID)

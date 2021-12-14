@@ -18,7 +18,6 @@
       <input class="vid-url-input" placeholder="Lesson Video URL"/>
       <button class="save-btn">Save</button>
     </div>
-    {{lesson.video-description}}
 
     <h2>Lesson Text</h2>
 

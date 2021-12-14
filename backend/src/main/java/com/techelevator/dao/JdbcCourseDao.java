@@ -196,6 +196,23 @@ public class JdbcCourseDao implements CourseDao {
         return lesson;
     }
 
+    @Override
+    public String setVideoLessonForID(Integer lessonID, Lesson lesson) {
+//        int lessonID = getLessonIDForYoutube(lessonNumber, courseID);
+
+
+        String youtubeURL = lesson.getYoutubeURL();
+        String youtubeText = lesson.getYoutubeText();
+
+        String sql = "Update lessons SET youtube_url = ?, youtube_text = ? WHERE lesson_id = ?;";
+        jdbcTemplate.update(sql, youtubeURL, youtubeText, lessonID);
+
+        String vidKey = parseVidID(youtubeURL);
+
+        return vidKey;
+}
+
+
 
 
     /*------ Assignment Methods ------*/
@@ -342,13 +359,27 @@ public class JdbcCourseDao implements CourseDao {
 
     }
 
-    public String parseVidID(String youtubeUrl) {
-        String equals = "=";
+    public String parseVidID(String youtubeURL) {
 
-        String vidID = youtubeUrl.substring(youtubeUrl.indexOf(equals)-1);
+        int index = youtubeURL.indexOf("v=");
 
-        return vidID;
+
+
+        return youtubeURL.substring(index+2);
     }
+
+
+//    public Integer getLessonIDForYoutube(int lessonNumber, int courseID) {
+//        String sql = "SELECT lesson_id FROM lessons WHERE lesson_number = ? AND course_id = ?;";
+//        int lessonID = 0;
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lessonNumber, courseID);
+//        if (results.next()) {
+//            lessonID = results.getInt("lesson_id");
+//
+//        }
+//        return lessonID;
+//    }
+
 
     @Override
     public boolean checkIfStudentIsRegistered(int courseID, int studentID) {

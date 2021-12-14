@@ -70,10 +70,10 @@ CREATE TABLE lessons (
         lesson_number INTEGER,
         lesson_name CHARACTER VARYING(400),
         description TEXT,
-        youtube_url TEXT,
+        youtube_url VARCHAR(254),
         youtube_text TEXT,
-        lesson_url1 TEXT,
-        lesson_url2 TEXT,
+        lesson_url1 VARCHAR(254),
+        lesson_url2 VARCHAR(254),
         CONSTRAINT pk_lessons PRIMARY KEY (lesson_id),
         CONSTRAINT fk_courses FOREIGN KEY (course_id) REFERENCES courses (course_id)
 );

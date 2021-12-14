@@ -16,8 +16,7 @@
 
     <h4 v-show="assignment.isSubmitted">Submission: {{assignment.submission}}</h4>
 
-    <!-- need assignment.submission property -->
-    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="submitAssignment" v-show="!isTeacher">
+    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="updateAssignmentDetails(this.assignment, this.assignmentID, this.courseID)" v-show="!isTeacher">
       <h3>Submission:</h3>
       <input type="text" v-model="assignment.submission" />
       <br>
@@ -26,9 +25,9 @@
       <br>
     </form>
 
-    <!-- needs to have v-if="assignment.isSubmitted" in form element -->
-    <!-- need assignment.submission property -->
-    <form v-on:submit.prevent="submitFeedbackAndGrade" v-show="isTeacher">
+    <br>
+
+    <form v-on:submit.prevent="updateAssignmentDetails(this.assignment, this.assignmentID, this.courseID)" v-show="isTeacher" v-if="assignment.isSubmitted">
       <h3>Feedback and grade:</h3>
       <input type="number" v-model="assignment.studentGrade">
       <input type="text" v-model="assignment.teacherFeedback" />
@@ -40,7 +39,7 @@
 
     <br>
 
-    <h4>Teacher feedback: {{assignment.teacherFeedback}}</h4>
+    <h4 v-show="assignment.isGraded">Teacher feedback: {{assignment.teacherFeedback}}</h4>
 
     <br>
 
@@ -48,6 +47,8 @@
 </template>
 
 <script>
+import courseService from '../services/CourseService';
+
 export default {
   name: 'assignment-details',
 
@@ -55,9 +56,55 @@ export default {
 
   data() {
     return {
-      assignment: {}
+      assignment: {},
+      assignmentID: this.$route.params.assignmentID,
+      courseID: this.$route.params.courseID
+    }
+  },
+
+  created() {
+    this.getAssignmentDetails(this.courseID, this.assignmentID);
+  },
+
+  methods: {
+    getAssignmentDetails(courseID, assignmentID) {
+      courseService
+        .getAssignmentDetails(courseID, assignmentID)
+        .then(response => {
+          this.assignment = response.data;
+        })
+        .catch(error => {
+          if (error.response) {
+            this.errorMsg = `Error retrieving. Response received was ' ${error.response.statusText}'.`;                "'.";
+          } else if (error.request) {
+            this.errorMsg = "Error retrieving. Server could not be reached.";
+          } else {
+            this.errorMsg = "Error retreiving. Request could not be created.";
+          }
+        });
+    },
+
+    updateAssignmentDetails(newAssignment, assignmentID, courseID) {
+      courseService
+        .updateAssignmentDetails(newAssignment, assignmentID, courseID)
+        .then(response => {
+          if (response && response.status == 201) {
+            this.getAssignmentDetails(this.courseID, this.assignmentID);
+          }
+        })
+        .catch(error => {
+        // log the error
+        if (error.response) {
+          this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
+        } else if (error.request) {
+          this.errorMsg = "Error submitting new course. Server could not be reached.";
+        } else {
+          this.errorMsg = "Error submitting new course. Request could not be created.";
+        }
+        });
     }
   }
+
 }
 </script>
 

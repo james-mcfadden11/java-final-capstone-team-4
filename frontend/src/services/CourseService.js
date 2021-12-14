@@ -71,6 +71,20 @@ export default {
   //@RequestMapping(value = "/myCoursesToTeach", method = RequestMethod.GET)
   getMyCoursesToTeach() {
     return axios.get(`courses/myCoursesToTeach`)
+  },
+
+
+  //Endpoint #16: Return List of Graded Assignments for Logged In Student
+  // @RequestMapping(value = "/myGradedAssignments", method = RequestMethod.GET)
+  getMyGradedAssignments() {
+    return axios.get(`courses/myGradedAssignments`)
+  },
+
+  //Endpoint #17: Return Full Lesson (With Content) for Lesson ID for Logged In Enrolled Student
+
+  //Endpoint #18: Update Assignment After Submission
+  updateAssignmentDetails(newAssignment, assignmentID, courseID) {
+    return axios.put(`courses/${courseID}/assignments`, newAssignment, assignmentID)
   }
   
 }

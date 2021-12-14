@@ -42,6 +42,10 @@
       <br>
       Due date: {{assignment.dueDate}}
       <br>
+      Submitted: {{assignment.graded ? "Yes" : "No"}}
+      <br>
+      Graded: {{assignment.submitted ? "Yes" : "No"}}
+      <br>
       <br>
     </div>
 

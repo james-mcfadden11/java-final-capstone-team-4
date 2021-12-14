@@ -1,6 +1,12 @@
 <template>
     <div class="iframe">
         <youtube v-bind:video-id="videoId" ref="youtube" @playing="playing"></youtube>
+        
+
+
+
+        
+        <iframe width = 650px height = 1000px src="https://docs.google.com/document/d/e/2PACX-1vT7hVH5HKfvIgYx08fSwQtX1HjiqjgV_5ofdLMChv78EjOjgUMW_h1is_R0x_8PxQccuMzTblzMd7uW/pub?embedded=true"></iframe>
     </div>
 </template>
 

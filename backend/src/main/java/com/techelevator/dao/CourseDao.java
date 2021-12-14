@@ -40,6 +40,18 @@ public interface CourseDao {
 
     List<Assignment> getMyGradedAssignments(String username);
 
+    Lesson getFullLessonForLessonID(String username, Integer lessonID);
+
+    int getTeacherID(String username);
+
+
+    int getStudentID(String username);
+
+
+    boolean checkIfStudentIsRegistered(int courseID, int studentID);
+
+
+    boolean checkIfTeacherIsCourseTeacher(int courseID, int teacherID);
     
 
 }

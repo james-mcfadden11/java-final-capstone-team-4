@@ -1,21 +1,25 @@
 <template>
   <div class="main-div">
     <!-- Teacher Youtube Video Link Submission -->
-    <form class="youtube-link-teacher" v-show="isTeacher">
+    <div class="forms-div" v-show="isTeacher">
+      <form class="youtube-url-form">
+        <p>Please paste the youtube video URL link for this lesson's content below:</p>
+        <input class="vid-url-input" type="url" placeholder="Lesson Video URL"/>
+        <button class="youtube-save-btn" type="submit" v-on:click="updateLessonVideo(this.lesson ,course.courseID, lesson.lessonID)">Save</button>
+      </form>
 
-      <p>Please paste the youtube video URL link for this lesson's content below:</p>
-      <input class="vid-url-input" type="url" placeholder="Lesson Video URL"/>
-      <button class="youtube-save-btn" v-on:click="updateLessonVideo(course.courseID, lesson.lessonID)">Save</button>
+      <form class="google-url-form">
+        <p>Please paste the Google Doc URL link for this lesson's content below:</p>
+        <input class="doc-url-input" type="url" placeholder="Google Doc URL"/>
+        <button class="google-save-btn" type="submit" v-on:click="updateLessonDoc(this.lesson, course.courseID, lesson.lessonID)">Save</button>
+      </form>
 
-      <p>Please paste the Google Doc URL link for this lesson's content below:</p>
-      <input class="doc-url-input" type="url" placeholder="Google Doc URL"/>
-      <button class="google-save-btn" v-on:click="updateLessonDoc(course.courseID, lesson.lessonID)">Save</button>
-
-      <p>Please enter in a description for the video content of this lesson below:</p>
-      <textarea class="vid-description" placeholder="Video Description..."/>
-      <button class="save-vid-description" v-on:click="updateVidDescription(course.courseID, lesson.lessonID)">Save</button>
-
-    </form>
+      <form class="youtube-description-form">
+        <p>Please enter in a description for the video content of this lesson below:</p>
+        <textarea class="vid-description" placeholder="Video Description..."/>
+        <button class="save-vid-description" v-on:click="updateVidDescription(this.lesson, course.courseID, lesson.lessonID)">Save</button>
+      </form>
+    </div>
 
     <h1>Lesson Video</h1>
 
@@ -51,15 +55,15 @@ export default {
   },
 
   created() {
-    this.retrieveLessons();
+    this.getLessonDetails(this.courseID, this.lessonID);
   },
 
   methods: {
-    retrieveCourses() {
+    getLessonDetails() {
       courseService
-        .getLessonData()
+        .getLessonDetails()
         .then(response => {
-          this.courses = response.data;
+          this.lesson = response.data;
         })
         .catch(error => {
           if (error.response) {
@@ -170,7 +174,7 @@ h1, h2 {
   text-decoration: underline;
 }
 
-form {
+.forms-div {
   background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.315), rgb(68, 68, 68));
   border-style: solid;
   border-radius: 5px;
@@ -181,7 +185,7 @@ form {
   margin-right: auto;
 }
 
-form > p {
+.forms-div > p {
 display: block;
 text-align: center;
 margin-top: 20px;
@@ -196,7 +200,7 @@ margin-right: 20px;
   margin-left: auto;
 }
 
-form > input {
+.forms-div, input {
   width: 80%;
 }
 .youtube-save-btn, .google-save-btn, .save-vid-description {

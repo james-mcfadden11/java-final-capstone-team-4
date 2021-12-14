@@ -20,7 +20,7 @@ Vue.use(VueYoutube)
 export default {
   data() {
     return {
-      lessons: [],
+      lesson: {},
       videoId: 'SSo_EIwHSd4',
       videoUrl: '',
       lessonID: this.$route.params.lessonID
@@ -45,7 +45,7 @@ export default {
       courseService
         .getVideoUrl(lessonID)
         .then(response => {
-          this.assignments = response.data;
+          this.lessons = response.data;
         })
         .catch(error => {
           if (error.response) {

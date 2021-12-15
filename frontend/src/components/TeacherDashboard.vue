@@ -41,7 +41,7 @@ export default {
         courseService
           .getMyCoursesToTeach()
           .then(response => {
-            this.current = response.data;
+            this.myCoursesToTeach = response.data;
           })
           .catch(error => {
             if (error.response) {

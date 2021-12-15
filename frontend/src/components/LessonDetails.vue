@@ -5,52 +5,57 @@
       <form class="youtube-url-form">
         <p>Please paste the youtube video URL link for this lesson's content below:</p>
         <input class="vid-url-input" type="url" placeholder="Lesson Video URL"/>
-        <button class="youtube-save-btn" type="submit" v-on:click="updateLessonVideo(this.lesson ,course.courseID, lesson.lessonID)">Save</button>
+        <button class="youtube-save-btn" type="submit" v-on:click="updateLessonVideo(lesson ,course.courseID, lesson.lessonID)">Save</button>
       </form>
 
       <form class="google-url-form">
         <p>Please paste the Google Doc URL link for this lesson's content below:</p>
         <input class="doc-url-input" type="url" placeholder="Google Doc URL"/>
-        <button class="google-save-btn" type="submit" v-on:click="updateLessonDoc(this.lesson, course.courseID, lesson.lessonID)">Save</button>
+        <button class="google-save-btn" type="submit" v-on:click.prevent="updateLessonDoc(lesson, course.courseID, lesson.lessonID)">Save</button>
       </form>
 
       <form class="youtube-description-form">
         <p>Please enter in a description for the video content of this lesson below:</p>
         <textarea class="vid-description" placeholder="Video Description..."/>
-        <button class="save-vid-description" v-on:click="updateVidDescription(this.lesson, course.courseID, lesson.lessonID)">Save</button>
+        <button class="save-vid-description" type="submit" v-on:click.prevent="updateVidDescription(lesson, course.courseID, lesson.lessonID)">Save</button>
       </form>
     </div>
 
     <h1>Lesson Video</h1>
 
-    <!-- Youtube Video -->
-    <vue-youtube class="youtube-vid"></vue-youtube>
+    <!-- Youtube Video & Google Doc Embedd -->
+    <div class="iframe">
+        <youtube v-bind:video-id="videoId" ref="youtube" @playing="playing"></youtube>
+        
+        <iframe width = 650px height = 1000px src="https://docs.google.com/document/d/e/2PACX-1vT7hVH5HKfvIgYx08fSwQtX1HjiqjgV_5ofdLMChv78EjOjgUMW_h1is_R0x_8PxQccuMzTblzMd7uW/pub?embedded=true"></iframe>
+    </div>
 
-    <!-- Teacher Google Doc Link Submission -->
-    
-
-    <h2>Lesson Text</h2>
+    <h2>Additional Resources</h2>
 
     <!-- Student Clickable Link for Google Doc -->
-    <p>Click the link below for additional text-based content for this lesson.</p>
+    <p>Click the link below for additional resources for this lesson.</p>
     <a href="https://docs.google.com/document/d/1ZGLwgDGd6vg-GssCPe0d7TQDO6wJ0uAruhNiANNiG3s/edit">Lesson Text</a>
   </div>
 </template>
 
 <script>
-import VueYoutube from '../components/VueYoutube.vue';
+import Vue from 'vue'
+import VueYoutube from 'vue-youtube'
 import courseService from '../services/CourseService';
+Vue.use(VueYoutube)
 
 export default {
   name: 'lesson-details',
   props: ['isTeacher'],
-  components: { VueYoutube },
   
   data() {
     return {
-        lesson: {},
+        lesson: {
+        
+        },
         courseID: this.$route.params.courseID,
-        lessonID: this.$route.params.lessonID
+        lessonID: this.$route.params.lessonID,
+        videoId: this.$route.params.youtubeURL
     }
   },
 
@@ -59,9 +64,17 @@ export default {
   },
 
   methods: {
-    getLessonDetails() {
+    // These two methods are required for the YouTube API to work with Vue
+    playVideo() {
+      this.player.playVideo()
+    },
+    playing() {
+      console.log('o/ we are watching!!!')
+    },
+
+    getLessonDetails(courseID, lessonID) {
       courseService
-        .getLessonDetails()
+        .getLessonDetails(courseID, lessonID)
         .then(response => {
           this.lesson = response.data;
         })
@@ -138,12 +151,16 @@ export default {
           }
         });
     }
+  },
+  
+  computed: {
+    // This computed property is required for the YouTube API to work in Vue
+    player () {
+      return this.$refs.youtube.player
+    }
   }
   
 }
-
-
-
 </script>
 
 <style>

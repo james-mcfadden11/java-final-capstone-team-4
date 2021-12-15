@@ -15,7 +15,7 @@
 
     <br>
 
-    <h2>Course lessons:</h2>
+    <h2>Course lessons</h2>
     <div class="card-details" v-for="lesson in lessons" v-bind:key="lesson.lessonID">
       <span class="bold-me"> Lesson: {{lesson.lessonNumber}} </span>
       <br>
@@ -42,10 +42,10 @@
       <br>
       Due date: {{assignment.dueDate}}
       <br>
-      Submitted: {{assignment.graded ? "Yes" : "No"}}
+      <div v-show="!isTeacher">Submitted: {{assignment.graded ? "Yes" : "No"}}</div>
+      
       <br>
-      Graded: {{assignment.submitted ? "Yes" : "No"}}
-      <br>
+      <div v-show="!isTeacher">Graded: {{assignment.submitted ? "Yes" : "No"}}</div>
       <br>
     </div>
 

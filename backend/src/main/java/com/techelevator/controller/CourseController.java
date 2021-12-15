@@ -200,18 +200,18 @@ public class CourseController {
         }
     }
 
-//    // Endpoint #25 AKA Endpoint #3 - The Remix: Get All Student Assignments for a Specific Course
-//    @RequestMapping(value = "/{courseID}/assignments/students", method = RequestMethod.GET)
-//    public List<Assignment> getStudentAssignments(Principal principal, @PathVariable Integer courseID) {
-//        System.out.println("Inside Endpoint 25");
-//        CourseAuthorization courseAuth = new CourseAuthorization(principal, courseID, userDao, courseDao);
-//        if (courseAuth.isAllowedToGrade()) {
-//            return courseDao.getAllStudentsAssignments(courseID);
-//        } else {
-//            System.out.println("Access Denied, handle it somehow");
-//            return null;
-//        }
-//    }
+    // Endpoint #25 AKA Endpoint #3 - The Remix: Get All Student Assignments for a Specific Course
+    @RequestMapping(value = "/{courseID}/assignments/students", method = RequestMethod.GET)
+    public List<Assignment> getStudentAssignments(Principal principal, @PathVariable Integer courseID) {
+        System.out.println("Inside Endpoint 25");
+        CourseAuthorization courseAuth = new CourseAuthorization(principal, courseID, userDao, courseDao);
+        if (courseAuth.isAllowedToGrade()) {
+            return courseDao.getAllStudentsAssignments(courseID);
+        } else {
+            System.out.println("Access Denied, handle it somehow");
+            return null;
+        }
+    }
 
 
 

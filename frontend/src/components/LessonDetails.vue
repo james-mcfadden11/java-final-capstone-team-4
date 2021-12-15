@@ -51,12 +51,12 @@ export default {
   data() {
     return {
         lesson: {
-
+          
         
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: this.$route.videoId
+        videoId: 'SSo_EIwHSd4'
     }
   },
 

@@ -146,9 +146,9 @@ public class CourseController {
     }
 
     //Endpoint #18: Set Youtube video for a Specific Lesson ID
-    @RequestMapping(value = "/{courseID}/lessons/{lessonID}/full", method = RequestMethod.PUT)
-    public String setVideoAndGoogleLessonForID(@PathVariable Integer lessonID, @RequestBody Lesson lesson) {
-        return courseDao.setVideoAndGoogleLessonForID(lessonID, lesson);
+    @RequestMapping(value = "/{courseID}/lessons/{lessonID}", method = RequestMethod.PUT)
+    public String updateLessonDetails(@PathVariable Integer courseID, @PathVariable Integer lessonID, @RequestBody Lesson lesson) {
+        return courseDao.updateLessonDetails(courseID, lessonID, lesson);
     }
 
 

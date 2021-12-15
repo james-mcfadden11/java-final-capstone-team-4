@@ -88,19 +88,19 @@ export default {
   },
 
   //Endpoint #19: Update Youtube URL to link back to specific Youtube Video for a particular lesson.
-  updateLessonVideo(courseID, lessonID) {
-    return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
+  updateLessonDetails(courseID, lessonID, lesson) {
+    return axios.put(`/courses/${courseID}/lessons/${lessonID}`, lesson)
   },
 
-  //Endpoint #20 Update Google Doc URL to link back to specific Google Doc for a particular lesson.
-  updateLessonDoc(courseID, lessonID) {
-    return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
-  },
+  // //Endpoint #20 Update Google Doc URL to link back to specific Google Doc for a particular lesson.
+  // updateLessonDoc(courseID, lessonID) {
+  //   return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
+  // },
 
-  //Endpoint #21 Update Youtube Video Description to link back to a specific video description for a particular lesson.
-  updateVidDescription(courseID, lessonID) {
-    return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
-  },
+  // //Endpoint #21 Update Youtube Video Description to link back to a specific video description for a particular lesson.
+  // updateVidDescription(courseID, lessonID) {
+  //   return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
+  // },
 
   //Endpoint #22: Submit Assignment for a specific Assignment ID
   submitAssignment(submission, assignmentID, courseID) {

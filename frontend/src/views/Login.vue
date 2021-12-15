@@ -107,6 +107,12 @@ export default {
    .need-account-btn {
      color: rgb(221, 221, 197);
    }
+
+   input {
+     width: 98%;
+     margin-left: auto;
+     margin-right: auto;
+   }
 </style>
 
 

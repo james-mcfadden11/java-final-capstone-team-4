@@ -5,7 +5,7 @@
       <form class="youtube-url-form">
         <p>Please paste the youtube video URL link for this lesson's content below:</p>
         <input class="vid-url-input" v-model="videoId" type="url" placeholder="Lesson Video URL"/>
-        <button class="youtube-save-btn" type="submit" v-on:submit="update(course.courseID, lesson.lessonID)">Save</button>
+        <button class="youtube-save-btn" type="submit" v-on:submit="updateLessonDetails(course.courseID, lesson.lessonID, lesson)">Save</button>
       </form>
 
       <form class="google-url-form">
@@ -51,12 +51,12 @@ export default {
   data() {
     return {
         lesson: {
-          
+
         
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: 'SSo_EIwHSd4'
+        videoId: ''
     }
   },
 

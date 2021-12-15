@@ -86,13 +86,13 @@ export default {
 
   //Endpoint #22: Submit Assignment for a specific Assignment ID
   submitAssignment(submission, assignmentID, courseID) {
-    return axios.put(`courses/${courseID}/assignments/${assignmentID}`, assignmentID, submission,
+    return axios.put(`courses/${courseID}/assignments/${assignmentID}`, submission,
       {headers: {"Content-Type": "text/plain"}});
   },
 
   //Endpoint #23: Teacher grade an assignment
-  gradeAssignment(updatedAssignment, assignmentID, courseID) {
-    return axios.put(`courses/${courseID}/assignments/${assignmentID}/grades`, assignmentID, updatedAssignment)
+  gradeAssignment(updatedAssignment, assignmentID, courseID, assignment) {
+    return axios.put(`courses/${courseID}/assignments/${assignmentID}/grades`, assignment)
   }
   
 }

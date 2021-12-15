@@ -16,10 +16,10 @@
 
     <h4 v-show="assignment.isSubmitted">Submission: {{assignment.submission}}</h4>
 
-    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="submitAssignment" v-show="!isTeacher">
+    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="submitAssignment(submission, assignmentID, courseID)" v-show="!isTeacher">
       <h3>Student submission:</h3>
       <h5>Copy and paste the link to your Google doc</h5>
-      <input type="text" v-model="assignment.submission" />
+      <input type="text" v-model="submission" />
       <br>
       <br>
       <button type="submit">Submit</button>
@@ -29,7 +29,7 @@
 
     <br>
 
-    <form v-on:submit.prevent="gradeAssignment(this.assignment, this.assignmentID, this.courseID)" v-show="isTeacher" v-if="assignment.isSubmitted">
+    <form v-on:submit.prevent="gradeAssignment(assignment, assignmentID, courseID)" v-show="isTeacher" v-if="assignment.isSubmitted">
       <h3>Feedback and grade:</h3>
       <input type="number" v-model="assignment.studentGrade">
       <input type="text" v-model="assignment.teacherFeedback" />
@@ -74,6 +74,7 @@ export default {
         submittedDateTime:"",
         teacherFeedback:""
       },
+      submission: '',
       assignmentID: this.$route.params.assignmentID,
       courseID: this.$route.params.courseID
     }
@@ -101,10 +102,10 @@ export default {
         });
     },
 
-    submitAssignment() {
+    submitAssignment(submission, assignmentID, courseID) {
       console.log("submitAssignment() called");
       courseService
-        .submitAssignment(this.assignment.submission, this.assignmentID, this.courseID)
+        .submitAssignment(submission, assignmentID, courseID)
         .then(response => {
           if (response && response.status == 201) {
             this.getAssignmentDetails(this.courseID, this.assignmentID);
@@ -122,9 +123,9 @@ export default {
         });
     },
 
-    gradeAssignment(updatedAssignment, assignmentID, courseID) {
+    gradeAssignment(assignment, assignmentID, courseID) {
       courseService
-        .gradeAssignment(updatedAssignment, assignmentID, courseID)
+        .gradeAssignment(assignment, assignmentID, courseID)
         .then(response => {
           if (response && response.status == 201) {
             this.getAssignmentDetails(this.courseID, this.assignmentID);

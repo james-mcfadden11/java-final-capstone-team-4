@@ -16,7 +16,7 @@
 
     <h4 v-show="assignment.isSubmitted">Submission: {{assignment.submission}}</h4>
 
-    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="updateAssignmentDetails(this.assignment, this.assignmentID, this.courseID)" v-show="!isTeacher">
+    <form v-if="!assignment.isSubmitted" v-on:submit.prevent="updateAssignmentDetails(assignment, assignmentID, courseID)" v-show="!isTeacher">
       <h3>Submission:</h3>
       <input type="text" v-model="assignment.submission" />
       <br>
@@ -27,7 +27,7 @@
 
     <br>
 
-    <form v-on:submit.prevent="updateAssignmentDetails(this.assignment, this.assignmentID, this.courseID)" v-show="isTeacher" v-if="assignment.isSubmitted">
+    <form v-on:submit.prevent="updateAssignmentDetails(assignment, assignmentID, courseID)" v-show="isTeacher" v-if="assignment.isSubmitted">
       <h3>Feedback and grade:</h3>
       <input type="number" v-model="assignment.studentGrade">
       <input type="text" v-model="assignment.teacherFeedback" />
@@ -84,9 +84,9 @@ export default {
         });
     },
 
-    updateAssignmentDetails(newAssignment, assignmentID, courseID) {
+    updateAssignmentDetails(assignment, assignmentID, courseID) {
       courseService
-        .updateAssignmentDetails(newAssignment, assignmentID, courseID)
+        .updateAssignmentDetails(assignment, assignmentID, courseID)
         .then(response => {
           if (response && response.status == 201) {
             this.getAssignmentDetails(this.courseID, this.assignmentID);

@@ -4,18 +4,18 @@
     <div class="forms-div" v-show="isTeacher">
       <form class="youtube-url-form">
         <p>Please paste the youtube video URL link for this lesson's content below:</p>
-        <input class="vid-url-input" type="url" placeholder="Lesson Video URL"/>
-        <button class="youtube-save-btn" type="submit" v-on:click.prevent="updateLessonVideo(this.lesson ,course.courseID, lesson.lessonID)">Save</button>
+        <input  class="vid-url-input" v-model="lesson.youtubeURL" type="url" placeholder="Lesson Video URL"/>
+        <button class="youtube-save-btn" type="submit" v-bind="lesson.youtubeURL" v-on:click="setVideoAndGoogleLessonForID(lesson , course.courseID,  lesson.lessonID)">Save</button>
       </form>
       <form class="google-url-form">
         <p>Please paste the Google Doc URL link for this lesson's content below:</p>
         <input class="doc-url-input" type="url" placeholder="Google Doc URL"/>
-        <button class="google-save-btn" type="submit" v-on:click.prevent="updateLessonDoc(this.lesson, course.courseID, lesson.lessonID)">Save</button>
+        <button class="google-save-btn" type="submit" v-on:click.prevent="updateLessonDoc(lesson,  course.courseID,  lesson.lessonID)">Save</button>
       </form>
       <form class="youtube-description-form">
         <p>Please enter in a description for the video content of this lesson below:</p>
         <textarea class="vid-description" placeholder="Video Description..."/>
-        <button class="save-vid-description" type="submit" v-on:click.prevent="updateVidDescription(this.lesson, course.courseID, lesson.lessonID)">Save</button>
+        <button class="save-vid-description" type="submit" v-on:click.prevent="updateVidDescription(lesson, course.courseID, lesson.lessonID)">Save</button>
       </form>
     </div>
     <h1>Lesson Video</h1>
@@ -40,10 +40,11 @@ export default {
   props: ['isTeacher'],
   data() {
     return {
-        lesson: {},
+        lesson: {
+        },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: ''
+        videoId: this.videoId
     }
   },
   created() {
@@ -57,9 +58,9 @@ export default {
     playing() {
       console.log('o/ we are watching!!!')
     },
-    getLessonDetails() {
+    getLessonDetails(courseID, lessonID) {
       courseService
-        .getLessonDetails()
+        .getLessonDetails(courseID, lessonID)
         .then(response => {
           this.lesson = response.data;
         })
@@ -73,9 +74,9 @@ export default {
           }
         });
     },
-    updateLessonVideo(courseID, lessonID) {
+    setVideoAndGoogleLessonForID(lessonID, lesson) {
       courseService
-          .updateLessonVideo(courseID, lessonID)
+          .setVideoAndGoogleLessonForID(lessonID, lesson)
           .then(response => {
             if(response && response.status == 201) {
             // this.retrieveCourses();

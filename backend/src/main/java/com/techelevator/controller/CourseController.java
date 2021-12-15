@@ -144,7 +144,7 @@ public class CourseController {
         return dummy;
 
     }
-    
+
     //Endpoint #18: Set Youtube video for a Specific Lesson ID
     @RequestMapping(value = "/{courseID}/lessons/{lessonID}/full", method = RequestMethod.PUT)
     public String setVideoAndGoogleLessonForID(@PathVariable Integer lessonID, @RequestBody Lesson lesson) {

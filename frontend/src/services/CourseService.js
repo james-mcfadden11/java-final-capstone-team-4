@@ -111,5 +111,17 @@ export default {
   //Endpoint #23: Teacher grade an assignment
   gradeAssignment(updatedAssignment, assignmentID, courseID, assignment) {
     return axios.put(`courses/${courseID}/assignments/${assignmentID}/grades`, assignment)
+  },
+
+  //Endpoint #24: Get all students in a course
+  getStudentsForCourse(courseID) {
+    return axios.get(`courses/${courseID}/students`)
   }
+
+  // Endpoint 
+  // getAssignmentsForCourse(courseID) {
+  //   return axios.get(``)
+  // }
+
+
 }

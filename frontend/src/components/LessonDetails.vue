@@ -4,31 +4,31 @@
     <div class="forms-div" v-show="isTeacher">
       <form class="youtube-url-form">
         <p>Please paste the youtube video URL link for this lesson's content below:</p>
-        <input class="vid-url-input" type="url" placeholder="Lesson Video URL"/>
-        <button class="youtube-save-btn" type="submit" v-on:click="updateLessonVideo(lesson ,course.courseID, lesson.lessonID)">Save</button>
+        <input class="vid-url-input" v-model="videoId" type="url" placeholder="Lesson Video URL"/>
+        <button class="youtube-save-btn" type="submit" v-on:submit="update(course.courseID, lesson.lessonID)">Save</button>
       </form>
 
       <form class="google-url-form">
         <p>Please paste the Google Doc URL link for this lesson's content below:</p>
         <input class="doc-url-input" type="url" placeholder="Google Doc URL"/>
-        <button class="google-save-btn" type="submit" v-on:click.prevent="updateLessonDoc(lesson, course.courseID, lesson.lessonID)">Save</button>
+        <button class="google-save-btn" type="submit" v-on:click.prevent="updateLessonDoc(course.courseID, lesson.lessonID)">Save</button>
       </form>
 
       <form class="youtube-description-form">
         <p>Please enter in a description for the video content of this lesson below:</p>
         <textarea class="vid-description" placeholder="Video Description..."/>
-        <button class="save-vid-description" type="submit" v-on:click.prevent="updateVidDescription(lesson, course.courseID, lesson.lessonID)">Save</button>
+        <button class="save-vid-description" type="submit" v-on:click.prevent="updateVidDescription(course.courseID, lesson.lessonID)">Save</button>
       </form>
     </div>
 
     <h1>Lesson Video</h1>
 
     <!-- Youtube Video & Google Doc Embedd -->
-    <div class="iframe">
-        <youtube v-bind:video-id="videoId" ref="youtube" @playing="playing"></youtube>
-        
-        <iframe width = 650px height = 1000px src="https://docs.google.com/document/d/e/2PACX-1vT7hVH5HKfvIgYx08fSwQtX1HjiqjgV_5ofdLMChv78EjOjgUMW_h1is_R0x_8PxQccuMzTblzMd7uW/pub?embedded=true"></iframe>
+    <div class="youtube-video-player">
+    <youtube v-bind:video-id="videoId" ref="youtube" @playing="playing"></youtube>
     </div>
+    
+    <iframe width = 650px height = 1000px src="https://docs.google.com/document/d/e/2PACX-1vT7hVH5HKfvIgYx08fSwQtX1HjiqjgV_5ofdLMChv78EjOjgUMW_h1is_R0x_8PxQccuMzTblzMd7uW/pub?embedded=true"></iframe>
 
     <h2>Additional Resources</h2>
 
@@ -51,11 +51,12 @@ export default {
   data() {
     return {
         lesson: {
+
         
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: this.$route.params.youtubeURL
+        videoId: this.$route.videoId
     }
   },
 
@@ -240,5 +241,9 @@ textarea {
   border-color: rgb(221, 221, 197);
   border-style: 1px;
   font-family: sans-serif;
+}
+
+.youtube-video-player {
+  margin-bottom: 20px;
 }
 </style>

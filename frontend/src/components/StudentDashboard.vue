@@ -25,10 +25,6 @@
     </div>
 
     <br>
-
-    <h3>Placeholder for progress bar</h3>
-
-    <br>
     <br>
     
   </div>

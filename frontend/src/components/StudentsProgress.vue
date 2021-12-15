@@ -83,7 +83,7 @@ export default {
 
         getAssignmentsForCourse(courseID) {
             courseService
-                .getAssignments(courseID)
+                .getAssignmentsForCourse(courseID)
                 .then(response => {
                     this.assignments = response.data;
                 })

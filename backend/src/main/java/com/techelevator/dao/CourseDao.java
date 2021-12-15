@@ -21,7 +21,7 @@ public interface CourseDao {
 
     List<Lesson> getLessons(Integer courseID);
 
-    Lesson getLessonForLessonID(Integer lessonID);
+//    Lesson getLessonForLessonID(Integer lessonID);
 
     String getTeacher(Integer courseID);
 
@@ -54,7 +54,7 @@ public interface CourseDao {
 
     boolean checkIfTeacherIsCourseTeacher(int courseID, int teacherID);
 
-    String setVideoAndGoogleLessonForID(Integer lessonID, Integer courseID, Lesson lesson);
+   Lesson setVideoAndGoogleLessonForID(Integer lessonID, Integer courseID, Lesson lesson);
 
 
 
@@ -66,16 +66,15 @@ public interface CourseDao {
     void setSubmittedAssignmentInfo(String username, Integer assignmentID, String submission);
 
 
-<<<<<<< HEAD
+
 
         void gradeAndReviewAssignment(String username, Integer assignmentID, Assignment assignment);
-=======
-    void gradeAndReviewAssignment(String username, Integer assignmentID, Assignment assignment);
+
 
     List<Student> getAllStudentsInCourse(Integer courseID);
 
     List<Assignment> getAllStudentsAssignments(Integer courseID);
->>>>>>> accd0b6a6c2b709bec0206b8f0dc21408ad98efa
+
 
 
 //    public Integer getLessonIDForYoutube(int lessonNumber, int courseID);

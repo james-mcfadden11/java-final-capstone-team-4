@@ -33,15 +33,16 @@ public class Lesson {
         super();
     }
 
-    public Lesson(int lesson_id, int lesson_number, String lesson_name, String description, String youtube_url, String youtube_text, String lesson_url1, String lesson_url2) {
-        this.lessonID = lesson_id;
-        this.lessonNumber = lesson_number;
-        this.lessonName = lesson_name;
+    public Lesson(int courseID, int lessonID, int lessonNumber, String lessonName, String description, String youtubeURL, String youtubeText, String lessonURL1, String lessonURL2) {
+        this.courseID = courseID;
+        this.lessonID = lessonID;
+        this.lessonNumber = lessonNumber;
+        this.lessonName = lessonName;
         this.description = description;
-        this.youtubeURL = youtube_url;
-        this.youtubeText = youtube_text;
-        this.lessonURL1 = lesson_url1;
-        this.lessonURL2 = lesson_url2;
+        this.youtubeURL = youtubeURL;
+        this.youtubeText = youtubeText;
+        this.lessonURL1 = lessonURL1;
+        this.lessonURL2 = lessonURL2;
     }
 
     public int getLessonID() {

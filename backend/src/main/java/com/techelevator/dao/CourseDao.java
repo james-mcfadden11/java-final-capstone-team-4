@@ -63,6 +63,8 @@ public interface CourseDao {
 
     List<Student> getAllStudentsInCourse(Integer courseID);
 
+    List<Assignment> getAllStudentsAssignments(Integer courseID);
+
 
 //    public Integer getLessonIDForYoutube(int lessonNumber, int courseID);
 

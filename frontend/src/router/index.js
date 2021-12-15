@@ -12,6 +12,7 @@ import CourseList from '../views/CourseList.vue'
 import CourseDetailsView from '../views/CourseDetailsView.vue'
 import AssignmentView from '../views/AssignmentView.vue'
 import LessonView from '../views/LessonView.vue'
+import StudentsProgressView from '../views/StudentsProgressView.vue'
 
 // FOR YOUTUBE API **************
 Vue.use(VueYoutube)
@@ -103,6 +104,12 @@ const router = new Router({
       path: '/course/:courseID/lessons/:lessonID',
       name: 'lesson',
       component: LessonView
+    },
+
+    {
+      path: '/teacherView/course/:courseID',
+      name: 'progress',
+      component: StudentsProgressView
     }
 
   ]

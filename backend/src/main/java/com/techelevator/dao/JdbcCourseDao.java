@@ -1,13 +1,11 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Assignment;
-import com.techelevator.model.Course;
-import com.techelevator.model.CourseAuthorization;
-import com.techelevator.model.Lesson;
+import com.techelevator.model.*;
 import org.apache.tomcat.jni.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -363,6 +361,44 @@ public class JdbcCourseDao implements CourseDao {
 
     }
 
+    @Override
+    public List<Assignment> getAllStudentsAssignments(Integer courseID) {
+        List<Assignment> assignments = new ArrayList<>();
+        String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
+                "assignments.possible_points, due_date, student_grade, submission, teacher_feedback, is_graded, " +
+                "is_submitted, submission_date_time FROM assignments " +
+                "LEFT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
+                "WHERE course_id = ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+
+        while (results.next()) {
+            Assignment assignment = mapRowToAssignment(results);
+            assignments.add(assignment);
+        }
+
+        return assignments;
+    }
+
+
+    /*------ Student Methods ------*/
+    public List<Student> getAllStudentsInCourse(Integer courseID) {
+
+        List<Student> students = new ArrayList<>();
+        String sql = "SELECT users.first_name, users.last_name, student_id, username FROM students " +
+                "JOIN student_courses USING (student_id) JOIN users USING (user_id) WHERE course_id = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
+
+        while (results.next()) {
+            Student student = mapRowToStudent(results);
+            // changed from mapRowToLesson to mapRowToLessonLite by James at 7:20pm on Mon 12-13
+            students.add(student);
+        }
+
+        return students;
+
+    }
 
 
 
@@ -513,6 +549,13 @@ public class JdbcCourseDao implements CourseDao {
                 rs.getInt("difficulty_level"),
                 rs.getDouble("course_cost"),
                 rs.getInt("course_id"));
+    }
+
+    private Student mapRowToStudent (SqlRowSet rs) {
+        return new Student(rs.getString("first_name"),
+                rs.getString("last_name"),
+                rs.getLong("student_id"),
+                rs.getString("username"));
     }
 
 }

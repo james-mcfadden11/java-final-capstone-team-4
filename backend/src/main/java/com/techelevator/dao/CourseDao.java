@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.Assignment;
 import com.techelevator.model.Course;
 import com.techelevator.model.Lesson;
+import com.techelevator.model.Student;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -65,8 +66,16 @@ public interface CourseDao {
     void setSubmittedAssignmentInfo(String username, Integer assignmentID, String submission);
 
 
+<<<<<<< HEAD
 
         void gradeAndReviewAssignment(String username, Integer assignmentID, Assignment assignment);
+=======
+    void gradeAndReviewAssignment(String username, Integer assignmentID, Assignment assignment);
+
+    List<Student> getAllStudentsInCourse(Integer courseID);
+
+    List<Assignment> getAllStudentsAssignments(Integer courseID);
+>>>>>>> accd0b6a6c2b709bec0206b8f0dc21408ad98efa
 
 
 //    public Integer getLessonIDForYoutube(int lessonNumber, int courseID);

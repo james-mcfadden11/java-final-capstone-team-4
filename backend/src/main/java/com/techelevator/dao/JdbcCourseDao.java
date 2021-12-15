@@ -301,7 +301,7 @@ public class JdbcCourseDao implements CourseDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
 
         while (results.next()) {
-            Assignment assignment = mapRowToAssignment(results);
+            Assignment assignment = mapRowToAssignmentLite(results);
             assignments.add(assignment);
         }
 
@@ -535,6 +535,23 @@ public class JdbcCourseDao implements CourseDao {
             assignment.setSubmittedDateTime(rs.getDate("submission_date_time").toLocalDate());
         } else {
             assignment.setSubmittedDateTime(null);
+        }
+
+        return assignment;
+    }
+
+    private Assignment mapRowToAssignmentLite(SqlRowSet rs) {
+        Assignment assignment = new Assignment();
+
+        // from Assignments table
+        assignment.setCourseID(rs.getInt("course_id"));
+        assignment.setAssignmentID(rs.getInt("assignment_id"));
+        assignment.setAssignmentNumber(rs.getInt("assignment_number"));
+        assignment.setAssignmentName(rs.getString("assignment_name"));
+        assignment.setDescription(rs.getString("description"));
+        assignment.setPossiblePoints(rs.getInt("possible_points"));
+        if(rs.getDate("due_date") != null) {
+            assignment.setDueDate(rs.getDate("due_date").toLocalDate());
         }
 
         return assignment;

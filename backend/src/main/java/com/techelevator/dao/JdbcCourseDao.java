@@ -266,12 +266,10 @@ public class JdbcCourseDao implements CourseDao {
     public Assignment getAssignmentForAssignmentID(Integer assignmentID) {
         Assignment assignment = new Assignment();
 
-        // sql changed by James at 8:46pm on Mon 12-13
+        // sql changed by Frankie at 11:25am on Wed
         String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
-                "assignments.possible_points, due_date, student_grade, submission, teacher_feedback, is_graded, " +
-                "is_submitted, submission_date_time FROM assignments " +
-                "LEFT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
-                "WHERE assignment_id = ?;";
+                "assignments.possible_points, due_date FROM assignments " +
+                "WHERE assignment_id = ? ORDER BY assignment_number;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, assignmentID);
 
         if (results.next()) {
@@ -284,11 +282,10 @@ public class JdbcCourseDao implements CourseDao {
     public List<Assignment> getAssignments(Integer courseID) {
 
         List<Assignment> assignments = new ArrayList<>();
+        // sql changed by Frankie at 11:25am on Wed
         String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
-                "assignments.possible_points, due_date, student_grade, submission, teacher_feedback, is_graded, " +
-                "is_submitted, submission_date_time FROM assignments " +
-                "LEFT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
-                "WHERE course_id = ?;";
+                "assignments.possible_points, due_date FROM assignments " +
+                "WHERE course_id = ? ORDER BY assignment_number;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);
 
@@ -356,7 +353,7 @@ public class JdbcCourseDao implements CourseDao {
         String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
                 "assignments.possible_points, due_date, student_grade, submission, teacher_feedback, is_graded, " +
                 "is_submitted, submission_date_time FROM assignments " +
-                "LEFT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
+                "RIGHT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
                 "WHERE course_id = ?;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, courseID);

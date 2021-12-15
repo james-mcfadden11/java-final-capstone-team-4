@@ -5,11 +5,20 @@
     <br>
 
     <h3>My courses:</h3>
-    <div v-for="course in coursesEnrolledIn" v-bind:key="course.courseNumber">
+    <div v-for="course in coursesEnrolledIn" v-bind:key="course.courseID">
       <div>
           <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
             {{course.title}} 
           </router-link>
+          <br>
+          <h4 style="text-indent: 1em">Grades:</h4>
+          <div v-for="assignment in gradedAssignments" v-bind:key="assignment.assignmentID">
+            <div v-if="assignment.courseID == course.courseID" style="text-indent: 1em">
+              {{assignment.assignmentName}}: 
+              {{assignment.studentGrade}} out of {{assignment.possiblePoints}}
+            </div>
+
+          </div>
           <br>
           <br>
       </div>

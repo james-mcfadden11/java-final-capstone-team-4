@@ -143,8 +143,7 @@ public class CourseController {
         return dummy;
 
     }
-
-
+    
     //Endpoint #18: Set Youtube video for a Specific Lesson ID
     @RequestMapping(value = "/{courseID}/lessons/{lessonID}/full", method = RequestMethod.PUT)
     public String setVideoAndGoogleLessonForID(@PathVariable Integer lessonID, @RequestBody Lesson lesson) {
@@ -153,24 +152,23 @@ public class CourseController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-    //Endpoint #22: Submit Assignment for a specific Assignment ID
+    //Endpoint #22: Submit an assignment (enrolled student only)
     @RequestMapping(value = "/{courseID}/assignments/{assignmentID}", method = RequestMethod.PUT)
-    public void setSubmittedAssignmentDetails(Principal principal, @PathVariable Integer assignmentID, @RequestBody Assignment assignment) {
+    public void setSubmittedAssignmentDetails(Principal principal, @PathVariable Integer courseID,
+                                              @PathVariable Integer assignmentID, @RequestBody String submission) {
         System.out.println("Inside Endpoint 22");
-        courseDao.setSubmittedAssignmentInfo(principal.getName(), assignmentID, assignment);
+        //INSERT AUTH HERE
+        CourseAuthorization courseAuth = new CourseAuthorization(principal, courseID, userDao, courseDao);
+        if (courseAuth.isAllowedToSubmitAssignment()) {
+            courseDao.setSubmittedAssignmentInfo(principal.getName(), assignmentID, submission);
+        } else {
+            System.out.println("Access Denied, handle it somehow");
+        }
+        //System.out.println(submission);
+        courseDao.setSubmittedAssignmentInfo(principal.getName(), assignmentID, submission);
     }
 
-    //Endpoint #23: Submit Assignment for a specific Assignment ID
+    //Endpoint #23: Grade an assignment (teacher only)
     @RequestMapping(value = "/{courseID}/assignments/{assignmentID}/grades", method = RequestMethod.PUT)
     public void setAssignmentGrades(Principal principal, @PathVariable Integer courseID,
                                     @PathVariable Integer assignmentID, @RequestBody Assignment assignment) {

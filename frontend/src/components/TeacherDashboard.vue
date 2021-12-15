@@ -5,13 +5,19 @@
     <br>
 
     <h3>My Courses:</h3>
-    <div v-for="course in myCoursesToTeach" v-bind:key="course.courseNumber">
+    <div v-for="course in myCoursesToTeach" v-bind:key="course.courseID">
       <div>
-          <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
-            {{course.title}} 
-          </router-link>
-          <br>
-          <br>
+        <h4>{{course.title}}</h4>
+        <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
+          Lessons and Assignments
+        </router-link>
+        <br>
+        <br>
+        <router-link v-bind:to="{ name: 'studentsProgress', params: { courseID: course.courseID } }">
+          Students' Progress
+        </router-link>
+        <br>
+        <br>
       </div>
     </div>
 

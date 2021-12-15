@@ -41,8 +41,8 @@ export default {
   },
 
   //Endpoint #8: Get Lesson Details for a Specific Lesson ID
-  getLessonDetails(courseID, lessonID) {
-    return axios.get(`/courses/${courseID}/lessons/${lessonID}`);
+  getLessonDetails(courseID, lessonID, lesson) {
+    return axios.get(`courses/${courseID}/lessons/${lessonID}`, lesson);
   },
 
   //Endpoint #9: Create Assignment for a Specific Course
@@ -82,6 +82,7 @@ export default {
 
   //Endpoint #17: Return Full Lesson (With Content) for Lesson ID for Logged In Enrolled Student
 
+
   //Endpoint #18: Update Assignment After Submission
   updateAssignmentDetails(updatedAssignment, assignmentID, courseID) {
     return axios.put(`courses/${courseID}/assignments`, updatedAssignment, assignmentID)
@@ -89,7 +90,7 @@ export default {
 
   //Endpoint #19: Update Youtube URL to link back to specific Youtube Video for a particular lesson.
   updateLessonDetails(courseID, lessonID, lesson) {
-    return axios.put(`/courses/${courseID}/lessons/${lessonID}`, lesson)
+    return axios.put(`courses/${courseID}/lessons/${lessonID}`, lesson)
   },
 
   // //Endpoint #20 Update Google Doc URL to link back to specific Google Doc for a particular lesson.

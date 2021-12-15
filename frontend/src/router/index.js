@@ -110,7 +110,7 @@ const router = new Router({
       path: '/teacherView/course/:courseID',
       name: 'progress',
       component: StudentsProgressView
-    }
+    },
 
   ]
 });

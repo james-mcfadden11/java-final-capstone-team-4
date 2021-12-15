@@ -145,9 +145,10 @@ public class CourseController {
 
     }
 
-    //Endpoint #18: Set Youtube video for a Specific Lesson ID
+    // Endpoint #18: Update the lesson
     @RequestMapping(value = "/{courseID}/lessons/{lessonID}", method = RequestMethod.PUT)
-    public String updateLessonDetails(@PathVariable Integer courseID, @PathVariable Integer lessonID, @RequestBody Lesson lesson) {
+    public String updateLessonDetails(@PathVariable Integer courseID,
+                                      @PathVariable Integer lessonID, @RequestBody Lesson lesson) {
         return courseDao.updateLessonDetails(courseID, lessonID, lesson);
     }
 

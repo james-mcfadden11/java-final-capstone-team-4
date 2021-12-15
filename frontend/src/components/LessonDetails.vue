@@ -2,22 +2,17 @@
   <div class="main-div">
     <!-- Teacher Youtube Video Link Submission -->
     <div class="forms-div" v-show="isTeacher">
-      <form class="youtube-url-form">
+      <form class="lesson-details-form">
         <p>Please paste the youtube video URL link for this lesson's content below:</p>
         <input class="vid-url-input" v-model="videoId" type="url" placeholder="Lesson Video URL"/>
-        <button class="youtube-save-btn" type="submit" v-on:submit="updateLessonDetails(course.courseID, lesson.lessonID, lesson)">Save</button>
-      </form>
-
-      <form class="google-url-form">
+        
         <p>Please paste the Google Doc URL link for this lesson's content below:</p>
         <input class="doc-url-input" type="url" placeholder="Google Doc URL"/>
-        <button class="google-save-btn" type="submit" v-on:click.prevent="updateLessonDoc(course.courseID, lesson.lessonID)">Save</button>
-      </form>
+      
 
-      <form class="youtube-description-form">
         <p>Please enter in a description for the video content of this lesson below:</p>
         <textarea class="vid-description" placeholder="Video Description..."/>
-        <button class="save-vid-description" type="submit" v-on:click.prevent="updateVidDescription(course.courseID, lesson.lessonID)">Save</button>
+        <button class="youtube-save-btn" type="submit" v-on:submit="updateLessonDetails(course.courseID, lesson.lessonID, lesson)">Save</button>
       </form>
     </div>
 
@@ -54,9 +49,9 @@ export default {
 
         
         },
-        courseID: this.$route.params.courseID,
+        courseID: this.$route.params.courseId,
         lessonID: this.$route.params.lessonID,
-        videoId: ''
+        videoId: 'QO_Jlz1qpDw'
     }
   },
 
@@ -90,9 +85,9 @@ export default {
         });
     },
     
-    updateLessonVideo(courseID, lessonID) {
+    updateLessonDetails(courseID, lessonID, lesson) {
       courseService
-          .updateLessonVideo(courseID, lessonID)
+          .updateLessonDetails(courseID, lessonID, lesson)
           .then(response => {
             if(response && response.status == 201) {
             // this.retrieveCourses();
@@ -110,48 +105,6 @@ export default {
           }
         });
     },
-
-    updateLessonDoc(courseID, lessonID) {
-      courseService
-          .updateLessonDoc(courseID, lessonID)
-          .then(response => {
-            if(response && response.status == 201) {
-            // this.retrieveCourses();
-            // this.resetForm();
-          }
-        })
-        .catch(error => {
-          // log the error
-          if (error.response) {
-            this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
-          } else if (error.request) {
-            this.errorMsg = "Error submitting new course. Server could not be reached.";
-          } else {
-            this.errorMsg = "Error submitting new course. Request could not be created.";
-          }
-        });
-    },
-
-    updateVidDescription(courseID, lessonID) {
-      courseService
-          .updateVidDescription(courseID, lessonID)
-          .then(response => {
-            if(response && response.status == 201) {
-            // this.retrieveCourses();
-            // this.resetForm();
-          }
-        })
-        .catch(error => {
-          // log the error
-          if (error.response) {
-            this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
-          } else if (error.request) {
-            this.errorMsg = "Error submitting new course. Server could not be reached.";
-          } else {
-            this.errorMsg = "Error submitting new course. Request could not be created.";
-          }
-        });
-    }
   },
   
   computed: {

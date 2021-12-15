@@ -9,6 +9,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -185,6 +186,32 @@ public class CourseController {
         }
 
     }
+
+    //Endpoint #24: Get all students in a course
+    @RequestMapping(value = "/{courseID}/students", method = RequestMethod.GET)
+    public List<Student> getAllStudentsInCourse(Principal principal, @PathVariable Integer courseID) {
+        System.out.println("Inside Endpoint 24");
+        CourseAuthorization courseAuth = new CourseAuthorization(principal, courseID, userDao, courseDao);
+        if (courseAuth.isAllowedToGrade()) {
+            return courseDao.getAllStudentsInCourse(courseID);
+        } else {
+            System.out.println("Access Denied, handle it somehow");
+            return null;
+        }
+    }
+
+//    // Endpoint #25 AKA Endpoint #3 - The Remix: Get All Student Assignments for a Specific Course
+//    @RequestMapping(value = "/{courseID}/assignments/students", method = RequestMethod.GET)
+//    public List<Assignment> getStudentAssignments(Principal principal, @PathVariable Integer courseID) {
+//        System.out.println("Inside Endpoint 25");
+//        CourseAuthorization courseAuth = new CourseAuthorization(principal, courseID, userDao, courseDao);
+//        if (courseAuth.isAllowedToGrade()) {
+//            return courseDao.getAllStudentsAssignments(courseID);
+//        } else {
+//            System.out.println("Access Denied, handle it somehow");
+//            return null;
+//        }
+//    }
 
 
 

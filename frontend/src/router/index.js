@@ -107,8 +107,8 @@ const router = new Router({
     },
 
     {
-      path: 'teacherView/course/:courseID/studentsProgress',
-      name: 'studentsProgress',
+      path: '/teacherView/course/:courseID',
+      name: 'progress',
       component: StudentsProgressView
     }
 

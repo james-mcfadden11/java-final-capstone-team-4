@@ -116,7 +116,7 @@ export default {
   //Endpoint #24: Get all students in a course
   getStudentsForCourse(courseID) {
     return axios.get(`courses/${courseID}/students`)
-  },
+  }
 
   // Endpoint 
   // getAssignmentsForCourse(courseID) {

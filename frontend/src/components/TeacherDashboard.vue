@@ -1,9 +1,7 @@
 <template>
   <div>
     <h2>Teacher Dashboard</h2>
-    
     <br>
-
     <h3>My Courses:</h3>
     <div v-for="course in myCoursesToTeach" v-bind:key="course.courseID">
       <div>
@@ -13,16 +11,18 @@
         </router-link>
         <br>
         <br>
-        <router-link v-bind:to="{ name: 'studentsProgress', params: { courseID: course.courseID } }">
+      </div>
+      <div>
+        <router-link v-bind:to="{ name: 'progress', params: { courseID: course.courseID } }">
           Students' Progress
         </router-link>
         <br>
         <br>
       </div>
-    </div>
 
     <br>
     <br>
+    </div>
     
   </div>
 </template>

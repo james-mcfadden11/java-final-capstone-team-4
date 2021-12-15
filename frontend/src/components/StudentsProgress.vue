@@ -1,11 +1,13 @@
 <template>
   <div>
       <h2>Students' Progress</h2>
-      {{course.title}}
+      <h3>{{course.title}}</h3>
+
       <br>
       <br>
 
-      <div v-for="student in students" v-bind:key="student.studentID">
+      <div v-for="student in students" v-bind:key="student.student_id">
+          {{student.firstName}}{{student.lastName}}
           <div v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
             <div v-if="assignment.studentID == student.studentID">
                 <!-- this route needs updated to include studentID somehow -->
@@ -28,7 +30,7 @@ import courseService from '../services/CourseService';
 export default {
     name: 'students-progress',
 
-    date() {
+    data() {
         return {
             students: [],
             assignments: [],
@@ -40,7 +42,7 @@ export default {
     created() {
         this.getStudentsForCourse(this.courseID);
         this.getCourseInfo(this.courseID);
-        this.getAssignmentsForCourse(this.courseID);
+        // this.getAssignmentsForCourse(this.courseID);
     },
 
     methods: {
@@ -48,6 +50,7 @@ export default {
             courseService
                 .getStudentsForCourse(courseID)
                 .then(response => {
+                    console.log("got a response, trying to set students to response data");
                     this.students = response.data;
                 })
                 .catch(error => {
@@ -80,7 +83,7 @@ export default {
 
         getAssignmentsForCourse(courseID) {
             courseService
-                .getAssignmentsForCourse(courseID)
+                .getAssignments(courseID)
                 .then(response => {
                     this.assignments = response.data;
                 })

@@ -19,12 +19,16 @@
       </form>
     </div>
     <h1>Lesson Video</h1>
+
     <!-- Youtube Video & Google Doc Embedd -->
     <div class="iframe">
         <youtube v-bind:video-id="videoId" ref="youtube" @playing="playing"></youtube>
+        
         <iframe width = 650px height = 1000px src="https://docs.google.com/document/d/e/2PACX-1vT7hVH5HKfvIgYx08fSwQtX1HjiqjgV_5ofdLMChv78EjOjgUMW_h1is_R0x_8PxQccuMzTblzMd7uW/pub?embedded=true"></iframe>
     </div>
+
     <h2>Additional Resources</h2>
+
     <!-- Student Clickable Link for Google Doc -->
     <p>Click the link below for additional resources for this lesson.</p>
     <a href="https://docs.google.com/document/d/1ZGLwgDGd6vg-GssCPe0d7TQDO6wJ0uAruhNiANNiG3s/edit">Lesson Text</a>
@@ -35,21 +39,26 @@ import Vue from 'vue'
 import VueYoutube from 'vue-youtube'
 import courseService from '../services/CourseService';
 Vue.use(VueYoutube)
+
 export default {
   name: 'lesson-details',
   props: ['isTeacher'],
+  
   data() {
     return {
         lesson: {
+        
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: this.videoId
+        videoId: this.$route.params.youtubeURL
     }
   },
+
   created() {
     this.getLessonDetails(this.courseID, this.lessonID);
   },
+
   methods: {
     // These two methods are required for the YouTube API to work with Vue
     playVideo() {
@@ -135,12 +144,14 @@ export default {
         });
     }
   },
+  
   computed: {
     // This computed property is required for the YouTube API to work in Vue
     player () {
       return this.$refs.youtube.player
     }
   }
+  
 }
 </script>
 <style>

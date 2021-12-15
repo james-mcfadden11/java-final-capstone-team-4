@@ -86,22 +86,33 @@ export default {
   },
 
   //Endpoint #18: Update Assignment After Submission
-  updateAssignmentDetails(newAssignment, assignmentID, courseID) {
-    return axios.put(`courses/${courseID}/assignments`, newAssignment, assignmentID)
+  updateAssignmentDetails(updatedAssignment, assignmentID, courseID) {
+    return axios.put(`courses/${courseID}/assignments`, updatedAssignment, assignmentID)
   },
-  
-//Endpoint #19: Update Youtube URL to link back to specific Youtube Video for a particular lesson.
-setVideoAndGoogleLessonForID(lesson, courseID, lessonID) {
-  return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
-},
-//Endpoint #20 Update Google Doc URL to link back to specific Google Doc for a particular lesson.
-updateLessonDoc(lesson, courseID, lessonID) {
-  return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
-},
-//Endpoint #21 Update Youtube Video Description to link back to a specific video description for a particular lesson.
-updateVidDescription(lesson, courseID, lessonID) {
-  return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
-}
 
-  
+  //Endpoint #19: Update Youtube URL to link back to specific Youtube Video for a particular lesson.
+  updateLessonVideo(lesson, courseID, lessonID) {
+    return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
+  },
+
+  //Endpoint #20 Update Google Doc URL to link back to specific Google Doc for a particular lesson.
+  updateLessonDoc(lesson, courseID, lessonID) {
+    return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
+  },
+
+  //Endpoint #21 Update Youtube Video Description to link back to a specific video description for a particular lesson.
+  updateVidDescription(lesson, courseID, lessonID) {
+    return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
+  },
+
+  //Endpoint #22: Submit Assignment for a specific Assignment ID
+  submitAssignment(submission, assignmentID, courseID) {
+    return axios.put(`courses/${courseID}/assignments/${assignmentID}`, submission,
+      {headers: {"Content-Type": "text/plain"}});
+  },
+
+  //Endpoint #23: Teacher grade an assignment
+  gradeAssignment(updatedAssignment, assignmentID, courseID, assignment) {
+    return axios.put(`courses/${courseID}/assignments/${assignmentID}/grades`, assignment)
+  }
 }

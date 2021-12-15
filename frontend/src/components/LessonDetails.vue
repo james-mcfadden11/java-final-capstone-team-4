@@ -7,7 +7,7 @@
         <input  class="vid-url-input" v-model="lesson.youtubeURL" type="url" placeholder="Lesson Video URL"/>
         <button class="youtube-save-btn" type="submit" v-bind="lesson.youtubeURL" v-on:submit.prevent="setVideoAndGoogleLessonForID(courseID, lessonID, lesson)">Save</button>
       </form>
-      <form class="google-url-form">
+      <form class="google-url-form" v-on:submit.prevent="setVideoAndGoogleLessonForID(courseID, lessonID, lesson)">
         <p>Please paste the Google Doc URL link for this lesson's content below:</p>
         <input class="doc-url-input" type="url" placeholder="Google Doc URL"/>
         <button class="google-save-btn" type="submit" v-on:click.prevent="updateLessonDoc(lesson,  course.courseID,  lesson.lessonID)">Save</button>
@@ -47,11 +47,20 @@ export default {
   data() {
     return {
         lesson: {
+          courseID: 0,
+          lessonID: 0,
+          lessonNumber: 0,
+          lessonName: "",
+          description: "",
+          youtubeURL: "",
+          youtubeText: "",
+          lessonURL1: "",
+          lessonURL2: ""
         
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: this.$route.params.youtubeURL
+        videoId: this.youtubeURL
 
     }
   },
@@ -84,11 +93,12 @@ export default {
           }
         });
     },
-    setVideoAndGoogleLessonForID(courseID, lessonID, lesson) {
+    setVideoAndGoogleLessonForID(lessonID, courseID, lesson) {
       courseService
-          .setVideoAndGoogleLessonForID(courseID, lessonID, lesson)
+          .setVideoAndGoogleLessonForID(lessonID, courseID, lesson)
           .then(response => {
             if(response && response.status == 201) {
+              this.getLessonDetails(this.youtubeURL);
             // this.retrieveCourses();
             // this.resetForm();
           }

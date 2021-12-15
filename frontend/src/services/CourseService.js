@@ -91,8 +91,8 @@ export default {
   },
 
   //Endpoint #19: Update Youtube URL to link back to specific Youtube Video for a particular lesson.
-  updateLessonVideo(lesson, courseID, lessonID) {
-    return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`)
+  updateLessonVideo(lessonID, courseID, lesson) {
+    return axios.put(`/courses/${courseID}/lessons/${lessonID}/full`, lesson)
   },
 
   //Endpoint #20 Update Google Doc URL to link back to specific Google Doc for a particular lesson.

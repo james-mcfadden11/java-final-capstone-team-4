@@ -5,7 +5,7 @@
       <form class="youtube-url-form">
         <p>Please paste the youtube video URL link for this lesson's content below:</p>
         <input  class="vid-url-input" v-model="lesson.youtubeURL" type="url" placeholder="Lesson Video URL"/>
-        <button class="youtube-save-btn" type="submit" v-bind="lesson.youtubeURL" v-on:click="setVideoAndGoogleLessonForID(lesson , course.courseID,  lesson.lessonID)">Save</button>
+        <button class="youtube-save-btn" type="submit" v-bind="lesson.youtubeURL" v-on:submit.prevent="setVideoAndGoogleLessonForID(courseID, lessonID, lesson)">Save</button>
       </form>
       <form class="google-url-form">
         <p>Please paste the Google Doc URL link for this lesson's content below:</p>
@@ -52,6 +52,7 @@ export default {
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
         videoId: this.$route.params.youtubeURL
+
     }
   },
 
@@ -83,9 +84,9 @@ export default {
           }
         });
     },
-    setVideoAndGoogleLessonForID(lessonID, lesson) {
+    setVideoAndGoogleLessonForID(courseID, lessonID, lesson) {
       courseService
-          .setVideoAndGoogleLessonForID(lessonID, lesson)
+          .setVideoAndGoogleLessonForID(courseID, lessonID, lesson)
           .then(response => {
             if(response && response.status == 201) {
             // this.retrieveCourses();

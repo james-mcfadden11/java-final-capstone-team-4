@@ -152,6 +152,8 @@ public class CourseController {
 
 
 
+
+
     //Endpoint #22: Submit an assignment (enrolled student only)
     @RequestMapping(value = "/{courseID}/assignments/{assignmentID}", method = RequestMethod.PUT)
     public void setSubmittedAssignmentDetails(Principal principal, @PathVariable Integer courseID,

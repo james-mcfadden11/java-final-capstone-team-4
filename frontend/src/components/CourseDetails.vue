@@ -15,7 +15,7 @@
 
     <br>
 
-    <h2>Course lessons:</h2>
+    <h2>Course lessons</h2>
     <div class="card-details" v-for="lesson in lessons" v-bind:key="lesson.lessonID">
       <span class="bold-me"> Lesson: {{lesson.lessonNumber}} </span>
       <br>

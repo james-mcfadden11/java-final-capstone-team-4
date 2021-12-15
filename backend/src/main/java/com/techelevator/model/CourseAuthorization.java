@@ -50,5 +50,60 @@ public class CourseAuthorization {
 
     }
 
+    public boolean isAllowedToGrade() {
 
+        String username = principal.getName();
+        System.out.println("Username: " + username);
+        int userID = userDao.findIdByUsername(username);
+        System.out.println("User ID: " + userID);
+        int studentID = 0;
+        int teacherID = 0;
+
+        boolean isTeacher = userDao.findIfUsernameIsTeacher(username);
+        System.out.println("isTeacher?: " + isTeacher);
+        boolean accessGranted = false;
+
+        if (isTeacher) {
+            teacherID = courseDao.getTeacherID(username);
+            System.out.println("I am a teacher");
+            accessGranted = courseDao.checkIfTeacherIsCourseTeacher(courseID, teacherID);
+
+        } else {
+            System.out.println("I am a student");
+            accessGranted = false;
+
+        }
+        System.out.println("Access granted: " + accessGranted);
+
+        return accessGranted;
+
+    }
+
+    public boolean isAllowedToSubmitAssignment() {
+
+        String username = principal.getName();
+        //System.out.println("Username: " + username);
+        int userID = userDao.findIdByUsername(username);
+        //System.out.println("User ID: " + userID);
+        int studentID = 0;
+
+        boolean isTeacher = userDao.findIfUsernameIsTeacher(username);
+        //System.out.println("isTeacher?: " + isTeacher);
+        boolean accessGranted = false;
+
+        if (isTeacher) {
+            //System.out.println("I am a teacher");
+            accessGranted = false;
+
+        } else {
+            studentID = courseDao.getStudentID(username);
+            //System.out.println("I am a student");
+            accessGranted = courseDao.checkIfStudentIsRegistered(courseID, studentID);
+
+        }
+        System.out.println("Access granted: " + accessGranted);
+
+        return accessGranted;
+
+    }
 }

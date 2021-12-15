@@ -11,6 +11,15 @@
             {{course.title}} 
           </router-link>
           <br>
+          <h4 style="text-indent: 1em">Grades:</h4>
+          <div v-for="assignment in gradedAssignments" v-bind:key="assignment.assignmentID">
+            <div v-if="assignment.courseID == course.courseID" style="text-indent: 1em">
+              {{assignment.assignmentName}}: 
+              {{assignment.studentGrade}} out of {{assignment.possiblePoints}}
+            </div>
+
+          </div>
+          <br>
           <br>
       </div>
     </div>

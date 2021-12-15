@@ -322,23 +322,36 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
-    public void setSubmittedAssignmentInfo(String username, Integer assignmentID, Assignment assignment) {
+    public void setSubmittedAssignmentInfo(String username, Integer assignmentID, String submission) {
         System.out.println("Inside setSubmittedAssignmentInfo");
-        //double studentGrade = assignment.getStudentGrade();
-        String submission = assignment.getSubmission();
-        //String teacherFeedback = assignment.getTeacherFeedback();
-        LocalDate submissionDateTime =  LocalDate.now();
+
+        LocalDate submissionDateTime = LocalDate.now();
         boolean isSubmitted = true;
         boolean isGraded = false;
-
         int studentID = getStudentID(username);
 
-
+        System.out.println(username + " " + assignmentID + " " + submission + " " + studentID + " " + submissionDateTime );
         String sql = "UPDATE student_assignments SET submission = ?, " +
                 "submission_date_time = ?, is_submitted = ?, is_graded = ? WHERE homework_id = ? AND student_id = ?";
-        jdbcTemplate.update(sql, submission, isSubmitted, isGraded, assignmentID, studentID);
+        jdbcTemplate.update(sql, submission, submissionDateTime, isSubmitted, isGraded, assignmentID, studentID);
 
     }
+
+
+    @Override
+    public void gradeAndReviewAssignment(String username, Integer assignmentID, Assignment assignment) {
+        System.out.println("Inside gradeAndReviewAssignment");
+        double studentGrade = assignment.getStudentGrade();
+        String teacherFeedback = assignment.getTeacherFeedback();
+        boolean isGraded = true;
+        int studentID = assignment.getStudentID();
+        System.out.println(studentGrade + " " + teacherFeedback + " " + isGraded  + " " + assignmentID  + " " + studentID);
+        String sql = "UPDATE student_assignments SET student_grade = ?, " +
+                "teacher_feedback = ?, is_graded = ? WHERE homework_id = ? AND student_id = ?";
+        jdbcTemplate.update(sql, studentGrade, teacherFeedback, isGraded, assignmentID, studentID);
+
+    }
+
 
 
 

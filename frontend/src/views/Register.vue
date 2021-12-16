@@ -60,8 +60,8 @@
       />
       <br>
       <div class="am-a-teacher">
-        <input class="am-teacher-check" type="checkbox" id="isTeacher" v-model="user.isTeacher">
-        <label for="isTeacher">I am registering as a teacher</label>
+      <input type="checkbox" id="isTeacher" v-model="user.isTeacher">
+      <label for="isTeacher">I am registering as a teacher</label>
       </div>
       <br>
       <br>
@@ -127,7 +127,11 @@ export default {
 </script>
 
 <style scoped>
-
+.main-body {
+      background-image: none;
+      border: none;
+    }
+    
 .form-register
 {
 
@@ -148,27 +152,11 @@ export default {
   color: rgb(221, 221, 197);
 }
 
+.am-a-teacher {
+  display: inline-block;
+}
+
 .need-account-btn {
      color: rgb(221, 221, 197);
    }
-
-input {
-  width: 98%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.am-a-teacher {
-  display: inline-block;
-  margin-left: 0px;
-  text-align: left;
-}
-
-.am-teacher-check {
-  display: flex;
-  align-content: left;
-  align-items: left;
-}
-
-
 </style>

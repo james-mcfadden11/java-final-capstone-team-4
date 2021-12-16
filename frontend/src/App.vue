@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    
+  <div>
+
     <nav class="nav">
       <router-link class="logo" v-bind:to="{ name: 'home' }" v-if="$store.state.token != ''"><img src="./assets/Whiteboard.png" alt="White Board Logo" ></router-link>
       <router-link class="course-li-link" v-bind:to="{ name: 'course-list' }" v-if="$store.state.token != ''">View Course List</router-link>
@@ -9,7 +9,8 @@
       <router-link class="logout-icon" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" ><img src="./assets/logout-icon.png" alt="Logout Icon" ></router-link>
     </nav>
     <br>
-    <router-view v-bind:isTeacher="this.$store.state.isTeacher"/>
+
+    <router-view class="main-body" v-bind:isTeacher="this.$store.state.isTeacher"/>
   </div>
 </template>
 
@@ -48,6 +49,21 @@
 /*****************************NAVBAR STYLING IS ABOVE***************************/
 
 /******************GENERIC STYLING FOR ENTIRE WEBSITE IS BELOW******************/
+.main-body {
+  height: 100%;
+  display: block;
+  margin-left: auto;
+  margin-top: 10px;
+  padding-bottom: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-image: linear-gradient(to bottom right, rgb(36, 36, 36), rgb(68, 68, 68));
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 65%;
+}
 body {
   background: cadetblue;
   background-image: url('./assets/darkthemebg.jpg');

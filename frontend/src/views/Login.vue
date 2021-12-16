@@ -145,6 +145,11 @@ export default {
         transform: translate3d(0, 200px, 0);
       }
     }
+
+    .main-body {
+      background-image: none;
+      border: none;
+    }
    
 </style>
 

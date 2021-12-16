@@ -159,23 +159,24 @@ public class JdbcCourseDao implements CourseDao {
         while (results.next()) {
             // changed from mapRowToLesson to mapRowToLessonLite by James at 7:20pm on Mon 12-13
             Lesson lesson = mapRowToLessonLite(results);
+            lesson.setCourseID(courseID);
             lessons.add(lesson);
         }
 
         return lessons;
     }
 
-    @Override
-    public Lesson getLessonForLessonID(Integer lessonID) {
-        Lesson lesson = new Lesson();
-        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE lesson_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lessonID);
-
-        while (results.next()) {
-            lesson = mapRowToLessonLite(results);
-        }
-        return lesson;
-    }
+//    @Override
+//    public Lesson getLessonForLessonID(Integer lessonID) {
+//        Lesson lesson = new Lesson();
+//        String sql = "SELECT lesson_number, lesson_id, lesson_name, description FROM lessons WHERE lesson_id = ?";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lessonID);
+//
+//        while (results.next()) {
+//            lesson = mapRowToLessonLite(results);
+//        }
+//        return lesson;
+//    }
 
     @Override
     public Lesson getFullLessonForLessonID(String username, Integer lessonID) {
@@ -183,7 +184,7 @@ public class JdbcCourseDao implements CourseDao {
         System.out.println("Username: " + username);
         System.out.println("LessonID: " + lessonID);
         Lesson lesson = new Lesson();
-        String sql = "SELECT lesson_number, lesson_id, lesson_name, description, " +
+        String sql = "SELECT course_id, lesson_number, lesson_id, lesson_name, description, " +
                 "youtube_url, youtube_text, lesson_url1, lesson_url2 " +
                 "FROM lessons WHERE lesson_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, lessonID);
@@ -191,11 +192,17 @@ public class JdbcCourseDao implements CourseDao {
         if (results.next()) {
             lesson = mapRowToLesson(results);
         }
-        return lesson;
+        String vidKey = parseVidID(lesson.getYoutubeURL());
+        lesson.setVideoId(vidKey);
+        return lesson ;
     }
 
     @Override
+<<<<<<< HEAD
     public String updateLessonDetails(Integer courseID, Integer lessonID, Lesson lesson) {
+=======
+    public Lesson setVideoAndGoogleLessonForID(Integer lessonID, Integer courseID, Lesson lesson) {
+>>>>>>> dbf54d355bb9632ea092e23d39a9b7abfafaf4f9
 //        int lessonID = getLessonIDForYoutube(lessonNumber, courseID);
 
         String youtubeURL = lesson.getYoutubeURL();
@@ -203,13 +210,25 @@ public class JdbcCourseDao implements CourseDao {
         String lessonURL1 = lesson.getLessonURL1();
         String lessonURL2 = lesson.getLessonURL2();
 
+        String vidKey = parseVidID(youtubeURL);
+        lesson.setVideoId(vidKey);
+
+
         String sql = "Update lessons SET youtube_url = ?, youtube_text = ?, lesson_url1 = ?, lesson_url2 = ? WHERE lesson_id = ?;";
         jdbcTemplate.update(sql, youtubeURL, youtubeText, lessonURL1, lessonURL2, lessonID);
 
-        String vidKey = parseVidID(youtubeURL);
 
-        return vidKey;
+
+
+        return lesson;
     }
+
+    @Override
+    public void setSubmittedAssignmentInfo(String username, Integer assignmentID, Assignment assignment) {
+
+    }
+
+
 
 
 
@@ -482,6 +501,7 @@ public class JdbcCourseDao implements CourseDao {
 
     private Lesson mapRowToLesson(SqlRowSet rs) {
         return new Lesson(
+                rs.getInt("course_id"),
                 rs.getInt("lesson_number"),
                 rs.getInt("lesson_id"),
                 rs.getString("lesson_name"),

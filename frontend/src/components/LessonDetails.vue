@@ -57,7 +57,8 @@ export default {
           youtubeURL: "",
           youtubeText: "",
           lessonURL1: "",
-          lessonURL2: ""
+          lessonURL2: "",
+          
         
         },
         courseID: this.$route.params.courseID,
@@ -76,9 +77,10 @@ export default {
     playVideo() {
       this.player.playVideo()
     },
-    resetURL() {
-      this.lesson.youtubeURL = ""
-    },
+
+    // resetURL() {
+    //   this.lesson.youtubeURL = ""
+    // },
     playing() {
       console.log('o/ we are watching!!!')
     },
@@ -105,10 +107,12 @@ export default {
           .setVideoAndGoogleLessonForID(lessonID, courseID, lesson)
           .then(response => {
             if(response && response.status == 201) {
-              this.getLessonDetails(this.youtubeURL);
+              this.lesson = response.data;
             // this.retrieveCourses();
             // this.resetForm();
+            this.getLessonDetails(this.courseID, this.lessonID)
           }
+          
         })
         .catch(error => {
           // log the error
@@ -175,7 +179,8 @@ export default {
     //     return this.videoId;
     // // },
     // }
-  }
+  },
+
 }
 
 </script>

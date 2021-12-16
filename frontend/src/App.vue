@@ -2,8 +2,8 @@
   <div id="app">
     
     <nav class="nav">
-      <router-link class="logo" v-bind:to="{ name: 'home' }"><img src="./assets/Whiteboard.png" alt="White Board Logo" ></router-link>
-      <router-link class="course-li-link" v-bind:to="{ name: 'course-list' }">View Course List</router-link>
+      <router-link class="logo" v-bind:to="{ name: 'home' }" v-if="$store.state.token != ''"><img src="./assets/Whiteboard.png" alt="White Board Logo" ></router-link>
+      <router-link class="course-li-link" v-bind:to="{ name: 'course-list' }" v-if="$store.state.token != ''">View Course List</router-link>
       
       <span class="user">{{ $store.state.user.firstName }} {{ $store.state.user.lastName }}</span>
       <router-link class="logout-icon" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" ><img src="./assets/logout-icon.png" alt="Logout Icon" ></router-link>
@@ -45,7 +45,6 @@
   margin-left: auto;
   margin-right: 10px;
 }
-
 /*****************************NAVBAR STYLING IS ABOVE***************************/
 
 /******************GENERIC STYLING FOR ENTIRE WEBSITE IS BELOW******************/
@@ -61,7 +60,6 @@ body {
 a {
   color: rgb(221, 221, 197);
 }
-
 
 a:visited {
 color: rgb(172, 172, 152);

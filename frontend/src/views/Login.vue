@@ -1,5 +1,6 @@
 <template>
   <div id="login" class="text-center">
+    <img class="logo" src="../assets/WelcomeImage.png" alt="White Board Logo" >
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal White--text">Please Sign In</h1>
       <div
@@ -86,13 +87,18 @@ export default {
 
 <style scoped>
 
+.login {
+  display: grid;
+  align-items: center;
+}
 .form-signin
 {
   display: grid;
-	width: 380px;
-	height: 500px;
-	position: relative;
+	width: 300px;
+	height: 400px;
+	position: relative;;
 	margin: 6% auto;
+  margin-top: 0px;
 	background: rgb(49, 49, 49);
 	padding: 15px;
   border-style: solid;
@@ -113,6 +119,33 @@ export default {
      margin-left: auto;
      margin-right: auto;
    }
+
+   .logo {
+     display: flex;
+     align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 30px;
+      margin-bottom: 0px;
+      -webkit-animation-name: bounce;
+      -webkit-animation-duration: 0.5s;
+      -webkit-animation-direction: alternate-reverse;
+      -webkit-animation-timing-function: cubic-bezier(.5, 0.05, 1, .5);
+      -webkit-animation-iteration-count: 3.0;
+    }
+    
+          
+    @-webkit-keyframes bounce {
+      from {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+      to {
+        -webkit-transform: translate3d(0, 200px, 0);
+        transform: translate3d(0, 200px, 0);
+      }
+    }
+   
 </style>
 
 

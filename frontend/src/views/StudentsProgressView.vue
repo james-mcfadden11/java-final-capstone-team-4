@@ -18,7 +18,7 @@ export default {
 .margin {
   display: block;
   margin-left: auto;
-  margin-top: -1.6%;
+  margin-top: 10px;
   margin-right: auto;
   padding-left: 10px;
   padding-right: 10px;
@@ -26,7 +26,7 @@ export default {
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  width: 75%;
+  width: 65%;
 }
 
 </style>

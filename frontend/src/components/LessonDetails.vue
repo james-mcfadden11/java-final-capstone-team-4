@@ -2,7 +2,7 @@
   <div class="main-div">
     <!-- Teacher Youtube Video Link Submission -->
     <div class="forms-div" v-show="isTeacher">
-      <form class="youtube-url-form" v-on:submit="setVideoAndGoogleLessonForID(courseID, lessonID, lesson)">
+      <form class="youtube-url-form" v-on:submit.prevent="setVideoAndGoogleLessonForID(courseID, lessonID, lesson)">
         <p>Please paste the youtube video URL link for this lesson's content below:</p>
         <input  class="vid-url-input" v-model="lesson.youtubeURL" type="text" placeholder="Lesson Video URL" />
        
@@ -63,7 +63,7 @@ export default {
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: this.videoId
+        videoId: ""
 
     }
   },
@@ -78,9 +78,9 @@ export default {
       this.player.playVideo()
     },
 
-    resetURL() {
-      this.lesson.youtubeURL = ""
-    },
+    // resetURL() {
+    //   this.lesson.youtubeURL = ""
+    // },
     playing() {
       console.log('o/ we are watching!!!')
     },
@@ -89,6 +89,7 @@ export default {
         .getLessonDetails(courseID, lessonID)
         .then(response => {
           this.lesson = response.data;
+          this.videoId = this.lesson.videoId
         })
         .catch(error => {
           if (error.response) {
@@ -105,7 +106,7 @@ export default {
           .setVideoAndGoogleLessonForID(lessonID, courseID, lesson)
           .then(response => {
             if(response && response.status == 201) {
-              this.getLessonDetails(this.youtubeURL);
+              this.lesson = response.data;
             // this.retrieveCourses();
             // this.resetForm();
           }

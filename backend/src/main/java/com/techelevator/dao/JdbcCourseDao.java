@@ -352,7 +352,7 @@ public class JdbcCourseDao implements CourseDao {
         List<Assignment> assignments = new ArrayList<>();
         String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
                 "assignments.possible_points, due_date, student_grade, submission, teacher_feedback, is_graded, " +
-                "is_submitted, submission_date_time FROM assignments " +
+                "is_submitted, submission_date_time, student_id FROM assignments " +
                 "RIGHT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
                 "WHERE course_id = ?;";
 
@@ -520,6 +520,7 @@ public class JdbcCourseDao implements CourseDao {
         assignment.setTeacherFeedback(rs.getString("teacher_feedback"));
         assignment.setGraded(rs.getBoolean("is_graded"));
         assignment.setSubmitted(rs.getBoolean("is_submitted"));
+        assignment.setStudentID(rs.getInt("student_id"));
         if(rs.getDate("submission_date_time") != null) {
             assignment.setSubmittedDateTime(rs.getDate("submission_date_time").toLocalDate());
         } else {

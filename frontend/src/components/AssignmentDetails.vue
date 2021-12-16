@@ -12,7 +12,7 @@
     <h4 v-show="assignment.submitted">Submission:</h4>
     <a href="v-bind=assignment.submission">{{assignment.submission}}</a>
 
-    <form v-if="!assignment.submitted" v-on:submit.prevent="submitAssignment(submission, assignmentID, courseID)" v-show="!isTeacher">
+    <form v-if="!assignment.submitted" v-on:submit="submitAssignment(submission, assignmentID, courseID)" v-show="!isTeacher">
       <h3>Student submission:</h3>
       <h5>Copy and paste the link to your Google doc</h5>
       <input type="text" v-model="submission" />

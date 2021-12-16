@@ -10,7 +10,6 @@
           <h4>{{student.firstName}} {{student.lastName}}</h4>
           <div v-for="assignment in assignments" v-bind:key="assignment.uniqueID">
             <div v-if="assignment.studentID == student.student_id">
-                <!-- this route needs updated to include studentID somehow -->
                 <router-link v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : student.student_id } }">
                     {{assignment.assignmentName}}
                 </router-link>

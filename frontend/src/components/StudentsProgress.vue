@@ -6,6 +6,7 @@
         
             <div v-for="student in students" v-bind:key="student.student_id">  
                 <h3>{{student.firstName}} {{student.lastName}}</h3>
+                <progress id="file"  v-bind:value="completedAssignments(student.student_id)" v-bind:max="totalAssignments(student.student_id)"> 15% </progress>
                     <tr>
                         <th class="assignment-col">Assignment</th>
                         <th class="points-earned-col">Points Earned</th>
@@ -18,7 +19,7 @@
                     
                         <tr>
                             <td class="assignment-col">
-                                <router-link class="assignment-link" v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : student.student_id } }">
+                                <router-link v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : student.student_id } }">
                                     {{assignment.assignmentName}}
                                 </router-link>
                             </td>
@@ -26,7 +27,7 @@
                                 {{assignment.studentGrade}} out of {{assignment.possiblePoints}}
                             </td>
                             <td class= "submitted-col">
-                                {{assignment.graded ? "No" : "Yes"}}
+                                {{assignment.submitted ? "Yes" : "No"}}
                             </td>
                             <td class="graded-col">
                                 {{assignment.submitted ? "No" : "Yes"}}
@@ -35,6 +36,8 @@
                     </div>
                 </div>
             </div>
+      
+          
         </table>
     </div>
   
@@ -61,6 +64,7 @@ export default {
         this.getAssignmentsForCourse(this.courseID);
     },
 
+
     methods: {
         getStudentsForCourse(courseID) {
             courseService
@@ -78,6 +82,26 @@ export default {
                 }
                 });
         },
+        completedAssignments(studentID) {
+            let counter = 0;
+            for (let assignment of this.assignments) {
+                if(assignment.studentID==studentID && assignment.submitted) {
+                    counter++;
+                }
+            }
+            return counter;
+        },
+
+        totalAssignments(studentID) {
+                 let counter = 0;
+            for (let assignment of this.assignments) {
+                if(assignment.studentID==studentID) {
+                    counter++;
+                }
+            }
+            return counter;
+        },
+
 
         getCourseInfo(courseID) {
             courseService

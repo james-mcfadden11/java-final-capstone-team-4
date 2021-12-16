@@ -5,22 +5,45 @@
 
       <br>
       <br>
-
+    <table>
+                    
       <div v-for="student in students" v-bind:key="student.student_id">
-          <h4>{{student.firstName}} {{student.lastName}}</h4>
+           
+            <h4>{{student.firstName}} {{student.lastName}}</h4>
+                <tr>
+                    <th class="assignment-col">Assignment</th>
+                    <th class="points-earned-col">Points Earned</th>
+                    <th class= "submitted-col">Submitted</th>
+                    <th class="graded-col">Graded</th>
+                </tr>
           <div v-for="assignment in assignments" v-bind:key="assignment.uniqueID">
             <div v-if="assignment.studentID == student.student_id">
-                <router-link v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : student.student_id } }">
-                    {{assignment.assignmentName}}
-                </router-link>
-                {{assignment.studentGrade}} out of {{assignment.possiblePoints}}
-                Submitted: {{assignment.graded ? "No" : "Yes"}}
-                Graded: {{assignment.submitted ? "No" : "Yes"}}
+                
+                    
+                    <tr>
+                        <td class="assignment-col">
+                            <router-link class="assignment-link" v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : student.student_id } }">
+                                {{assignment.assignmentName}}
+                            </router-link>
+                        </td>
+                        <td class="points-earned-col">
+                            {{assignment.studentGrade}} out of {{assignment.possiblePoints}}
+                        </td>
+                        <td class= "submitted-col">
+                             {{assignment.graded ? "No" : "Yes"}}
+                        </td>
+                        <td class="graded-col">
+                            {{assignment.submitted ? "No" : "Yes"}}
+                        </td>
+                        <br>
+                    </tr>
+                
             </div>
           </div>
-
       </div>
+      </table>
   </div>
+  
 </template>
 
 <script>
@@ -105,5 +128,30 @@ export default {
 </script>
 
 <style>
+table {
+    border-collapse: collapse;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+.assignment-col {
+    width: 500px;
+}
 
+.points-earned-col {
+    width: 110px;
+}
+.submitted-col {
+    width: 83px;
+}
+.graded-col {
+    width: 60px;
+}
+th, td {
+    border: solid cornsilk 1px;
+}
+
+.assignment-link {
+    color: rgb(56, 102, 255);
+}
 </style>

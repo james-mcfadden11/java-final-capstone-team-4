@@ -1,18 +1,55 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-      User: {{ $store.state.user.firstName }} &nbsp; {{ $store.state.user.lastName }}
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">(Logout)</router-link>
-    </div>
+    
+    <nav class="nav">
+      <router-link class="logo" v-bind:to="{ name: 'home' }"><img src="./assets/Whiteboard.png" alt="White Board Logo" ></router-link>
+      <router-link class="course-li-link" v-bind:to="{ name: 'course-list' }">View Course List</router-link>
+      
+      <span class="user">{{ $store.state.user.firstName }} {{ $store.state.user.lastName }}</span>
+      <router-link class="logout-icon" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" ><img src="./assets/logout-icon.png" alt="Logout Icon" ></router-link>
+    </nav>
     <br>
     <router-view v-bind:isTeacher="this.$store.state.isTeacher"/>
   </div>
 </template>
 
 <style> 
-body
-{
+
+/*****************************NAVBAR STYLING IS BELOW***************************/
+.nav {
+  display: flex;
+  position: relative;
+  width: 100%;
+  margin-left: -0.8%;
+  padding-left: 5px;
+  padding-right: 2%;
+  background-size: 105%;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-13%);
+  background-image: linear-gradient( rgb(44, 44, 44), rgb(29, 29, 29));
+  padding-bottom: 1px;
+}
+.logo {
+  margin-right: 8px;
+  margin-top:6px;
+  margin-left: 8px;
+  padding-bottom: 0px;
+}
+
+.course-li-link {
+  margin-left: 20px;
+}
+
+.user {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+/*****************************NAVBAR STYLING IS ABOVE***************************/
+
+/******************GENERIC STYLING FOR ENTIRE WEBSITE IS BELOW******************/
+body {
   background: cadetblue;
   background-image: url('./assets/darkthemebg.jpg');
   background-position: center;
@@ -47,5 +84,5 @@ button:hover {
   background-color: rgb(43, 43, 43);
   color: rgb(221, 221, 197);
 }
-
+/******************GENERIC STYLING FOR ENTIRE WEBSITE IS ABOVE******************/
 </style>

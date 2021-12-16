@@ -1,5 +1,7 @@
 <template>
+  <div class="margin">
   <students-progress></students-progress>
+  </div>
 </template>
 
 <script>
@@ -12,5 +14,19 @@ export default {
 </script>
 
 <style>
+
+.margin {
+  display: block;
+  margin-left: auto;
+  margin-top: -1.6%;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-image: linear-gradient(to bottom right, rgb(36, 36, 36), rgb(68, 68, 68));
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 75%;
+}
 
 </style>

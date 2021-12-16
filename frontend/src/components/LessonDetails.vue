@@ -44,7 +44,7 @@ Vue.use(VueYoutube)
 
 export default {
   name: 'lesson-details',
-  props: ['isTeacher', 'youtubeURL'],
+  props: ['isTeacher'],
   
   data() {
     return {
@@ -62,7 +62,7 @@ export default {
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: this.youtubeURL
+        videoId: 'dQw4w9WgXcQ'
 
     }
   },
@@ -119,56 +119,63 @@ export default {
           }
         });
     },
-    updateLessonDoc(courseID, lessonID) {
-      courseService
-          .updateLessonDoc(courseID, lessonID)
-          .then(response => {
-            if(response && response.status == 201) {
-            // this.retrieveCourses();
-            // this.resetForm();
-          }
-        })
-        .catch(error => {
-          // log the error
-          if (error.response) {
-            this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
-          } else if (error.request) {
-            this.errorMsg = "Error submitting new course. Server could not be reached.";
-          } else {
-            this.errorMsg = "Error submitting new course. Request could not be created.";
-          }
-        });
-    },
-    updateVidDescription(courseID, lessonID) {
-      courseService
-          .updateVidDescription(courseID, lessonID)
-          .then(response => {
-            if(response && response.status == 201) {
-            // this.retrieveCourses();
-            // this.resetForm();
-          }
-        })
-        .catch(error => {
-          // log the error
-          if (error.response) {
-            this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
-          } else if (error.request) {
-            this.errorMsg = "Error submitting new course. Server could not be reached.";
-          } else {
-            this.errorMsg = "Error submitting new course. Request could not be created.";
-          }
-        });
-    }
+  //   updateLessonDoc(courseID, lessonID) {
+  //     courseService
+  //         .updateLessonDoc(courseID, lessonID)
+  //         .then(response => {
+  //           if(response && response.status == 201) {
+  //           // this.retrieveCourses();
+  //           // this.resetForm();
+  //         }
+  //       })
+  //       .catch(error => {
+  //         // log the error
+  //         if (error.response) {
+  //           this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
+  //         } else if (error.request) {
+  //           this.errorMsg = "Error submitting new course. Server could not be reached.";
+  //         } else {
+  //           this.errorMsg = "Error submitting new course. Request could not be created.";
+  //         }
+  //       });
+  //   },
+  //   updateVidDescription(courseID, lessonID) {
+  //     courseService
+  //         .updateVidDescription(courseID, lessonID)
+  //         .then(response => {
+  //           if(response && response.status == 201) {
+  //           // this.retrieveCourses();
+  //           // this.resetForm();
+  //         }
+  //       })
+  //       .catch(error => {
+  //         // log the error
+  //         if (error.response) {
+  //           this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
+  //         } else if (error.request) {
+  //           this.errorMsg = "Error submitting new course. Server could not be reached.";
+  //         } else {
+  //           this.errorMsg = "Error submitting new course. Request could not be created.";
+  //         }
+  //       });
+  //   }
+  // },
   },
-  
   computed: {
     // This computed property is required for the YouTube API to work in Vue
     player () {
       return this.$refs.youtube.player
-    }
+    },
+    // mutations: {
+    // getVideoID() {
+    //     let index = this.lesson.youtubeURL.indexOf('v=');
+    //     this.lesson.videoId = this.lesson.youtubeURL.substr(index+2);
+    //     return this.videoId;
+    // // },
+    // }
   }
-  
 }
+
 </script>
 <style>
 .iframe.youtube-vid {

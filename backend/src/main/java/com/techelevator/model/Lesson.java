@@ -12,7 +12,7 @@ public class Lesson {
     private String youtubeText;
     private String lessonURL1;
     private String lessonURL2;
-
+private String videoId;
 
     public Lesson(int lessonNumber, String lessonName, String description) {
         this.lessonNumber = lessonNumber;
@@ -28,9 +28,29 @@ public class Lesson {
     }
 
 
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
 
     public Lesson() {
         super();
+    }
+
+    public Lesson(int courseID, int lessonID, int lessonNumber, String lessonName, String description, String youtubeURL, String youtubeText, String lessonURL1, String lessonURL2, String videoId) {
+        this.courseID = courseID;
+        this.lessonID = lessonID;
+        this.lessonNumber = lessonNumber;
+        this.lessonName = lessonName;
+        this.description = description;
+        this.youtubeURL = youtubeURL;
+        this.youtubeText = youtubeText;
+        this.lessonURL1 = lessonURL1;
+        this.lessonURL2 = lessonURL2;
+        this.videoId = videoId;
     }
 
     public Lesson(int courseID, int lessonID, int lessonNumber, String lessonName, String description, String youtubeURL, String youtubeText, String lessonURL1, String lessonURL2) {

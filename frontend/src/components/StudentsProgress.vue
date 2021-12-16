@@ -8,15 +8,15 @@
 
       <div v-for="student in students" v-bind:key="student.student_id">
           <h4>{{student.firstName}} {{student.lastName}}</h4>
-          
+          <progress id="file"  v-bind:value="completedAssignments(student.student_id)" v-bind:max="totalAssignments(student.student_id)"> 15% </progress>
           <div v-for="assignment in assignments" v-bind:key="assignment.uniqueID">
             <div v-if="assignment.studentID == student.student_id">
                 <router-link v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : student.student_id } }">
                     {{assignment.assignmentName}}
                 </router-link>
                 {{assignment.studentGrade}} out of {{assignment.possiblePoints}}
-                Submitted: {{assignment.graded ? "No" : "Yes"}}
-                Graded: {{assignment.submitted ? "No" : "Yes"}}
+                Submitted: {{assignment.submitted ? "Yes" : "No"}}
+                Graded: {{assignment.graded ? "Yes" : "No"}}
             </div>
           </div>
 
@@ -45,6 +45,7 @@ export default {
         this.getAssignmentsForCourse(this.courseID);
     },
 
+
     methods: {
         getTotalAssignments(courseID) {
             let numberOfAssignments = 0;
@@ -67,6 +68,26 @@ export default {
                 }
                 });
         },
+        completedAssignments(studentID) {
+            let counter = 0;
+            for (let assignment of this.assignments) {
+                if(assignment.studentID==studentID && assignment.submitted) {
+                    counter++;
+                }
+            }
+            return counter;
+        },
+
+        totalAssignments(studentID) {
+                 let counter = 0;
+            for (let assignment of this.assignments) {
+                if(assignment.studentID==studentID) {
+                    counter++;
+                }
+            }
+            return counter;
+        },
+
 
         getCourseInfo(courseID) {
             courseService

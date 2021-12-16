@@ -62,7 +62,7 @@ export default {
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: 'dQw4w9WgXcQ'
+        videoId: 'Cngdl11FVCs'
 
     }
   },
@@ -87,6 +87,7 @@ export default {
         .getLessonDetails(courseID, lessonID)
         .then(response => {
           this.lesson = response.data;
+          this.videoId = this.lesson.youtubeURL;
         })
         .catch(error => {
           if (error.response) {

@@ -109,8 +109,8 @@ export default {
   },
 
   //Endpoint #23: Teacher grade an assignment
-  gradeAssignment(updatedAssignment, assignmentID, courseID, assignment) {
-    return axios.put(`courses/${courseID}/assignments/${assignmentID}/grades`, assignment)
+  gradeAssignment(updatedAssignment, assignmentID, courseID) {
+    return axios.put(`courses/${courseID}/assignments/${assignmentID}/grades`, updatedAssignment)
   },
 
   //Endpoint #24: Get all students in a course

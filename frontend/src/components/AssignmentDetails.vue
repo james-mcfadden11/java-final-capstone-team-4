@@ -24,7 +24,9 @@
 
     <br>
 
-    <form v-on:submit.prevent="gradeAssignment(assignment, assignmentID, courseID)" v-show="isTeacher">
+    <h4 v-show="assignment.graded">Teacher feedback: {{assignment.teacherFeedback}}</h4>
+
+    <form v-on:submit="gradeAssignment(assignment, assignmentID, courseID)" v-show="isTeacher">
       <h3>Feedback and grade:</h3>
       <input type="number" v-model="assignment.studentGrade">
       <input type="text" v-model="assignment.teacherFeedback" />
@@ -34,8 +36,7 @@
       <br>
     </form>
     <br>
-    <h4 v-show="assignment.isGraded">Teacher feedback: {{assignment.teacherFeedback}}</h4>
-    <br>
+
   </div>
 </template>
 
@@ -124,8 +125,8 @@ export default {
         .submitAssignment(submission, assignmentID, courseID)
         .then(response => {
           if (response && response.status == 201) {
-            this.getAssignmentDetails(this.courseID, this.assignmentID);
             this.assignment.submitted = true;
+            this.getAssignmentDetails(this.courseID, this.assignmentID, this.studentID);
           }
         })
         .catch(error => {
@@ -145,7 +146,8 @@ export default {
         .gradeAssignment(assignment, assignmentID, courseID)
         .then(response => {
           if (response && response.status == 201) {
-            this.getAssignmentDetails(this.courseID, this.assignmentID);
+            this.assignment.graded = true;
+            this.getAssignmentDetails(this.courseID, this.assignmentID, this.studentID);
           }
         })
         .catch(error => {

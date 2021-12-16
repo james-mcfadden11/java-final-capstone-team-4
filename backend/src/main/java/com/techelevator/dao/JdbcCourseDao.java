@@ -278,14 +278,14 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
-    public Assignment getAssignmentForAssignmentID(Integer assignmentID) {
+    public Assignment getAssignmentForAssignmentID(Integer assignmentID, Integer studentID) {
         Assignment assignment = new Assignment();
-
-        // sql changed by Frankie at 11:25am on Wed
         String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
-                "assignments.possible_points, due_date FROM assignments " +
-                "WHERE assignment_id = ? ORDER BY assignment_number;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, assignmentID);
+                "assignments.possible_points, due_date, student_id, homework_id, student_grade, submission, " +
+                "teacher_feedback, submission_date_time, is_submitted, is_graded " +
+                "FROM student_assignments LEFT JOIN assignments ON (homework_id = assignment_id)" +
+                "WHERE assignment_id = ? and student_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, assignmentID, studentID);
 
         if (results.next()) {
             assignment = mapRowToAssignment(results);
@@ -297,7 +297,7 @@ public class JdbcCourseDao implements CourseDao {
     public List<Assignment> getAssignments(Integer courseID) {
 
         List<Assignment> assignments = new ArrayList<>();
-        // sql changed by Frankie at 11:25am on Wed
+
         String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
                 "assignments.possible_points, due_date FROM assignments " +
                 "WHERE course_id = ? ORDER BY assignment_number;";
@@ -367,7 +367,7 @@ public class JdbcCourseDao implements CourseDao {
         List<Assignment> assignments = new ArrayList<>();
         String sql = "SELECT course_id, assignment_id, assignment_number, assignment_name, description, " +
                 "assignments.possible_points, due_date, student_grade, submission, teacher_feedback, is_graded, " +
-                "is_submitted, submission_date_time FROM assignments " +
+                "is_submitted, submission_date_time, student_id FROM assignments " +
                 "RIGHT JOIN student_assignments ON assignments.assignment_id = student_assignments.homework_id " +
                 "WHERE course_id = ?;";
 
@@ -536,6 +536,7 @@ public class JdbcCourseDao implements CourseDao {
         assignment.setTeacherFeedback(rs.getString("teacher_feedback"));
         assignment.setGraded(rs.getBoolean("is_graded"));
         assignment.setSubmitted(rs.getBoolean("is_submitted"));
+        assignment.setStudentID(rs.getInt("student_id"));
         if(rs.getDate("submission_date_time") != null) {
             assignment.setSubmittedDateTime(rs.getDate("submission_date_time").toLocalDate());
         } else {
@@ -555,6 +556,7 @@ public class JdbcCourseDao implements CourseDao {
         assignment.setAssignmentName(rs.getString("assignment_name"));
         assignment.setDescription(rs.getString("description"));
         assignment.setPossiblePoints(rs.getInt("possible_points"));
+//        assignment.setStudentID(rs.getInt("student_id"));
         if(rs.getDate("due_date") != null) {
             assignment.setDueDate(rs.getDate("due_date").toLocalDate());
         }

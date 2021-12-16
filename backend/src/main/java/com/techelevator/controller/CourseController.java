@@ -64,9 +64,9 @@ public class CourseController {
     }
 
     //Endpoint #7: Get Assignment Details for a Specific Assignment ID
-    @RequestMapping(value = "/{courseID}/assignments/{assignmentID}", method = RequestMethod.GET)
-    public Assignment getAssignmentForID(@PathVariable Integer assignmentID) {
-        return courseDao.getAssignmentForAssignmentID(assignmentID);
+    @RequestMapping(value = "/{courseID}/assignments/{assignmentID}/students/{studentID}", method = RequestMethod.GET)
+    public Assignment getAssignmentForID(@PathVariable Integer assignmentID, @PathVariable Integer studentID) {
+        return courseDao.getAssignmentForAssignmentID(assignmentID, studentID);
     }
 
 //    //Endpoint #8: Get Lesson Details for a Specific Lesson ID
@@ -226,6 +226,11 @@ public class CourseController {
         }
     }
 
+    // Endpoint ? get student ID by principal
+    @RequestMapping(value = "/getStudentID", method = RequestMethod.GET)
+    public int getStudentID(Principal principal) {
+        return courseDao.getStudentID(principal.getName());
+    }
 
 
     /*

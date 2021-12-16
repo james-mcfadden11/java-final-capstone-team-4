@@ -95,8 +95,14 @@ const router = new Router({
     },
 
     {
+      path: '/course/:courseID/assignments/:assignmentID/students/:studentID',
+      name: 'assignment-teacher',
+      component: AssignmentView
+    },
+
+    {
       path: '/course/:courseID/assignments/:assignmentID',
-      name: 'assignment',
+      name: 'assignment-student',
       component: AssignmentView
     },
 

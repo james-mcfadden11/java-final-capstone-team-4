@@ -8,6 +8,7 @@
 
       <div v-for="student in students" v-bind:key="student.student_id">
           <h4>{{student.firstName}} {{student.lastName}}</h4>
+          
           <div v-for="assignment in assignments" v-bind:key="assignment.uniqueID">
             <div v-if="assignment.studentID == student.student_id">
                 <router-link v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : student.student_id } }">
@@ -45,6 +46,11 @@ export default {
     },
 
     methods: {
+        getTotalAssignments(courseID) {
+            let numberOfAssignments = 0;
+            for (let )
+        },
+
         getStudentsForCourse(courseID) {
             courseService
                 .getStudentsForCourse(courseID)

@@ -2,7 +2,7 @@
   <div class="main-div">
     <!-- Teacher Youtube Video Link Submission -->
     <div class="forms-div" v-show="isTeacher">
-      <form class="youtube-url-form" v-on:submit.prevent="setVideoAndGoogleLessonForID(courseID, lessonID, lesson)">
+      <form class="youtube-url-form" v-on:submit="setVideoAndGoogleLessonForID(courseID, lessonID, lesson)">
         <p>Please paste the youtube video URL link for this lesson's content below:</p>
         <input  class="vid-url-input" v-model="lesson.youtubeURL" type="text" placeholder="Lesson Video URL" />
        
@@ -109,7 +109,9 @@ export default {
               this.lesson = response.data;
             // this.retrieveCourses();
             // this.resetForm();
+            this.getLessonDetails(this.courseID, this.lessonID)
           }
+          
         })
         .catch(error => {
           // log the error

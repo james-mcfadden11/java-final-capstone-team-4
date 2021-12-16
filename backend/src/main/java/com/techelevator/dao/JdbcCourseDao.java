@@ -194,11 +194,11 @@ public class JdbcCourseDao implements CourseDao {
         }
         String youtubeURL = lesson.getYoutubeURL();
 
-        if(youtubeURL != null) {
-            String vidKey = parseVidID(youtubeURL);
-            lesson.setVideoId(vidKey);
-            lesson.setVideoId(vidKey);
-        }
+//        if(youtubeURL != null) {
+//            String vidKey = parseVidID(youtubeURL);
+//            lesson.setVideoId(vidKey);
+//            lesson.setVideoId(vidKey);
+//        }
 //        String vidKey = parseVidID(lesson.getYoutubeURL());
 //        lesson.setVideoId(vidKey);
         return lesson ;
@@ -213,10 +213,10 @@ public class JdbcCourseDao implements CourseDao {
         String lessonURL1 = lesson.getLessonURL1();
         String lessonURL2 = lesson.getLessonURL2();
 
-        if(youtubeURL != null) {
-            String vidKey = parseVidID(youtubeURL);
-            lesson.setVideoId(vidKey);
-        }
+//        if(youtubeURL != null) {
+//            String vidKey = parseVidID(youtubeURL);
+//            lesson.setVideoId(vidKey);
+//        }
 
 
         String sql = "Update lessons SET youtube_url = ?, youtube_text = ?, lesson_url1 = ?, lesson_url2 = ? WHERE lesson_id = ?;";

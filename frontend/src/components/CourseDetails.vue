@@ -32,7 +32,7 @@
     <div class="card-details" v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
       <span class="bold-me"> Number: {{assignment.assignmentNumber}} </span>
       <br>
-      <router-link v-bind:to="{ name: 'assignment', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID } }">
+      <router-link v-bind:to="{ name: 'assignment-student', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID} }">
         Name: {{assignment.assignmentName}}
         <br>
       </router-link>
@@ -43,8 +43,6 @@
       Due date: {{assignment.dueDate}}
       <br>
       <div v-show="!isTeacher">Submitted: {{assignment.graded ? "Yes" : "No"}}</div>
-      
-      <br>
       <div v-show="!isTeacher">Graded: {{assignment.submitted ? "Yes" : "No"}}</div>
       <br>
     </div>

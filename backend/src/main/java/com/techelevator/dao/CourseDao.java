@@ -7,6 +7,7 @@ import com.techelevator.model.Student;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface CourseDao {
@@ -31,7 +32,7 @@ public interface CourseDao {
 
     List<Assignment> getAssignments(Integer courseID);
 
-    Assignment getAssignmentForAssignmentID(Integer assignmentID);
+    Assignment getAssignmentForAssignmentID(Integer assignmentID, Integer studentID);
 
     void registerStudentInCourse(String username, int courseID);
 

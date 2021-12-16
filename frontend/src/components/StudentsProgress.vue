@@ -14,8 +14,8 @@
                     {{assignment.assignmentName}}
                 </router-link>
                 {{assignment.studentGrade}} out of {{assignment.possiblePoints}}
-                Submitted: {{assignment.graded ? "Yes" : "No"}}
-                Graded: {{assignment.submitted ? "Yes" : "No"}}
+                Submitted: {{assignment.graded ? "No" : "Yes"}}
+                Graded: {{assignment.submitted ? "No" : "Yes"}}
             </div>
           </div>
 

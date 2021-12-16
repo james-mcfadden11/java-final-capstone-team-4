@@ -47,11 +47,6 @@ export default {
 
 
     methods: {
-        getTotalAssignments(courseID) {
-            let numberOfAssignments = 0;
-            for (let )
-        },
-
         getStudentsForCourse(courseID) {
             courseService
                 .getStudentsForCourse(courseID)
@@ -68,6 +63,7 @@ export default {
                 }
                 });
         },
+
         completedAssignments(studentID) {
             let counter = 0;
             for (let assignment of this.assignments) {
@@ -87,7 +83,6 @@ export default {
             }
             return counter;
         },
-
 
         getCourseInfo(courseID) {
             courseService

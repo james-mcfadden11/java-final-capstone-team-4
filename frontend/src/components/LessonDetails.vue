@@ -89,7 +89,7 @@ export default {
         .getLessonDetails(courseID, lessonID)
         .then(response => {
           this.lesson = response.data;
-          this.videoId = this.lesson.videoId
+          this.videoId = this.lesson.youtubeURL;
         })
         .catch(error => {
           if (error.response) {

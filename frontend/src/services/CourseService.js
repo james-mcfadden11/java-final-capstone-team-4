@@ -92,7 +92,7 @@ export default {
   },
 
   //Endpoint #19: Update Youtube URL to link back to specific Youtube Video for a particular lesson.
-  setVideoAndGoogleLessonForID(lesson, courseID, lessonID) {
+  setVideoAndGoogleLessonForID(courseID, lessonID, lesson) {
     return axios.put(`courses/${courseID}/lessons/${lessonID}`, lesson)
   },
 

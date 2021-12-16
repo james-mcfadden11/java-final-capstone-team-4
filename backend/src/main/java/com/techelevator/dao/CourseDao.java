@@ -55,9 +55,7 @@ public interface CourseDao {
 
     boolean checkIfTeacherIsCourseTeacher(int courseID, int teacherID);
 
-<<<<<<< HEAD
-    String updateLessonDetails(Integer courseID, Integer lessonID, Lesson lesson);
-=======
+
    Lesson setVideoAndGoogleLessonForID(Integer lessonID, Integer courseID, Lesson lesson);
 
 
@@ -66,7 +64,7 @@ public interface CourseDao {
 
 
     void setSubmittedAssignmentInfo(String username, Integer assignmentID, Assignment assignment);
->>>>>>> dbf54d355bb9632ea092e23d39a9b7abfafaf4f9
+
 
     void setSubmittedAssignmentInfo(String username, Integer assignmentID, String submission);
 

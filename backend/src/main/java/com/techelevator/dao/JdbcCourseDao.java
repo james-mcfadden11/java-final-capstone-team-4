@@ -198,11 +198,7 @@ public class JdbcCourseDao implements CourseDao {
     }
 
     @Override
-<<<<<<< HEAD
-    public String updateLessonDetails(Integer courseID, Integer lessonID, Lesson lesson) {
-=======
     public Lesson setVideoAndGoogleLessonForID(Integer lessonID, Integer courseID, Lesson lesson) {
->>>>>>> dbf54d355bb9632ea092e23d39a9b7abfafaf4f9
 //        int lessonID = getLessonIDForYoutube(lessonNumber, courseID);
 
         String youtubeURL = lesson.getYoutubeURL();

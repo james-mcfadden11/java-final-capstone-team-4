@@ -36,8 +36,8 @@ export default {
   },
 
   //Endpoint #7: Get Assignment Details for a Specific Assignment ID
-  getAssignmentDetails(courseID, assignmentID) {
-    return axios.get(`/courses/${courseID}/assignments/${assignmentID}`);
+  getAssignmentDetails(courseID, assignmentID, studentID) {
+    return axios.get(`/courses/${courseID}/assignments/${assignmentID}/students/${studentID}`);
   },
 
   //Endpoint #8: Get Lesson Details for a Specific Lesson ID
@@ -121,6 +121,11 @@ export default {
   // Endpoint #25 
   getAssignmentsForCourse(courseID) {
     return axios.get(`courses/${courseID}/assignments/students`);
+  },
+
+  // Endpoint # ? get student ID by principal
+  getStudentID() {
+    return axios.get('courses/getStudentID');
   }
 
 }

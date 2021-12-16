@@ -7,11 +7,11 @@
       <br>
 
       <div v-for="student in students" v-bind:key="student.student_id">
-          {{student.firstName}}{{student.lastName}}
-          <div v-for="assignment in assignments" v-bind:key="assignment.assignmentID">
-            <div v-if="assignment.studentID == student.studentID">
+          <h4>{{student.firstName}} {{student.lastName}}</h4>
+          <div v-for="assignment in assignments" v-bind:key="assignment.uniqueID">
+            <div v-if="assignment.studentID == student.student_id">
                 <!-- this route needs updated to include studentID somehow -->
-                <router-link v-bind:to="{ name: 'assignment', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID } }">
+                <router-link v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : student.student_id } }">
                     {{assignment.assignmentName}}
                 </router-link>
                 {{assignment.studentGrade}} out of {{assignment.possiblePoints}}
@@ -42,7 +42,7 @@ export default {
     created() {
         this.getStudentsForCourse(this.courseID);
         this.getCourseInfo(this.courseID);
-        // this.getAssignmentsForCourse(this.courseID);
+        this.getAssignmentsForCourse(this.courseID);
     },
 
     methods: {
@@ -50,7 +50,6 @@ export default {
             courseService
                 .getStudentsForCourse(courseID)
                 .then(response => {
-                    console.log("got a response, trying to set students to response data");
                     this.students = response.data;
                 })
                 .catch(error => {
@@ -86,6 +85,11 @@ export default {
                 .getAssignmentsForCourse(courseID)
                 .then(response => {
                     this.assignments = response.data;
+                    let counter = 1;
+                    for (let entry of this.assignments) {
+                        entry.uniqueID = counter;
+                        counter++;
+                    }
                 })
                 .catch(error => {
                 if (error.response) {

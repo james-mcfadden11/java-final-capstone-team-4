@@ -27,7 +27,7 @@
     <youtube v-bind:video-id="videoId" ref="youtube"  @playing="playing"></youtube>
     </div>
     
-    <iframe width = 650px height = 1000px src="https://docs.google.com/document/d/e/2PACX-1vT7hVH5HKfvIgYx08fSwQtX1HjiqjgV_5ofdLMChv78EjOjgUMW_h1is_R0x_8PxQccuMzTblzMd7uW/pub?embedded=true"></iframe>
+    <iframe width = 950px height = 1080px v-bind:src="lessonURL1"></iframe>
 
     <h2>Additional Resources</h2>
 
@@ -62,7 +62,7 @@ export default {
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: 'Cngdl11FVCs'
+        videoId: ''
 
     }
   },
@@ -88,6 +88,7 @@ export default {
         .then(response => {
           this.lesson = response.data;
           this.videoId = this.lesson.youtubeURL;
+          this.lessonURL1 = this.lesson.lessonURL1;
         })
         .catch(error => {
           if (error.response) {

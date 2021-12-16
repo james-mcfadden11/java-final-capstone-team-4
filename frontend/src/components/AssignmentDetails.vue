@@ -10,7 +10,9 @@
     <br>
 
     <h4 v-show="assignment.submitted">Submission:</h4>
-    <a href="v-bind=assignment.submission">{{assignment.submission}}</a>
+    <p><a href="v-bind=assignment.submission">{{assignment.submission}}</a></p>
+    <iframe width = 950px height = 1080px v-bind:src="assignment.submission"></iframe>
+
 
     <form v-if="!assignment.submitted" v-on:submit="submitAssignment(submission, assignmentID, courseID)" v-show="!isTeacher">
       <h3>Student submission:</h3>

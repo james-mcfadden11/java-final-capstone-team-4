@@ -33,7 +33,7 @@
 
     <!-- Student Clickable Link for Google Doc -->
     <p>Click the link below for additional resources for this lesson.</p>
-    <a href="https://docs.google.com/document/d/1ZGLwgDGd6vg-GssCPe0d7TQDO6wJ0uAruhNiANNiG3s/edit">Lesson Text</a>
+    <a href="https://docs.google.com/document/d/1ZGLwgDGd6vg-GssCPe0d7TQDO6wJ0uAruhNiANNiG3s/edit" target="blank">Additional Resource</a>
   </div>
 </template>
 <script>

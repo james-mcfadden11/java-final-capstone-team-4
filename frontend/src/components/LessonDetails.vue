@@ -57,12 +57,13 @@ export default {
           youtubeURL: "",
           youtubeText: "",
           lessonURL1: "",
-          lessonURL2: ""
+          lessonURL2: "",
+          
         
         },
         courseID: this.$route.params.courseID,
         lessonID: this.$route.params.lessonID,
-        videoId: 'dQw4w9WgXcQ'
+        videoId: this.videoId
 
     }
   },
@@ -76,6 +77,7 @@ export default {
     playVideo() {
       this.player.playVideo()
     },
+
     resetURL() {
       this.lesson.youtubeURL = ""
     },

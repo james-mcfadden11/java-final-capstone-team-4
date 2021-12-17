@@ -1,6 +1,7 @@
 <template>
   <div class="body">
-    Course name:
+    <br>
+    <label class="course-name">Course name:</label>
     <h1>{{courseInfo.title}}</h1>
 
     <br>
@@ -258,6 +259,10 @@ export default {
 </script>
 
 <style>
+
+.course-name {
+  margin-top: 30px;
+}
 .card-details {
 background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.315), rgb(68, 68, 68));
 border-style: solid;
@@ -277,5 +282,9 @@ font-size: 101%;
 
 .bold-me {
   font-weight: bold;
+}
+
+form > label, form > input {
+  display: block;
 }
 </style>

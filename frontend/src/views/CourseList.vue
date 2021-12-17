@@ -6,6 +6,7 @@
 import Course from '../components/Course';
 
 export default {
+    name: "course-list",
     components: {
         Course
     }

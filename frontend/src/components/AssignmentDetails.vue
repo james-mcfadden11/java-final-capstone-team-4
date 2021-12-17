@@ -1,42 +1,46 @@
 <template>
   <div>
-    <h3>{{assignment.assignmentName}}</h3>
-    <h4>Assignment number: {{assignment.assignmentNumber}}</h4>
-    <h4>Due: {{assignment.dueDate}}</h4>
+    <div class="card-details">
+      <h3>{{assignment.assignmentName}}</h3>
+      <h4>Assignment number: {{assignment.assignmentNumber}}</h4>
+      <h4>Due: {{assignment.dueDate}}</h4>
 
-    <h4>Grade: {{assignment.studentGrade}} </h4>
-    <h4>Possible points: {{assignment.possiblePoints}}</h4>
-    <h5>Description: {{assignment.description}}</h5>
+      <h4>Grade: {{assignment.studentGrade}} </h4>
+      <h4>Possible points: {{assignment.possiblePoints}}</h4>
+      <h5>Description: {{assignment.description}}</h5>
+    </div>
     <br>
+    <div class="i-frame">
+      <h4 v-show="assignment.submitted">Submission:</h4>
+      <p><a href="v-bind=assignment.submission">{{assignment.submission}}</a></p>
+      <iframe class="i-frame" v-show="assignment.submitted" width = 950px height = 1080px v-bind:src="assignment.submission"></iframe>
+    
 
-    <h4 v-show="assignment.submitted">Submission:</h4>
-    <p><a href="v-bind=assignment.submission">{{assignment.submission}}</a></p>
-    <iframe v-show="assignment.submitted" width = 950px height = 1080px v-bind:src="assignment.submission"></iframe>
-
-
-    <form v-if="!assignment.submitted" v-on:submit="submitAssignment(submission, assignmentID, courseID)" v-show="!isTeacher">
-      <h3>Student submission:</h3>
-      <h5>Copy and paste the link to your Google doc</h5>
-      <input type="text" v-model="submission" />
+      <form class="is-teacher" v-if="!assignment.submitted" v-on:submit="submitAssignment(submission, assignmentID, courseID)" v-show="!isTeacher">
+        <h3>Student submission:</h3>
+        <h5>Copy and paste the link to your Google doc</h5>
+        <input type="text" v-model="submission" />
+        <br>
+        <button type="submit">Submit</button>
+        <button v-on:click.prevent="resetSubmission">Cancel</button>
+        <br>
+      </form>
+  
       <br>
-      <button type="submit">Submit</button>
-      <button v-on:click.prevent="resetSubmission">Cancel</button>
-      <br>
-    </form>
 
-    <br>
+      <h4 v-show="assignment.graded">Teacher feedback: {{assignment.teacherFeedback}}</h4>
 
-    <h4 v-show="assignment.graded">Teacher feedback: {{assignment.teacherFeedback}}</h4>
-
-    <form v-on:submit="gradeAssignment(assignment, assignmentID, courseID)" v-show="isTeacher">
-      <h3>Feedback and grade:</h3>
-      <input type="number" v-model="assignment.studentGrade">
-      <input type="text" v-model="assignment.teacherFeedback" />
-      <br>
-      <button type="submit">Submit</button>
-      <button v-on:click.prevent="resetFeedbackAndGradeForm">Cancel</button>
-      <br>
-    </form>
+      <form v-on:submit="gradeAssignment(assignment, assignmentID, courseID)" v-show="isTeacher">
+        <h3>Feedback and grade:</h3>
+        <input type="number" v-model="assignment.studentGrade">
+        <input type="text" v-model="assignment.teacherFeedback" />
+        <br>
+        <button type="submit">Submit</button>
+        <button v-on:click.prevent="resetFeedbackAndGradeForm">Cancel</button>
+        <br>
+        
+      </form>
+    </div>
     <br>
 
   </div>
@@ -173,5 +177,20 @@ export default {
 </script>
 
 <style>
+.main-body {
+      background-image: none;
+      border: none;
+    }
+ 
+.i-frame, .i-frame > input {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+input {
+  width: 100%;
+}
 </style>

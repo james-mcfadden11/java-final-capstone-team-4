@@ -24,13 +24,23 @@
     </div>
 
     <button class="add-course-btn" v-if="!showAddCourse" v-on:click="showAddCourse = !showAddCourse" v-show="isTeacher">Add New Course</button>
-      <form v-on:submit.prevent="saveNewCourse" v-if="showAddCourse">
+      
+      <form class="add-course-form" v-on:submit.prevent="saveNewCourse" v-if="showAddCourse">
         <h3>Add New Course:</h3>
         Course Name:
+        <br>
         <input type="text" v-model="newCourse.title" />
+        <br>
         Course Description:
+        <br>
         <input type="text" v-model="newCourse.description" />
+        <br>
+        Cost:
+        <br>
+        <input type="number" min="0" v-model="newCourse.cost" />
+        <br>
         Difficulty Level:
+        <br>
         <select v-model="newCourse.difficultyLevel">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -38,9 +48,7 @@
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-        Cost:
-        <input type="number" min="0" v-model="newCourse.cost" />
-
+        <br>
         <button type="submit">Save</button>
         <button v-on:click.prevent="resetForm">Cancel</button>
       </form>
@@ -165,5 +173,17 @@ font-weight: bold;
 margin: 15px;
 }
 
+.add-course-form {
+  display: block;
+}
+
+form > input, select {
+margin: 5px 0px 5px 0px;
+}
+
+form > button {
+  margin: 10px 10px 0px 0px;
+  width: 100px;
+}
 
 </style>

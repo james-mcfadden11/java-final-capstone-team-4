@@ -1,6 +1,7 @@
 <template>
   <div class="body">
-    Course name:
+    <br>
+    <label class="course-name">Course name:</label>
     <h1>{{courseInfo.title}}</h1>
 
     <br>
@@ -15,7 +16,7 @@
 
     <br>
 
-    <h2>Course lessons</h2>
+    <h2>Course lessons:</h2>
     <div class="card-details" v-for="lesson in lessons" v-bind:key="lesson.lessonID">
       <span class="bold-me"> Lesson: {{lesson.lessonNumber}} </span>
       <br>
@@ -42,8 +43,8 @@
       <br>
       Due date: {{assignment.dueDate}}
       <br>
-      <div v-show="!isTeacher">Submitted: {{assignment.graded ? "Yes" : "No"}}</div>
-      <div v-show="!isTeacher">Graded: {{assignment.submitted ? "Yes" : "No"}}</div>
+      <!-- <div v-show="!isTeacher">Submitted: {{assignment.graded ? "Yes" : "No"}}</div>
+      <div v-show="!isTeacher">Graded: {{assignment.submitted ? "Yes" : "No"}}</div> -->
       <br>
     </div>
 
@@ -258,6 +259,10 @@ export default {
 </script>
 
 <style>
+
+.course-name {
+  margin-top: 30px;
+}
 .card-details {
 background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.315), rgb(68, 68, 68));
 border-style: solid;
@@ -277,5 +282,9 @@ font-size: 101%;
 
 .bold-me {
   font-weight: bold;
+}
+
+form > label, form > input {
+  display: block;
 }
 </style>

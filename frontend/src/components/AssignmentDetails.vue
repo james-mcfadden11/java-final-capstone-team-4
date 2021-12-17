@@ -1,15 +1,34 @@
 <template>
   <div>
     <div class="card-details">
+      
       <h3>{{assignment.assignmentName}}</h3>
       <h4>Assignment number: {{assignment.assignmentNumber}}</h4>
       <h4>Due: {{assignment.dueDate}}</h4>
 
       <h4>Grade: {{assignment.studentGrade}} </h4>
+      <h4 v-show="assignment.graded">Teacher feedback: {{assignment.teacherFeedback}}</h4>
       <h4>Possible points: {{assignment.possiblePoints}}</h4>
+      
       <h5>Description: {{assignment.description}}</h5>
+      
     </div>
+    
+    
+  
     <br>
+    
+    <form v-on:submit="gradeAssignment(assignment, assignmentID, courseID)" v-show="isTeacher">
+        <h3>Feedback and grade:</h3>
+        <input type="number" v-model="assignment.studentGrade">
+        <input type="text" v-model="assignment.teacherFeedback" />
+        <br>
+        <button type="submit">Submit</button>
+        <button v-on:click.prevent="resetFeedbackAndGradeForm">Cancel</button>
+        <br>
+        
+      </form>
+      <br>
     <div class="i-frame">
       <h4 v-show="assignment.submitted">Submission:</h4>
       <p><a href="v-bind=assignment.submission">{{assignment.submission}}</a></p>
@@ -28,19 +47,6 @@
   
       <br>
 
-      <h4 v-show="assignment.graded">Teacher feedback: {{assignment.teacherFeedback}}</h4>
-      
-      <form v-on:submit="gradeAssignment(assignment, assignmentID, courseID)" v-show="isTeacher">
-        <h3>Feedback and grade:</h3>
-        <input type="number" v-model="assignment.studentGrade">
-        <input type="text" v-model="assignment.teacherFeedback" />
-        <br>
-        <button type="submit">Submit</button>
-        <button v-on:click.prevent="resetFeedbackAndGradeForm">Cancel</button>
-        <br>
-        
-      </form>
-       
     </div>
     <br>
 
@@ -194,4 +200,5 @@ export default {
 input {
   width: 100%;
 }
+
 </style>

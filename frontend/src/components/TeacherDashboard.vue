@@ -92,18 +92,18 @@ export default {
           });
     },
 
-    notifications(courseID) {
-      // this.ungradedAssignments = [];
-      this.getAssignmentsForCourse(courseID);
-      let counter = 0;
-      for(let assignment of this.assignments) {
-        if (assignment.submitted && !assignment.graded) {
-          counter++;
-          // this.ungradedAssignments.push(assignment);
-        }
-      }
-      return counter;
-    }
+  //   notifications(courseID) {
+  //     // this.ungradedAssignments = [];
+  //     this.getAssignmentsForCourse(courseID);
+  //     let counter = 0;
+  //     for(let assignment of this.assignments) {
+  //       if (assignment.submitted && !assignment.graded) {
+  //         counter++;
+  //         // this.ungradedAssignments.push(assignment);
+  //       }
+  //     }
+  //     return counter;
+  //   }
   }
 }
 </script>

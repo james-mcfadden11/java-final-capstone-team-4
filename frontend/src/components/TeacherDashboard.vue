@@ -6,14 +6,13 @@
     <div v-for="course in myCoursesToTeach" v-bind:key="course.courseID">
       <div>
         <h4>{{course.title}}</h4>
-        <h5> You have {{notifications(course.courseID)}} ungraded assignments </h5>
+        <!-- <h5>You have {{notifications(course.courseID)}} ungraded assignments</h5> -->
         
-        <div v-for="assignment in ungradedAssignments" v-bind:key="assignment.uniqueID">
-
-           <router-link v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : assignment.studentID } }">
-                    {{assignment.studentID}} {{assignment.assignmentName}} {{assignment.assignmentNumber}}
-                </router-link>
-          </div>
+        <!-- <div v-for="assignment in ungradedAssignments" v-bind:key="assignment.uniqueID">
+          <router-link v-bind:to="{ name: 'assignment-teacher', params: { courseID: assignment.courseID, assignmentID : assignment.assignmentID, studentID : assignment.studentID } }">
+            {{assignment.studentID}} {{assignment.assignmentName}} {{assignment.assignmentNumber}}
+          </router-link>
+        </div> -->
 
         <router-link v-bind:to="{ name: 'course-details', params: { courseID: course.courseID } }">
           Lessons and Assignments
@@ -28,9 +27,8 @@
         <br>
         <br>
       </div>
-
-    <br>
-    <br>
+      <br>
+      <br>
     </div>
     
   </div>
@@ -70,68 +68,44 @@ export default {
             }
           });
       },
- getAssignmentsForCourse(courseID) {
-            courseService
-            .getMyUngradedAssignments() 
-            for(let assignment of this.assignments) {
+
+      getAssignmentsForCourse(courseID) {
+        courseService
+          .getAssignmentsForCourse(courseID)
+          .then(response => {
+              this.assignments = [];
+              this.assignments = response.data;
+              let counter = 1;
+              for (let entry of this.assignments) {
+                  entry.uniqueID = counter;
+                  counter++;
+              }
+          })
+          .catch(error => {
+          if (error.response) {
+              this.errorMsg = `Error retrieving. Response received was ' ${error.response.statusText}'.`;                "'.";
+          } else if (error.request) {
+              this.errorMsg = "Error retrieving. Server could not be reached.";
+          } else {
+              this.errorMsg = "Error retreiving. Request could not be created.";
+          }
+          });
+    },
+
+    notifications(courseID) {
+      // this.ungradedAssignments = [];
+      this.getAssignmentsForCourse(courseID);
+      let counter = 0;
+      for(let assignment of this.assignments) {
+        if (assignment.submitted && !assignment.graded) {
           counter++;
-          this.ungradedAssignments.push(assignment)
-       
+          // this.ungradedAssignments.push(assignment);
         }
-            
-            courseService
-                .getAssignmentsForCourse(courseID)
-                .then(response => {
-                    this.assignments = response.data;
-                    let counter = 1;
-                    for (let entry of this.assignments) {
-                        entry.uniqueID = counter;
-                        counter++;
-                    }
-                })
-                .catch(error => {
-                if (error.response) {
-                    this.errorMsg = `Error retrieving. Response received was ' ${error.response.statusText}'.`;                "'.";
-                } else if (error.request) {
-                    this.errorMsg = "Error retrieving. Server could not be reached.";
-                } else {
-                    this.errorMsg = "Error retreiving. Request could not be created.";
-                }
-                })
- }
-      //       getMyUngradedAssignments()
-      //       courseService
-      //       .getMyUngradedAssignments()
-      //        let counter = 0;
-      // for(let assignment of this.assignments) {
-      //   if (assignment.submitted && !assignment.graded && assignment.courseID == courseID) {
-      //     counter++;
-      //     this.ungradedAssignments.push(assignment);
-       
-      //   };
-    
-              
-      
-              
-//     notifications(courseID) {
-//       this.getAssignmentsForCourse(courseID);
-//       let counter = 0;
-//       for(let assignment of this.assignments) {
-//         if (assignment.submitted && !assignment.graded && assignment.courseID == courseID) {
-//           counter++;
-//           this.ungradedAssignments.push(assignment)
-       
-//         }
-        
-//       }
-     
-//       return counter;
-//     }
-// }
-
-
+      }
+      return counter;
     }
-
+  }
+}
 </script>
 
 <style>

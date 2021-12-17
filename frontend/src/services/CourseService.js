@@ -41,8 +41,8 @@ export default {
   },
 
   //Endpoint #8: Get Lesson Details for a Specific Lesson ID
-  getLessonDetails(courseID, lessonID) {
-    return axios.get(`/courses/${courseID}/lessons/${lessonID}`);
+  getLessonDetails(courseID, lessonID, lesson) {
+    return axios.get(`courses/${courseID}/lessons/${lessonID}`, lesson);
   },
 
   //Endpoint #9: Create Assignment for a Specific Course
@@ -84,6 +84,7 @@ export default {
   // getFullLesson() {
   //   return axios.get('courses/${courseID}/lessons/${lessonID}')
   // },
+
 
   //Endpoint #18: Update Assignment After Submission
   updateAssignmentDetails(updatedAssignment, assignmentID, courseID) {
@@ -129,6 +130,11 @@ export default {
   // Endpoint # ? get student ID by principal
   getStudentID() {
     return axios.get('courses/getStudentID');
+  },
+
+  //Endpoint # ? get ungraded assignments for teacher
+  getMyUngradedAssignments() {
+    return axios.get(`courses/myCoursesToTeach/forGrading`)
   }
 
 }

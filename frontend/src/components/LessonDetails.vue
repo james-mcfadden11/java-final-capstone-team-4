@@ -125,72 +125,39 @@ export default {
           }
         });
     },
-  //   updateLessonDoc(courseID, lessonID) {
-  //     courseService
-  //         .updateLessonDoc(courseID, lessonID)
-  //         .then(response => {
-  //           if(response && response.status == 201) {
-  //           // this.retrieveCourses();
-  //           // this.resetForm();
-  //         }
-  //       })
-  //       .catch(error => {
-  //         // log the error
-  //         if (error.response) {
-  //           this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
-  //         } else if (error.request) {
-  //           this.errorMsg = "Error submitting new course. Server could not be reached.";
-  //         } else {
-  //           this.errorMsg = "Error submitting new course. Request could not be created.";
-  //         }
-  //       });
-  //   },
-  //   updateVidDescription(courseID, lessonID) {
-  //     courseService
-  //         .updateVidDescription(courseID, lessonID)
-  //         .then(response => {
-  //           if(response && response.status == 201) {
-  //           // this.retrieveCourses();
-  //           // this.resetForm();
-  //         }
-  //       })
-  //       .catch(error => {
-  //         // log the error
-  //         if (error.response) {
-  //           this.errorMsg = "Error submitting new course. Response received was '" + error.response.statusText + "'.";
-  //         } else if (error.request) {
-  //           this.errorMsg = "Error submitting new course. Server could not be reached.";
-  //         } else {
-  //           this.errorMsg = "Error submitting new course. Request could not be created.";
-  //         }
-  //       });
-  //   }
-  // },
+
   },
   computed: {
     // This computed property is required for the YouTube API to work in Vue
     player () {
       return this.$refs.youtube.player
     },
-    // mutations: {
-    // getVideoID() {
-    //     let index = this.lesson.youtubeURL.indexOf('v=');
-    //     this.lesson.videoId = this.lesson.youtubeURL.substr(index+2);
-    //     return this.videoId;
-    // // },
-    // }
+  
   },
 
 }
 
 </script>
+
+
 <style>
+
+.main-body {
+      background-image: none;
+      border: none;
+    }
+
 .iframe.youtube-vid {
 display: block;
 margin-left: auto;
 margin-right: auto;
 margin-top: 10px;
 text-align: center;
+}
+
+iframe {
+  margin-left: auto;
+  margin-right: auto;
 }
 .main-div {
   text-align: center;

@@ -173,5 +173,8 @@ export default {
 </script>
 
 <style>
-
+.main-body {
+      background-image: none;
+      border: none;
+    }
 </style>

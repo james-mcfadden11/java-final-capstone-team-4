@@ -54,7 +54,7 @@
   display: block;
   margin-left: auto;
   margin-top: 10px;
-  padding-bottom: auto;
+  padding-bottom: 10px;
   margin-right: auto;
   padding-left: 10px;
   padding-right: 10px;

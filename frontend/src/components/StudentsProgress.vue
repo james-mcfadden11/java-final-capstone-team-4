@@ -30,7 +30,7 @@
                                 {{assignment.submitted ? "Yes" : "No"}}
                             </td>
                             <td class="graded-col">
-                                {{assignment.submitted ? "No" : "Yes"}}
+                                {{assignment.graded ? "Yes" : "No"}}
                             </td>
                         </tr>
                     </div>

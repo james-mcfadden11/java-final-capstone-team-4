@@ -78,6 +78,8 @@ public interface CourseDao {
 
     List<Assignment> getAllStudentsAssignments(Integer courseID);
 
+//    List<Assignment> getUngradedButSubmitted(String username);
+
 
 
 //    public Integer getLessonIDForYoutube(int lessonNumber, int courseID);

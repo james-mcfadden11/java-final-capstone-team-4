@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.CourseDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.*;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
@@ -152,18 +153,6 @@ public class CourseController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     //Endpoint #22: Submit Assignment for a specific Assignment ID
 
 
@@ -232,6 +221,11 @@ public class CourseController {
         return courseDao.getStudentID(principal.getName());
     }
 
+
+//    @RequestMapping(value = "/myCoursesToTeach/forGrading", method = RequestMethod.GET)
+//    public List<Assignment> getAssigmentsForGrading(Principal principal, Integer courseID) {
+//        return courseDao.getUngradedButSubmitted(principal.getName());
+//    }
 
     /*
 

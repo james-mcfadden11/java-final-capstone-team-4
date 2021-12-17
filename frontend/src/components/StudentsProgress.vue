@@ -82,6 +82,7 @@ export default {
                 }
                 });
         },
+
         completedAssignments(studentID) {
             let counter = 0;
             for (let assignment of this.assignments) {
@@ -101,7 +102,6 @@ export default {
             }
             return counter;
         },
-
 
         getCourseInfo(courseID) {
             courseService

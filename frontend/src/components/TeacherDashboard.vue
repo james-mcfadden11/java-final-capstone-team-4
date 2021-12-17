@@ -72,6 +72,14 @@ export default {
       },
  getAssignmentsForCourse(courseID) {
             courseService
+            .getMyUngradedAssignments() 
+            for(let assignment of this.assignments) {
+          counter++;
+          this.ungradedAssignments.push(assignment)
+       
+        }
+            
+            courseService
                 .getAssignmentsForCourse(courseID)
                 .then(response => {
                     this.assignments = response.data;
@@ -89,24 +97,41 @@ export default {
                 } else {
                     this.errorMsg = "Error retreiving. Request could not be created.";
                 }
-                });
-    },
-    notifications(courseID) {
-      this.getAssignmentsForCourse(courseID);
-      let counter = 0;
-      for(let assignment of this.assignments) {
-        if (assignment.submitted && !assignment.graded && assignment.courseID == courseID) {
-          counter++;
-          this.ungradedAssignments.push(assignment)
+                })
+ }
+      //       getMyUngradedAssignments()
+      //       courseService
+      //       .getMyUngradedAssignments()
+      //        let counter = 0;
+      // for(let assignment of this.assignments) {
+      //   if (assignment.submitted && !assignment.graded && assignment.courseID == courseID) {
+      //     counter++;
+      //     this.ungradedAssignments.push(assignment);
        
-        }
+      //   };
+    
+              
+      
+              
+//     notifications(courseID) {
+//       this.getAssignmentsForCourse(courseID);
+//       let counter = 0;
+//       for(let assignment of this.assignments) {
+//         if (assignment.submitted && !assignment.graded && assignment.courseID == courseID) {
+//           counter++;
+//           this.ungradedAssignments.push(assignment)
+       
+//         }
         
-      }
+//       }
      
-      return counter;
+//       return counter;
+//     }
+// }
+
+
     }
-}
-}
+
 </script>
 
 <style>

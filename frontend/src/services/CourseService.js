@@ -129,6 +129,11 @@ export default {
   // Endpoint # ? get student ID by principal
   getStudentID() {
     return axios.get('courses/getStudentID');
+  },
+
+  //Endpoint # ? get ungraded assignments for teacher
+  getMyUngradedAssignments() {
+    return axios.get(`courses/myCoursesToTeach/forGrading`)
   }
 
 }

@@ -390,6 +390,27 @@ public class JdbcCourseDao implements CourseDao {
         return assignments;
     }
 
+//    @Override
+//    public List<Assignment> getUngradedButSubmitted(String username) {
+//        List<Assignment> assignments = new ArrayList<>();
+//
+//        int teacherID = getTeacherID(username);
+//
+//        String sql = "SELECT student_id, first_name, last_name, assignment_number, possible_points, is_submitted, is_graded FROM" +
+//                "assignments JOIN students USING(student_id) JOIN courses USING (course_id) JOIN teacher_courses USING (courseID) WHERE is_submitted = true AND is_graded = false AND teacherID = ? ORDER BY course_id;";
+//
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, teacherID);
+//
+//        while (results.next()) {
+//            Assignment assignment = mapRowToAssignment(results);
+//            assignments.add(assignment);
+//        }
+//
+//        return assignments;
+//
+//
+//    }
+
 
     /*------ Student Methods ------*/
     public List<Student> getAllStudentsInCourse(Integer courseID) {

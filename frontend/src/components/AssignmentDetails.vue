@@ -29,7 +29,7 @@
       <br>
 
       <h4 v-show="assignment.graded">Teacher feedback: {{assignment.teacherFeedback}}</h4>
-
+      
       <form v-on:submit="gradeAssignment(assignment, assignmentID, courseID)" v-show="isTeacher">
         <h3>Feedback and grade:</h3>
         <input type="number" v-model="assignment.studentGrade">
@@ -40,6 +40,7 @@
         <br>
         
       </form>
+       
     </div>
     <br>
 

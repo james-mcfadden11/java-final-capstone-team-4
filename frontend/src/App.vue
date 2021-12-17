@@ -50,11 +50,11 @@
 
 /******************GENERIC STYLING FOR ENTIRE WEBSITE IS BELOW******************/
 .main-body {
-  height: 100%;
+  height: 98%;
   display: block;
   margin-left: auto;
   margin-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 25px;
   margin-right: auto;
   padding-left: 10px;
   padding-right: 10px;

@@ -43,8 +43,8 @@
       <br>
       Due date: {{assignment.dueDate}}
       <br>
-      <div v-show="!isTeacher">Submitted: {{assignment.graded ? "Yes" : "No"}}</div>
-      <div v-show="!isTeacher">Graded: {{assignment.submitted ? "Yes" : "No"}}</div>
+      <!-- <div v-show="!isTeacher">Submitted: {{assignment.graded ? "Yes" : "No"}}</div>
+      <div v-show="!isTeacher">Graded: {{assignment.submitted ? "Yes" : "No"}}</div> -->
       <br>
     </div>
 
